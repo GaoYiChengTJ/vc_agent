@@ -1,0 +1,1398 @@
+{
+  "description": "Benchmark dataset for evaluating LLM capabilities in yeast synthetic biology pathway design. Each case is sourced from a 2025-2026 high-impact journal publication.",
+  "cases": [
+    {
+      "id": "case_001",
+      "paper": {
+        "title": "Discover the maze-like network for glabridin biosynthesis",
+        "authors": [
+          "Zhen Zhang", "Wenqiang Li", "Fanze Meng", "Yanming Jin",
+          "Wentao Sun", "Qina Kuang", "Shichao Ren", "Wei Liu",
+          "Liang Zhang", "Lei Qin", "Bo Lv", "Haiyang Jia", "Chun Li"
+        ],
+        "journal": "Nature Communications",
+        "publication_date": "2026-01-31",
+        "doi": "10.1038/s41467-026-68881-8",
+        "url": "https://www.nature.com/articles/s41467-026-68881-8"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "name": "Glabridin",
+        "class": "Isoflavonoid (isoflavan)",
+        "source_organism": "Glycyrrhiza glabra (licorice)",
+        "applications": [
+          "Skin-whitening agent",
+          "Antioxidant",
+          "Anti-inflammatory"
+        ]
+      },
+      "pathway": {
+        "type": "de novo biosynthesis from glucose",
+        "total_heterologous_enzymes": 18,
+        "modules": [
+          {
+            "module_name": "Core scaffold module (Glucose to Medicarpin)",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "L-Phenylalanine",
+                "product": "Cinnamic acid",
+                "enzyme": "GgPAL1",
+                "enzyme_full_name": "Phenylalanine ammonia-lyase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 2,
+                "substrate": "Cinnamic acid",
+                "product": "4-Coumaric acid",
+                "enzyme": "GgC4H1",
+                "enzyme_full_name": "Cinnamate-4-hydroxylase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 3,
+                "substrate": "4-Coumaric acid",
+                "product": "4-Coumaroyl-CoA",
+                "enzyme": "Gg4CL1",
+                "enzyme_full_name": "4-Coumarate-CoA ligase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 4,
+                "substrate": "4-Coumaroyl-CoA + Malonyl-CoA",
+                "product": "Isoliquiritigenin",
+                "enzyme": "GgCHS1 + GgCHR1",
+                "enzyme_full_name": "Chalcone synthase + Chalcone reductase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 5,
+                "substrate": "Isoliquiritigenin",
+                "product": "Liquiritigenin",
+                "enzyme": "GgCHI1",
+                "enzyme_full_name": "Chalcone isomerase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 6,
+                "substrate": "Liquiritigenin",
+                "product": "2-Hydroxyisoflavanone",
+                "enzyme": "GgIFS1",
+                "enzyme_full_name": "Isoflavone synthase (CYP450)",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 7,
+                "substrate": "2-Hydroxyisoflavanone",
+                "product": "Daidzein",
+                "enzyme": "GgHID1",
+                "enzyme_full_name": "2-Hydroxyisoflavanone dehydratase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 8,
+                "substrate": "Daidzein",
+                "product": "Formononetin",
+                "enzyme": "GgOMT1",
+                "enzyme_full_name": "O-Methyltransferase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 9,
+                "substrate": "Formononetin",
+                "product": "2'-Hydroxyformononetin",
+                "enzyme": "GgI2'H1",
+                "enzyme_full_name": "Isoflavone 2'-hydroxylase (CYP450)",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 10,
+                "substrate": "2'-Hydroxyformononetin",
+                "product": "Vestitone",
+                "enzyme": "GgIFR1",
+                "enzyme_full_name": "Isoflavone reductase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 11,
+                "substrate": "Vestitone",
+                "product": "7,2'-Dihydroxy-4'-methoxyisoflavanol",
+                "enzyme": "GgVR1",
+                "enzyme_full_name": "Vestitone reductase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 12,
+                "substrate": "7,2'-Dihydroxy-4'-methoxyisoflavanol",
+                "product": "Medicarpin",
+                "enzyme": "GgPTS1",
+                "enzyme_full_name": "Pterocarpan synthase",
+                "source": "Glycyrrhiza glabra"
+              }
+            ]
+          },
+          {
+            "module_name": "Tailoring module (Medicarpin to Glabridin)",
+            "description": "Maze-like multi-route tailoring network. 13 theoretical routes identified, 6 functional pathways validated. Features a protection-deprotection mechanism via dynamic methylation-demethylation cycle.",
+            "steps": [
+              {
+                "step": 13,
+                "substrate": "Medicarpin",
+                "product": "Reduced pterocarpan intermediate",
+                "enzyme": "GgPTR1",
+                "enzyme_full_name": "Pterocarpan reductase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 14,
+                "substrate": "Reduced pterocarpan intermediate",
+                "product": "Prenylated intermediate",
+                "enzyme": "GgPT1",
+                "enzyme_full_name": "Prenyltransferase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 15,
+                "substrate": "Prenylated intermediate",
+                "product": "Cyclized intermediate",
+                "enzyme": "GgOC1",
+                "enzyme_full_name": "Oxidative cyclase",
+                "source": "Glycyrrhiza glabra"
+              },
+              {
+                "step": 16,
+                "substrate": "Cyclized intermediate (methylated)",
+                "product": "Glabridin",
+                "enzyme": "GgDMT1",
+                "enzyme_full_name": "2-Oxoglutarate-dependent dioxygenase (demethylase)",
+                "source": "Glycyrrhiza glabra"
+              }
+            ]
+          }
+        ],
+        "additional_gene": {
+          "name": "StsTAL",
+          "function": "Tyrosine ammonia-lyase, supplementary entry into phenylpropanoid pathway"
+        }
+      },
+      "engineering_strategies": [
+        "Overexpression of tHMG1 (truncated HMG-CoA reductase) for mevalonate pathway flux",
+        "Overexpression of IDI1 (isopentenyl diphosphate isomerase) for DMAPP supply",
+        "Dynamic regulation of ERG20 for DMAPP/FPP balance",
+        "NADPH supply enhancement",
+        "Cyanamide-inducible DDI2 promoter for temporal control of GgDMT1"
+      ],
+      "key_results": {
+        "titer": "0.5 mg/L",
+        "fermentation_mode": "Shake flask",
+        "carbon_source": "Glucose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "13 theoretical biosynthetic routes identified, 6 validated as functional",
+        "Ladder-like multi-route tailoring network discovered",
+        "Dynamic methylation-demethylation cycle acts as protection-deprotection mechanism",
+        "Multi-route redundancy confers higher robustness and yield than single-route design",
+        "183 licorice transcriptomes analyzed to identify 4 classes of scaffold-modifying enzymes"
+      ]
+    },
+    {
+      "id": "case_002",
+      "paper": {
+        "title": "Electron transfer engineering of artificially designed cell factory for complete biosynthesis of steroids",
+        "authors": [
+          "Qihang Chen", "Wenqian Wei", "Zikai Chao", "Rui Qi",
+          "Jianhong He", "Huating Chen", "Ke Wang", "Xinglong Wang",
+          "Yijian Rao", "Jingwen Zhou"
+        ],
+        "journal": "Nature Communications",
+        "publication_date": "2025-04-21",
+        "volume_issue": "16:3740",
+        "doi": "10.1038/s41467-025-58926-9",
+        "url": "https://www.nature.com/articles/s41467-025-58926-9"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast",
+        "base_strain": "C800",
+        "final_strains": {
+          "cholesterol": "D7-8",
+          "pregnenolone": "D7-10-3"
+        }
+      },
+      "target_product": {
+        "primary": [
+          {
+            "name": "Cholesterol",
+            "class": "Sterol",
+            "applications": [
+              "Pharmaceutical precursor",
+              "Steroid hormone synthesis starting material",
+              "Liposome formulation for drug delivery"
+            ]
+          },
+          {
+            "name": "Pregnenolone",
+            "class": "Steroid hormone precursor (C21)",
+            "applications": [
+              "Precursor to all steroid hormones (progesterone, cortisol, testosterone, estradiol)",
+              "Neurosteroid with neuroprotective properties",
+              "Pharmaceutical intermediate"
+            ]
+          }
+        ]
+      },
+      "pathway": {
+        "type": "de novo biosynthesis from glucose via mevalonate pathway",
+        "modules": [
+          {
+            "module_name": "Mevalonate (MVA) pathway enhancement (Acetyl-CoA to Squalene)",
+            "description": "Strengthened endogenous MVA pathway for increased precursor supply",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Acetyl-CoA",
+                "product": "HMG-CoA",
+                "enzyme": "ERG13 (native)",
+                "enzyme_full_name": "HMG-CoA synthase"
+              },
+              {
+                "step": 2,
+                "substrate": "HMG-CoA",
+                "product": "Mevalonate",
+                "enzyme": "tHMG1 (overexpressed)",
+                "enzyme_full_name": "Truncated HMG-CoA reductase (rate-limiting step)",
+                "note": "Integrated into TY1 multiple copy sites"
+              },
+              {
+                "step": 3,
+                "substrate": "Mevalonate",
+                "product": "IPP / DMAPP",
+                "enzyme": "ERG12, ERG8, MVD1 (native) + IDI1 (overexpressed)",
+                "enzyme_full_name": "Mevalonate kinase, phosphomevalonate kinase, mevalonate diphosphate decarboxylase + IPP isomerase",
+                "note": "IDI1 integrated into TY1 multiple copy sites"
+              },
+              {
+                "step": 4,
+                "substrate": "IPP + DMAPP",
+                "product": "FPP (Farnesyl pyrophosphate)",
+                "enzyme": "ERG20 (native)",
+                "enzyme_full_name": "Farnesyl pyrophosphate synthase"
+              },
+              {
+                "step": 5,
+                "substrate": "2x FPP",
+                "product": "Squalene",
+                "enzyme": "ERG9 (native)",
+                "enzyme_full_name": "Squalene synthase"
+              }
+            ]
+          },
+          {
+            "module_name": "Post-squalene pathway (Squalene to 7-Dehydrocholesterol)",
+            "description": "Squalene cyclization and sterol modifications via endogenous and heterologous enzymes",
+            "steps": [
+              {
+                "step": 6,
+                "substrate": "Squalene",
+                "product": "2,3-Oxidosqualene",
+                "enzyme": "ERG1 (native)",
+                "enzyme_full_name": "Squalene epoxidase"
+              },
+              {
+                "step": 7,
+                "substrate": "2,3-Oxidosqualene",
+                "product": "Lanosterol",
+                "enzyme": "ERG7 (native)",
+                "enzyme_full_name": "Lanosterol synthase"
+              },
+              {
+                "step": 8,
+                "substrate": "Lanosterol",
+                "product": "4,4-Dimethylcholesta-8,14,24-trien-3β-ol",
+                "enzyme": "ERG11 (native)",
+                "enzyme_full_name": "Lanosterol 14α-demethylase (CYP51)"
+              },
+              {
+                "step": 9,
+                "substrate": "4,4-Dimethylcholesta-8,14,24-trien-3β-ol",
+                "product": "Zymosterol",
+                "enzyme": "ERG24, ERG25, ERG26, ERG27 (native)",
+                "enzyme_full_name": "C-14 sterol reductase, C-4 methyl sterol oxidase, C-3 sterol dehydrogenase, 3-keto sterol reductase"
+              },
+              {
+                "step": 10,
+                "substrate": "Zymosterol",
+                "product": "Cholesta-5,7,24-trien-3β-ol",
+                "enzyme": "ERG2, ERG3 (overexpressed)",
+                "enzyme_full_name": "C-8 sterol isomerase, C-5 sterol desaturase",
+                "note": "Integrated into TY3 multiple copy sites for enhanced flux"
+              },
+              {
+                "step": 11,
+                "substrate": "Cholesta-5,7,24-trien-3β-ol",
+                "product": "7-Dehydrocholesterol (7-DHC)",
+                "enzyme": "DHCR24 (heterologous, from Gallus gallus)",
+                "enzyme_full_name": "24-Dehydrocholesterol reductase",
+                "note": "Dual copy inserted at ERG5/ERG6 knockout sites"
+              }
+            ],
+            "gene_knockouts": [
+              {
+                "gene": "ERG5",
+                "reason": "Prevent competing ergosterol synthesis (C-22 sterol desaturase)"
+              },
+              {
+                "gene": "ERG6",
+                "reason": "Prevent competing ergosterol synthesis (sterol C-24 methyltransferase)"
+              }
+            ]
+          },
+          {
+            "module_name": "Cholesterol synthesis (7-DHC to Cholesterol)",
+            "description": "Final reduction catalyzed by engineered DHCR7 with optimized electron transfer",
+            "steps": [
+              {
+                "step": 12,
+                "substrate": "7-Dehydrocholesterol (7-DHC)",
+                "product": "Cholesterol",
+                "enzyme": "MuDHCR7 (engineered, from Bos taurus)",
+                "enzyme_full_name": "7-Dehydrocholesterol reductase",
+                "mutations": {
+                  "substrate_recognizing_domain": "L67V + L426A (reduce steric hindrance)",
+                  "substrate_binding_domain": "W280Y + Y290W (enhance binding affinity, -48.0 kJ/mol)",
+                  "NADPH_binding_domain": "I53T (accelerate electron capture, distance 6.5→5.7 Å)",
+                  "electron_transfer_chain": "F430Y + F434Y (shorten chain from 29.4 to 9.5 Å, 68% reduction)"
+                },
+                "cofactor": "NADPH",
+                "improvement": "5.93-fold increase in cholesterol production"
+              }
+            ]
+          },
+          {
+            "module_name": "Pregnenolone synthesis (Cholesterol to Pregnenolone)",
+            "description": "P450-mediated side-chain cleavage with engineered electron transfer",
+            "steps": [
+              {
+                "step": 13,
+                "substrate": "Cholesterol",
+                "product": "Pregnenolone + Isocaproaldehyde",
+                "enzyme": "Mu_Rg_CYP87A3 (engineered, from Rehmannia glutinosa) + ATR",
+                "enzyme_full_name": "P450 sterol side-chain cleavage enzyme + Cytochrome P450 reductase (from Arabidopsis thaliana)",
+                "mutations": {
+                  "side_chain_cleavage": "Y105 (critical for C22-OH proton abstraction)",
+                  "catalytic_pocket": "V118A (improved substrate positioning)",
+                  "deprotonation_enhancement": "A281D + T285E (energy barrier 13.5→9.1 kcal/mol)",
+                  "electron_transfer": "GGGGS flexible linker connecting CYP87A3 to ATR (+37% pregnenolone)"
+                },
+                "cofactor": "NADPH"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "Electron transfer engineering (ETE): shortening and stabilizing intramolecular electron transfer chains",
+        "DHCR7 protein engineering: 7 mutations across 3 functional domains (SRD, SBD, NADPH-binding)",
+        "CYP87A3 (P450scc) engineering: active site mutations + GGGGS linker fusion to reductase ATR",
+        "NADPH regeneration: ADR + ADX (Homo sapiens) for animal-derived electron transfer pathway",
+        "GDH (Bacillus subtilis glucose-6-phosphate dehydrogenase) for NADPH recycling",
+        "FPK + PTA (Bifidobacterium breve + Clostridium kluyveri) integrated into pentose phosphate pathway",
+        "NADPH/NADP+ ratio improved from 0.3 to 0.8",
+        "ERG5/ERG6 knockout to block competing ergosterol pathway",
+        "tHMG1 and IDI1 multi-copy integration at TY1 sites for MVA pathway flux",
+        "ERG2 and ERG3 multi-copy integration at TY3 sites for post-squalene flux"
+      ],
+      "key_results": {
+        "cholesterol_titer": "1.78 g/L (5-L bioreactor, strain D7-8)",
+        "pregnenolone_titer": "0.83 g/L (5-L bioreactor, strain D7-10-3)",
+        "fermentation_mode": "Fed-batch (5-L bioreactor)",
+        "carbon_source": "Glucose",
+        "de_novo": true,
+        "improvement_over_prior": "~11-fold improvement in pregnenolone titer vs. prior reports"
+      },
+      "key_findings": [
+        "Electron transfer engineering (ETE) shortens electron transfer chains and stabilizes proton-coupled electron transfer",
+        "DHCR7 electron transfer chain shortened from 29.4 Å to 9.5 Å (68% reduction), yielding 5.93-fold cholesterol improvement",
+        "CYP87A3 deprotonation energy barrier reduced from 13.5 to 9.1 kcal/mol via A281D + T285E mutations",
+        "NADPH/NADP+ ratio engineering (0.3→0.8) sustains high-flux steroid biosynthesis",
+        "Complete de novo steroid biosynthesis from glucose achieved in S. cerevisiae with g/L-level titers"
+      ]
+    },
+    {
+      "id": "case_003",
+      "paper": {
+        "title": "Engineering metazoan fatty acid synthase to control chain length applied in yeast",
+        "authors": [
+          "Damian L. Ludig", "Xiaoxin Zhai", "Alexander Rittner",
+          "Christian Gusenda", "Maximilian Heinz", "Svenja Berlage",
+          "Ning Gao", "Adrian J. Jervis", "Yongjin J. Zhou", "Martin Grininger"
+        ],
+        "journal": "Nature Chemical Biology",
+        "publication_date": "2026-01-07",
+        "doi": "10.1038/s41589-025-02105-w",
+        "url": "https://www.nature.com/articles/s41589-025-02105-w"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "name": "Short- and medium-chain fatty acids (SMCFAs: C8, C10, C12)",
+        "class": "Fatty acids (oleochemicals)",
+        "applications": [
+          "Palm oil alternative (sustainable replacement for C10/C12 lauric oils)",
+          "Biofuel precursors",
+          "Industrial oleochemicals (surfactants, lubricants, cosmetics)"
+        ]
+      },
+      "pathway": {
+        "type": "De novo fatty acid biosynthesis with engineered chain-length control",
+        "modules": [
+          {
+            "module_name": "Acetyl-CoA supply (endogenous)",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Glucose",
+                "product": "Pyruvate",
+                "enzyme": "Glycolysis (native)",
+                "enzyme_full_name": "Endogenous glycolytic enzymes"
+              },
+              {
+                "step": 2,
+                "substrate": "Pyruvate",
+                "product": "Acetyl-CoA",
+                "enzyme": "PDH complex / PDC + ALD + ACS (native)",
+                "enzyme_full_name": "Pyruvate dehydrogenase complex / pyruvate decarboxylase pathway"
+              }
+            ]
+          },
+          {
+            "module_name": "Engineered metazoan fatty acid synthase (mFAS) for chain-length control",
+            "description": "Heterologous metazoan FAS (type I megasynthase, ~270 kDa per chain) replaces or supplements native yeast FAS. The iterative FA elongation cycle (KS→KR→DH→ER→KS) is tuned by KS domain mutations to control premature chain release by the thioesterase (TE) domain.",
+            "steps": [
+              {
+                "step": 3,
+                "substrate": "Acetyl-CoA + Malonyl-CoA",
+                "product": "Acetoacetyl-ACP (C4-β-ketoacyl)",
+                "enzyme": "mFAS-KS (ketosynthase domain)",
+                "enzyme_full_name": "Ketosynthase domain of metazoan FAS",
+                "note": "Condensation: chain elongation by 2 carbons per cycle"
+              },
+              {
+                "step": 4,
+                "substrate": "β-ketoacyl-ACP",
+                "product": "β-hydroxyacyl-ACP",
+                "enzyme": "mFAS-KR (ketoreductase domain)",
+                "enzyme_full_name": "Ketoreductase domain",
+                "cofactor": "NADPH"
+              },
+              {
+                "step": 5,
+                "substrate": "β-hydroxyacyl-ACP",
+                "product": "Enoyl-ACP",
+                "enzyme": "mFAS-DH (dehydratase domain)",
+                "enzyme_full_name": "Dehydratase domain"
+              },
+              {
+                "step": 6,
+                "substrate": "Enoyl-ACP",
+                "product": "Acyl-ACP (fully reduced, +2C)",
+                "enzyme": "mFAS-ER (enoylreductase domain)",
+                "enzyme_full_name": "Enoylreductase domain",
+                "cofactor": "NADPH",
+                "note": "Cycle repeats: C4→C6→C8→C10→C12→C14→C16"
+              },
+              {
+                "step": 7,
+                "substrate": "Acyl-ACP (chain length determined by KS variant)",
+                "product": "Free fatty acid (C8, C10, C12, or C14)",
+                "enzyme": "mFAS-TE / TesA (thioesterase domain)",
+                "enzyme_full_name": "Thioesterase domain (hydrolytic release)",
+                "note": "Chain release timing controlled by KS-TE kinetic interplay"
+              }
+            ],
+            "key_mutations": {
+              "KS_domain_G113_variants": {
+                "G113W": "Predominantly C8 (octanoic acid)",
+                "G113F": "C8/C10 (octanoic + decanoic acid)",
+                "G113M": "C12/C14 (lauric + myristic acid)"
+              },
+              "mechanism": "Single amino acid exchange at position G113 in the KS active site tunnel modulates the steric gate that controls chain elongation vs. premature termination"
+            }
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "Heterologous expression of metazoan FAS (mFAS) as a programmable type I megasynthase",
+        "Single amino acid substitution at KS domain G113 to redirect chain-length specificity",
+        "TE domain kinetics tuned to match KS elongation rate for targeted chain release",
+        "Yeast cell factory integration with native acetyl-CoA and malonyl-CoA supply"
+      ],
+      "key_results": {
+        "titer": "674 mg/L C10/C12-FAs",
+        "purity": "67% of total free FAs",
+        "fermentation_mode": "Flask culture",
+        "carbon_source": "Glucose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "Single amino acid exchanges at KS G113 redirect FA profiles: G113W→C8, G113F→C8/C10, G113M→C12/C14",
+        "Modular platform for programmable FA chain-length synthesis",
+        "674 mg/L C10/C12-FAs achieved with 67% purity",
+        "Demonstrates sustainable bioproduction route as palm oil alternative"
+      ]
+    },
+    {
+      "id": "case_004",
+      "paper": {
+        "title": "Engineering yeast peroxisome assembly enables the increased production of acetyl-CoA and its derived 5-deoxyflavonoids",
+        "authors": [
+          "Jiangming Zhu", "Yaping Mao", "Hongchun Mo", "Xuehui Dai",
+          "Yuhan Wu", "Guangyi Wang", "Zhanguang Feng", "Ruirui Yue",
+          "Dongzhi Wei", "Haili Liu", "Yong Wang"
+        ],
+        "journal": "Nature Communications",
+        "publication_date": "2025-11-25",
+        "doi": "10.1038/s41467-025-65444-1",
+        "url": "https://www.nature.com/articles/s41467-025-65444-1"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "name": "Liquiritigenin",
+        "class": "5-Deoxyflavonoid (flavanone)",
+        "source_organism": "Glycyrrhiza species (licorice)",
+        "applications": [
+          "Food additive and nutraceutical",
+          "Pharmaceutical (anti-inflammatory, antioxidant, estrogenic activity)",
+          "Cosmetics ingredient",
+          "Precursor for other 5-deoxyflavonoids"
+        ]
+      },
+      "pathway": {
+        "type": "De novo biosynthesis from glucose via phenylpropanoid and flavonoid pathway",
+        "modules": [
+          {
+            "module_name": "Acetyl-CoA and Malonyl-CoA supply (peroxisome-engineered)",
+            "description": "PEX-mediated peroxisome engineering to boost cytosolic acetyl-CoA by up to 98%. Hybrid peroxisomes constructed by transplanting selected PEXs from Y. lipolytica into S. cerevisiae.",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Fatty acids (endogenous β-oxidation in peroxisomes)",
+                "product": "Acetyl-CoA (peroxisomal → cytosolic export)",
+                "enzyme": "PEX-engineered peroxisome system",
+                "note": "Enhanced peroxisome number, size, and β-oxidation activity via PEX gene engineering"
+              },
+              {
+                "step": 2,
+                "substrate": "Acetyl-CoA",
+                "product": "Malonyl-CoA",
+                "enzyme": "ACC1 (native, acetyl-CoA carboxylase)",
+                "enzyme_full_name": "Acetyl-CoA carboxylase"
+              }
+            ]
+          },
+          {
+            "module_name": "Phenylpropanoid pathway (Phenylalanine to 4-Coumaroyl-CoA)",
+            "steps": [
+              {
+                "step": 3,
+                "substrate": "L-Phenylalanine",
+                "product": "Cinnamic acid",
+                "enzyme": "PAL",
+                "enzyme_full_name": "Phenylalanine ammonia-lyase"
+              },
+              {
+                "step": 4,
+                "substrate": "Cinnamic acid",
+                "product": "4-Coumaric acid",
+                "enzyme": "C4H",
+                "enzyme_full_name": "Cinnamate-4-hydroxylase (CYP450)"
+              },
+              {
+                "step": 5,
+                "substrate": "4-Coumaric acid",
+                "product": "4-Coumaroyl-CoA",
+                "enzyme": "4CL",
+                "enzyme_full_name": "4-Coumarate-CoA ligase"
+              }
+            ]
+          },
+          {
+            "module_name": "5-Deoxyflavonoid pathway (4-Coumaroyl-CoA to Liquiritigenin)",
+            "steps": [
+              {
+                "step": 6,
+                "substrate": "4-Coumaroyl-CoA + 3 Malonyl-CoA",
+                "product": "Isoliquiritigenin (chalcone)",
+                "enzyme": "CHS + CHR",
+                "enzyme_full_name": "Chalcone synthase + Chalcone reductase",
+                "note": "CHR is critical for 5-deoxy branch; without CHR, CHS produces naringenin chalcone instead"
+              },
+              {
+                "step": 7,
+                "substrate": "Isoliquiritigenin",
+                "product": "Liquiritigenin",
+                "enzyme": "CHI",
+                "enzyme_full_name": "Chalcone isomerase"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "PEX (peroxin) gene engineering to modulate peroxisome assembly, import, and proliferation",
+        "Hybrid peroxisomes: transplanting Y. lipolytica PEXs into S. cerevisiae",
+        "Cytosolic acetyl-CoA supply increased by 98% via peroxisome remodeling",
+        "Malonyl-CoA pool enhancement for flavonoid biosynthesis",
+        "Phenylpropanoid and flavonoid pathway gene expression optimization"
+      ],
+      "key_results": {
+        "titer": "1102.4 mg/L liquiritigenin",
+        "fermentation_mode": "Shake flask",
+        "carbon_source": "Glucose",
+        "de_novo": true,
+        "acetyl_CoA_improvement": "98% increase in cytosolic acetyl-CoA"
+      },
+      "key_findings": [
+        "PEX-mediated peroxisome engineering as a general strategy for acetyl-CoA supply",
+        "Hybrid peroxisomes (Y. lipolytica PEXs in S. cerevisiae) significantly boost acetyl-CoA",
+        "1102.4 mg/L liquiritigenin, highest reported titer in yeast",
+        "Strategy extensible across yeast species and to other acetyl-CoA-derived products"
+      ]
+    },
+    {
+      "id": "case_005",
+      "paper": {
+        "title": "Metabolic engineering of Saccharomyces cerevisiae for de novo biosynthesis of hydroxytyrosol and salidroside",
+        "authors": [
+          "Jingfang Sun", "Lingling Zhu", "Liuping Duan", "Furong Li",
+          "Shuai Guo", "Jinlei Bian", "Lin Yang"
+        ],
+        "journal": "Applied and Environmental Microbiology",
+        "publication_date": "2025-08-20",
+        "volume_issue": "91(8):e0071225",
+        "doi": "10.1128/aem.00712-25",
+        "pmid": "40668011",
+        "url": "https://journals.asm.org/doi/10.1128/aem.00712-25"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "primary": [
+          {
+            "name": "Hydroxytyrosol",
+            "class": "Phenolic compound (phenylethanol derivative)",
+            "applications": [
+              "Potent antioxidant (olive oil bioactive)",
+              "Cardioprotective agent",
+              "Cosmetics and nutraceuticals"
+            ]
+          },
+          {
+            "name": "Salidroside",
+            "class": "Phenylpropanoid glycoside (tyrosol glucoside)",
+            "source_organism": "Rhodiola rosea (golden root)",
+            "applications": [
+              "Adaptogen (anti-fatigue, anti-stress)",
+              "Neuroprotective agent",
+              "Anti-aging pharmaceutical"
+            ]
+          }
+        ]
+      },
+      "pathway": {
+        "type": "De novo biosynthesis from glucose via Ehrlich pathway and tailoring",
+        "modules": [
+          {
+            "module_name": "Tyrosol biosynthesis (Glucose to Tyrosol)",
+            "description": "Via shikimate pathway and Ehrlich pathway",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Glucose",
+                "product": "Chorismate",
+                "enzyme": "Shikimate pathway (ARO1, ARO2, etc., native)",
+                "enzyme_full_name": "Endogenous shikimate pathway enzymes"
+              },
+              {
+                "step": 2,
+                "substrate": "Chorismate",
+                "product": "Prephenate → L-Tyrosine",
+                "enzyme": "ARO7, TYR1 (native/optimized)",
+                "enzyme_full_name": "Chorismate mutase, prephenate dehydrogenase"
+              },
+              {
+                "step": 3,
+                "substrate": "L-Tyrosine",
+                "product": "4-Hydroxyphenylpyruvate",
+                "enzyme": "ARO8/ARO9 (native)",
+                "enzyme_full_name": "Aromatic aminotransferase"
+              },
+              {
+                "step": 4,
+                "substrate": "4-Hydroxyphenylpyruvate",
+                "product": "4-Hydroxyphenylacetaldehyde",
+                "enzyme": "ARO10 (native)",
+                "enzyme_full_name": "Phenylpyruvate decarboxylase"
+              },
+              {
+                "step": 5,
+                "substrate": "4-Hydroxyphenylacetaldehyde",
+                "product": "Tyrosol",
+                "enzyme": "ADH (native alcohol dehydrogenase)",
+                "enzyme_full_name": "Alcohol dehydrogenase"
+              }
+            ]
+          },
+          {
+            "module_name": "Hydroxytyrosol branch (Tyrosol → Hydroxytyrosol)",
+            "steps": [
+              {
+                "step": 6,
+                "substrate": "Tyrosol",
+                "product": "Hydroxytyrosol",
+                "enzyme": "PaHpaB + EcHpaC",
+                "enzyme_full_name": "4-Hydroxyphenylacetate 3-hydroxylase (from Pseudomonas aeruginosa) + Flavin reductase (from E. coli)",
+                "cofactor": "NADH, FAD"
+              }
+            ]
+          },
+          {
+            "module_name": "Salidroside branch (Tyrosol → Salidroside)",
+            "steps": [
+              {
+                "step": 7,
+                "substrate": "Tyrosol + UDP-glucose",
+                "product": "Salidroside",
+                "enzyme": "RrU8GT33",
+                "enzyme_full_name": "UDP-glycosyltransferase (from Rhodiola rosea)",
+                "note": "Glucosylation at C-8 hydroxyl of tyrosol"
+              }
+            ]
+          },
+          {
+            "module_name": "UDP-glucose supply enhancement",
+            "steps": [
+              {
+                "step": 8,
+                "substrate": "Sucrose",
+                "product": "UDP-glucose + Fructose",
+                "enzyme": "tGuSUS1",
+                "enzyme_full_name": "Truncated sucrose synthase (from Gossypium)",
+                "note": "SUC2 deleted to redirect sucrose metabolism"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "Tyrosol chassis strain (ZYT1) optimization: 571.8 mg/L tyrosol",
+        "Heterologous PaHpaB + EcHpaC for tyrosol hydroxylation to hydroxytyrosol",
+        "RrU8GT33 glycosyltransferase for tyrosol glucosylation to salidroside",
+        "UDP-glucose supply enhancement via truncated sucrose synthase (tGuSUS1)",
+        "SUC2 deletion to redirect carbon flux from sucrose hydrolysis to UDP-glucose synthesis",
+        "Auxotrophic repair for strain robustness"
+      ],
+      "key_results": {
+        "tyrosol_titer": "571.8 mg/L (shake flask, strain ZYT1)",
+        "hydroxytyrosol_titer": "304.4 mg/L (shake flask) / 677.6 mg/L (15-L bioreactor, strain ZYHT1)",
+        "salidroside_titer": "1021.0 mg/L (shake flask) / 18.9 g/L (fed-batch fermentation, strain ZYSAL9+3)",
+        "fermentation_mode": "Fed-batch (for highest titers)",
+        "carbon_source": "Glucose/Sucrose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "18.9 g/L salidroside in fed-batch, highest reported microbial titer",
+        "UDP-glucose supply engineering via sucrose synthase is key to high glycoside titers",
+        "Modular platform: same tyrosol chassis enables both hydroxytyrosol and salidroside branches",
+        "SUC2 deletion coupled with tGuSUS1 efficiently redirects sucrose carbon to UDP-glucose"
+      ]
+    },
+    {
+      "id": "case_006",
+      "paper": {
+        "title": "Enhanced heme production in industrial Saccharomyces cerevisiae through metabolic engineering",
+        "authors": [
+          "Hyun Jin Lee", "Tae Gon Lee", "Changmin Cho", "et al."
+        ],
+        "journal": "npj Science of Food",
+        "publication_date": "2025",
+        "volume_issue": "9:244",
+        "doi": "10.1038/s41538-025-00618-1",
+        "url": "https://www.nature.com/articles/s41538-025-00618-1"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast",
+        "base_strain": "KCCM 12638 (industrial whisky starter strain)",
+        "final_strain": "ΔHMX1_H2/3/12/13"
+      },
+      "target_product": {
+        "name": "Heme (iron protoporphyrin IX)",
+        "class": "Tetrapyrrole / metalloporphyrin",
+        "applications": [
+          "Plant-based meat coloring and flavor (heme gives meat its red color and taste)",
+          "Nutritional supplement (bioavailable iron source)",
+          "Pharmaceutical intermediate",
+          "Diagnostic reagent"
+        ]
+      },
+      "pathway": {
+        "type": "Enhancement of endogenous heme biosynthetic pathway",
+        "modules": [
+          {
+            "module_name": "Heme biosynthesis (8-step enzymatic pathway)",
+            "description": "Endogenous pathway from succinyl-CoA + glycine to heme, with rate-limiting steps derepressed",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Succinyl-CoA + Glycine",
+                "product": "5-Aminolevulinic acid (ALA)",
+                "enzyme": "HEM1",
+                "enzyme_full_name": "5-Aminolevulinate synthase",
+                "compartment": "Mitochondria",
+                "note": "First committed step"
+              },
+              {
+                "step": 2,
+                "substrate": "2x ALA",
+                "product": "Porphobilinogen (PBG)",
+                "enzyme": "HEM2 (overexpressed)",
+                "enzyme_full_name": "Aminolevulinate dehydratase (porphobilinogen synthase)",
+                "compartment": "Cytosol",
+                "note": "Rate-limiting enzyme #1"
+              },
+              {
+                "step": 3,
+                "substrate": "4x PBG",
+                "product": "Hydroxymethylbilane",
+                "enzyme": "HEM3 (overexpressed)",
+                "enzyme_full_name": "Porphobilinogen deaminase",
+                "compartment": "Cytosol",
+                "note": "Rate-limiting enzyme #2"
+              },
+              {
+                "step": 4,
+                "substrate": "Hydroxymethylbilane",
+                "product": "Uroporphyrinogen III",
+                "enzyme": "HEM4",
+                "enzyme_full_name": "Uroporphyrinogen III synthase",
+                "compartment": "Cytosol"
+              },
+              {
+                "step": 5,
+                "substrate": "Uroporphyrinogen III",
+                "product": "Coproporphyrinogen III",
+                "enzyme": "HEM12 (overexpressed)",
+                "enzyme_full_name": "Uroporphyrinogen decarboxylase",
+                "compartment": "Cytosol",
+                "note": "Rate-limiting enzyme #3"
+              },
+              {
+                "step": 6,
+                "substrate": "Coproporphyrinogen III",
+                "product": "Protoporphyrinogen IX",
+                "enzyme": "HEM13 (overexpressed)",
+                "enzyme_full_name": "Coproporphyrinogen III oxidase",
+                "compartment": "Cytosol → Mitochondria",
+                "note": "Rate-limiting enzyme #4"
+              },
+              {
+                "step": 7,
+                "substrate": "Protoporphyrinogen IX",
+                "product": "Protoporphyrin IX",
+                "enzyme": "HEM14",
+                "enzyme_full_name": "Protoporphyrinogen oxidase",
+                "compartment": "Mitochondria"
+              },
+              {
+                "step": 8,
+                "substrate": "Protoporphyrin IX + Fe²⁺",
+                "product": "Heme",
+                "enzyme": "HEM15",
+                "enzyme_full_name": "Ferrochelatase",
+                "compartment": "Mitochondria"
+              }
+            ],
+            "gene_knockout": {
+              "gene": "HMX1",
+              "enzyme_full_name": "Heme oxygenase 1",
+              "reason": "Prevent heme degradation to biliverdin"
+            }
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "Overexpression of 4 rate-limiting enzymes: HEM2, HEM3, HEM12, HEM13",
+        "Knockout of HMX1 (heme oxygenase) to block heme degradation",
+        "CRISPR/Cas9-based genome editing",
+        "Industrial strain background (KCCM 12638) with naturally high heme levels",
+        "Glucose-limited fed-batch fermentation for maximal heme accumulation"
+      ],
+      "key_results": {
+        "batch_titer": "9 mg/L (1.7-fold improvement over wild-type)",
+        "fed_batch_titer": "67 mg/L (glucose-limited fed-batch)",
+        "fermentation_mode": "Batch and fed-batch",
+        "carbon_source": "Glucose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "HEM2, HEM3, HEM12, HEM13 identified as rate-limiting steps in heme pathway",
+        "HMX1 knockout prevents heme degradation to biliverdin",
+        "Industrial whisky starter strain (KCCM 12638) used as robust chassis",
+        "67 mg/L heme in fed-batch, relevant for plant-based meat applications"
+      ]
+    },
+    {
+      "id": "case_007",
+      "paper": {
+        "title": "De Novo Biosynthesis of Biochanin A in Saccharomyces cerevisiae via Integrated Metabolic and Organelle Engineering",
+        "authors": [
+          "Xinjia Tan", "Fanglin Hu", "Shasha Zuo", "Yongtong Wang",
+          "Zhiqiang Xiao", "Siqi Zhang", "Jiaxu Chen", "Liusha Fan",
+          "Juan Liu", "Yang Shan"
+        ],
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "publication_date": "2026",
+        "volume_issue": "74(6):5454-5465",
+        "doi": "10.1021/acs.jafc.5c12010",
+        "url": "https://pubs.acs.org/doi/10.1021/acs.jafc.5c12010"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "name": "Biochanin A",
+        "class": "O-Methylated isoflavone",
+        "source_organism": "Trifolium pratense (red clover), Cicer arietinum (chickpea)",
+        "applications": [
+          "Phytoestrogen with anticancer activity",
+          "Cardiovascular protective agent",
+          "Anti-inflammatory compound",
+          "Nutraceutical"
+        ]
+      },
+      "pathway": {
+        "type": "De novo biosynthesis from glucose via phenylpropanoid → flavonoid → isoflavone pathway",
+        "modules": [
+          {
+            "module_name": "Phenylpropanoid pathway (Glucose to 4-Coumaroyl-CoA)",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "L-Phenylalanine / L-Tyrosine",
+                "product": "4-Coumaric acid",
+                "enzyme": "PAL / TAL",
+                "enzyme_full_name": "Phenylalanine ammonia-lyase / Tyrosine ammonia-lyase"
+              },
+              {
+                "step": 2,
+                "substrate": "4-Coumaric acid",
+                "product": "4-Coumaroyl-CoA",
+                "enzyme": "4CL",
+                "enzyme_full_name": "4-Coumarate-CoA ligase"
+              }
+            ]
+          },
+          {
+            "module_name": "Flavanone synthesis",
+            "steps": [
+              {
+                "step": 3,
+                "substrate": "4-Coumaroyl-CoA + 3 Malonyl-CoA",
+                "product": "Naringenin chalcone",
+                "enzyme": "CHS",
+                "enzyme_full_name": "Chalcone synthase"
+              },
+              {
+                "step": 4,
+                "substrate": "Naringenin chalcone",
+                "product": "Naringenin",
+                "enzyme": "CHI",
+                "enzyme_full_name": "Chalcone isomerase"
+              }
+            ]
+          },
+          {
+            "module_name": "Isoflavone pathway (Naringenin to Biochanin A)",
+            "steps": [
+              {
+                "step": 5,
+                "substrate": "Naringenin (or Liquiritigenin)",
+                "product": "2-Hydroxyisoflavanone",
+                "enzyme": "PlIFS (from Pueraria lobata, multi-copy optimized)",
+                "enzyme_full_name": "2-Hydroxyisoflavanone synthase (CYP450)",
+                "cofactor": "NADPH, O2, Heme",
+                "note": "Key CYP450 step; copy number optimization critical"
+              },
+              {
+                "step": 6,
+                "substrate": "2-Hydroxyisoflavanone",
+                "product": "Genistein",
+                "enzyme": "HID",
+                "enzyme_full_name": "2-Hydroxyisoflavanone dehydratase"
+              },
+              {
+                "step": 7,
+                "substrate": "Genistein",
+                "product": "Biochanin A",
+                "enzyme": "PlOMT9 (from Pueraria lobata)",
+                "enzyme_full_name": "4'-O-Methyltransferase",
+                "cofactor": "SAM (S-adenosylmethionine)",
+                "note": "Regioselective methylation at 4'-OH position"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "PlIFS (isoflavone synthase) copy number optimization → 16.10 mg/L genistein platform",
+        "Screening of PlOMT9 as optimal 4'-O-methyltransferase → 14.29 mg/L biochanin A",
+        "Vitreoscilla hemoglobin (VHb) expression to enhance CYP450 activity → 19.48 mg/L",
+        "Endoplasmic reticulum (ER) membrane expansion for improved membrane-bound CYP450 expression → 39.89 mg/L",
+        "Protein-folding chaperone coexpression for functional CYP450 folding",
+        "Heme supply improvement to support CYP450 activity → 49.86 mg/L"
+      ],
+      "key_results": {
+        "titer": "49.86 mg/L biochanin A",
+        "intermediate_genistein": "44.55 mg/L genistein (precursor platform strain)",
+        "fermentation_mode": "Shake flask",
+        "carbon_source": "Glucose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "First de novo biochanin A production in S. cerevisiae",
+        "ER membrane expansion + chaperone coexpression doubles CYP450 activity",
+        "Heme supply is limiting factor for isoflavone synthase (CYP450) activity",
+        "Integrated metabolic + organelle engineering strategy for membrane-bound enzyme optimization"
+      ]
+    },
+    {
+      "id": "case_008",
+      "paper": {
+        "title": "Metabolic Engineering of Saccharomyces cerevisiae for the Efficient Production of Human Milk Oligosaccharide, Lacto-N-neotetraose (LNnT)",
+        "authors": [
+          "Nitesh Kumar Mund", "Jialun Gao", "Bo Sun", "Muqiang Wang",
+          "Lirong Yang", "Jianping Wu", "Hao Fang", "Haoran Yu"
+        ],
+        "journal": "Chem & Bio Engineering",
+        "publication_date": "2026",
+        "volume_issue": "3(1):19-27",
+        "doi": "10.1021/cbe.5c00070",
+        "url": "https://pubs.acs.org/doi/10.1021/cbe.5c00070"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "name": "Lacto-N-neotetraose (LNnT)",
+        "class": "Human milk oligosaccharide (HMO)",
+        "structure": "Galβ1-4GlcNAcβ1-3Galβ1-4Glc",
+        "applications": [
+          "Infant formula supplement (prebiotic for Bifidobacteria)",
+          "Immune modulation in infants",
+          "Anti-pathogen adhesion",
+          "Gut microbiome development"
+        ]
+      },
+      "pathway": {
+        "type": "De novo biosynthesis from lactose + glucose via nucleotide sugar pathway",
+        "modules": [
+          {
+            "module_name": "Lactose import",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Lactose (extracellular)",
+                "product": "Lactose (intracellular)",
+                "enzyme": "Lac12 (from Kluyveromyces lactis)",
+                "enzyme_full_name": "Lactose permease"
+              }
+            ]
+          },
+          {
+            "module_name": "Nucleotide sugar supply",
+            "steps": [
+              {
+                "step": 2,
+                "substrate": "UDP-glucose",
+                "product": "UDP-galactose",
+                "enzyme": "Gal10 (native)",
+                "enzyme_full_name": "UDP-galactose 4-epimerase"
+              },
+              {
+                "step": 3,
+                "substrate": "Fructose-6-P",
+                "product": "Glucosamine-6-P → GlcNAc-6-P → GlcNAc-1-P → UDP-GlcNAc",
+                "enzyme": "GNA1, AGM1, UAP1 (native/enhanced)",
+                "enzyme_full_name": "Glucosamine-6-P acetyltransferase, N-acetylglucosamine phosphomutase, UDP-GlcNAc pyrophosphorylase"
+              }
+            ]
+          },
+          {
+            "module_name": "Sequential glycosylation (Lactose → LNnT)",
+            "steps": [
+              {
+                "step": 4,
+                "substrate": "Lactose + UDP-GlcNAc",
+                "product": "Lacto-N-triose II (LNT II: GlcNAcβ1-3Galβ1-4Glc)",
+                "enzyme": "LgtA (from Neisseria meningitidis)",
+                "enzyme_full_name": "β-1,3-N-Acetylglucosaminyltransferase"
+              },
+              {
+                "step": 5,
+                "substrate": "LNT II + UDP-galactose",
+                "product": "Lacto-N-neotetraose (LNnT: Galβ1-4GlcNAcβ1-3Galβ1-4Glc)",
+                "enzyme": "LgtB (from Neisseria meningitidis)",
+                "enzyme_full_name": "β-1,4-Galactosyltransferase"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "Coexpression of LgtA, LgtB, Lac12, and Gal10 (strain LN1 → 1.54 g/L)",
+        "Short peptide tag assembly of LgtA and LgtB for proximity channeling → 2.42 g/L",
+        "UDP-GlcNAc and UDP-galactose supply pathway optimization",
+        "Fed-batch fermentation optimization → 6.25 g/L"
+      ],
+      "key_results": {
+        "titer_initial": "1.54 g/L (strain LN1, shake flask)",
+        "titer_with_tag_assembly": "2.42 g/L (peptide tag assembly of LgtA+LgtB)",
+        "titer_fed_batch": "6.25 g/L (500-mL flask fed-batch)",
+        "fermentation_mode": "Fed-batch",
+        "carbon_source": "Glucose + Lactose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "6.25 g/L LNnT, highest reported in S. cerevisiae",
+        "Peptide tag-based enzyme assembly of LgtA-LgtB improves substrate channeling",
+        "GRAS-status yeast chassis suitable for food-grade HMO production",
+        "Scalable approach for infant formula ingredient manufacturing"
+      ]
+    },
+    {
+      "id": "case_009",
+      "paper": {
+        "title": "Engineering Saccharomyces cerevisiae for De Novo Biosynthesis of 3'-Hydroxygenistein",
+        "authors": [
+          "et al."
+        ],
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "publication_date": "2025",
+        "volume_issue": "73(8):4797-4806",
+        "doi": "10.1021/acs.jafc.4c11201",
+        "url": "https://pubs.acs.org/doi/10.1021/acs.jafc.4c11201"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast"
+      },
+      "target_product": {
+        "name": "3'-Hydroxygenistein",
+        "class": "Hydroxylated isoflavone",
+        "applications": [
+          "Enhanced estrogenic and antioxidant activity compared to genistein",
+          "Anticancer agent",
+          "Nutraceutical with improved bioavailability"
+        ]
+      },
+      "pathway": {
+        "type": "De novo biosynthesis from glucose via isoflavone pathway + regioselective hydroxylation",
+        "modules": [
+          {
+            "module_name": "Phenylpropanoid to Naringenin",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "L-Phenylalanine",
+                "product": "4-Coumaroyl-CoA",
+                "enzyme": "PAL, C4H, 4CL",
+                "enzyme_full_name": "Phenylalanine ammonia-lyase, cinnamate-4-hydroxylase, 4-coumarate-CoA ligase"
+              },
+              {
+                "step": 2,
+                "substrate": "4-Coumaroyl-CoA + 3 Malonyl-CoA",
+                "product": "Naringenin",
+                "enzyme": "CHS + CHI",
+                "enzyme_full_name": "Chalcone synthase + Chalcone isomerase"
+              }
+            ]
+          },
+          {
+            "module_name": "Isoflavone synthesis (Naringenin to Genistein)",
+            "steps": [
+              {
+                "step": 3,
+                "substrate": "Naringenin",
+                "product": "2-Hydroxyisoflavanone",
+                "enzyme": "PlIFS (from Pueraria lobata, multi-copy)",
+                "enzyme_full_name": "2-Hydroxyisoflavanone synthase (CYP450)",
+                "cofactor": "NADPH, O2, Heme"
+              },
+              {
+                "step": 4,
+                "substrate": "2-Hydroxyisoflavanone",
+                "product": "Genistein",
+                "enzyme": "HID",
+                "enzyme_full_name": "2-Hydroxyisoflavanone dehydratase"
+              }
+            ]
+          },
+          {
+            "module_name": "Regioselective 3'-hydroxylation",
+            "steps": [
+              {
+                "step": 5,
+                "substrate": "Genistein",
+                "product": "3'-Hydroxygenistein",
+                "enzyme": "I3'H (Isoflavone 3'-hydroxylase, CYP450)",
+                "enzyme_full_name": "Isoflavone 3'-hydroxylase (CYP450)",
+                "cofactor": "NADPH, O2, Heme",
+                "note": "Multi-copy integration for enhanced conversion"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "PlIFS copy number amplification for genistein platform (44.55 mg/L genistein)",
+        "Screening and multi-copy integration of isoflavone 3'-hydroxylase (I3'H)",
+        "Heme cofactor supply enhancement for dual CYP450 (IFS + I3'H) activity",
+        "CPR (cytochrome P450 reductase) pairing optimization"
+      ],
+      "key_results": {
+        "genistein_platform_titer": "44.55 mg/L genistein",
+        "target_titer": "13.23 mg/L 3'-hydroxygenistein (from 100 mg/L naringenin feeding)",
+        "fermentation_mode": "Shake flask",
+        "carbon_source": "Glucose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "First de novo biosynthesis of 3'-hydroxygenistein in S. cerevisiae",
+        "Dual CYP450 cascade (IFS → I3'H) requires coordinated heme and CPR supply",
+        "Genistein platform strain (44.55 mg/L) serves as foundation for hydroxylated derivatives"
+      ]
+    },
+    {
+      "id": "case_010",
+      "paper": {
+        "title": "Adaptively Evolved and Multiplexed Engineered Saccharomyces cerevisiae for Neutralizer-Free Production of l-Lactic Acid",
+        "authors": [
+          "Baoyuan Guo", "Wenwen Yu", "Xianhao Xu", "Yujie Liu",
+          "Yanfeng Liu", "Guocheng Du", "Long Liu", "Xueqin Lv"
+        ],
+        "journal": "Journal of Agricultural and Food Chemistry",
+        "publication_date": "2025",
+        "volume_issue": "73(15):9009-9018",
+        "doi": "10.1021/acs.jafc.4c12575",
+        "pmid": "40191959",
+        "url": "https://pubs.acs.org/doi/10.1021/acs.jafc.4c12575"
+      },
+      "host_organism": {
+        "species": "Saccharomyces cerevisiae",
+        "common_name": "Baker's yeast",
+        "evolved_strain": "TMG2 (acid-tolerant mutant via ALE, tolerates pH 2.60)"
+      },
+      "target_product": {
+        "name": "L-Lactic acid",
+        "class": "Organic acid (alpha-hydroxy acid)",
+        "applications": [
+          "Polylactic acid (PLA) bioplastic monomer",
+          "Food preservative and acidulant",
+          "Pharmaceutical and cosmetics ingredient",
+          "Biodegradable packaging material"
+        ]
+      },
+      "pathway": {
+        "type": "Heterologous L-lactate dehydrogenase + endogenous pyruvate supply",
+        "modules": [
+          {
+            "module_name": "Pyruvate supply (push strategy)",
+            "steps": [
+              {
+                "step": 1,
+                "substrate": "Glucose",
+                "product": "Pyruvate",
+                "enzyme": "Glycolysis (native, enhanced flux)",
+                "enzyme_full_name": "Endogenous glycolytic enzymes"
+              }
+            ]
+          },
+          {
+            "module_name": "L-Lactic acid synthesis (pull strategy)",
+            "steps": [
+              {
+                "step": 2,
+                "substrate": "Pyruvate + NADH",
+                "product": "L-Lactic acid + NAD+",
+                "enzyme": "LDH (heterologous L-lactate dehydrogenase)",
+                "enzyme_full_name": "L-Lactate dehydrogenase",
+                "cofactor": "NADH"
+              }
+            ]
+          },
+          {
+            "module_name": "Competing pathway repression (restrain strategy)",
+            "description": "Reduction of ethanol and glycerol byproduct formation",
+            "steps": [
+              {
+                "step": 3,
+                "substrate": "Pyruvate",
+                "product": "Ethanol (suppressed)",
+                "enzyme": "PDC1/PDC5/PDC6 (attenuated)",
+                "enzyme_full_name": "Pyruvate decarboxylase (reduced expression)"
+              }
+            ]
+          },
+          {
+            "module_name": "Lactic acid export",
+            "steps": [
+              {
+                "step": 4,
+                "substrate": "L-Lactic acid (intracellular)",
+                "product": "L-Lactic acid (extracellular)",
+                "enzyme": "PfFNT (from Plasmodium falciparum)",
+                "enzyme_full_name": "Formate-nitrite transporter (lactate exporter)",
+                "note": "Overexpression relieves intracellular lactic acid toxicity"
+              }
+            ]
+          }
+        ]
+      },
+      "engineering_strategies": [
+        "Adaptive laboratory evolution (ALE) for acid tolerance → TMG2 mutant (pH 2.60 tolerant)",
+        "Push-pull-restrain strategy: enhance glycolysis (push), overexpress LDH (pull), suppress PDC (restrain)",
+        "PfFNT transporter overexpression for efficient lactic acid export",
+        "NADH supply and acetyl-CoA metabolism optimization",
+        "Neutralizer-free fermentation process (no CaCO3 needed)"
+      ],
+      "key_results": {
+        "titer": "76.2 g/L (neutralizer-free, final pH 2.90)",
+        "productivity": "2.1 g/(L·h) (highest reported)",
+        "fermentation_mode": "Fed-batch (5-L bioreactor, no neutralizer)",
+        "carbon_source": "Glucose",
+        "de_novo": true
+      },
+      "key_findings": [
+        "76.2 g/L L-lactic acid without any neutralizer, at pH 2.90",
+        "2.1 g/(L·h) productivity, highest ever reported for neutralizer-free yeast fermentation",
+        "ALE-derived TMG2 tolerates pH 2.60, enabling cost-effective downstream processing",
+        "PfFNT transporter from Plasmodium falciparum is effective lactate exporter in yeast",
+        "Push-pull-restrain strategy is a generalizable framework for organic acid production"
+      ]
+    }
+  ]
+}

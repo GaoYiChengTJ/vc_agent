@@ -3,14 +3,22 @@
 import sys
 from pathlib import Path
 
+import os
+
 import anyio
 from dotenv import load_dotenv
 
-# Load ANTHROPIC_API_KEY from .env
+# Load env vars from .env
 load_dotenv(Path(__file__).resolve().parent.parent / ".env")
 
 # Ensure project root is importable
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+# API configuration from .env
+API_ENV = {
+    "ANTHROPIC_API_KEY": os.environ.get("ANTHROPIC_API_KEY", ""),
+    "ANTHROPIC_BASE_URL": os.environ.get("ANTHROPIC_BASE_URL", ""),
+}
 
 from claude_agent_sdk import (
     AssistantMessage,
@@ -26,6 +34,7 @@ from tools.fba_tool import (
     change_media_and_simulate,
     add_heterologous_reaction,
     simulate_overexpression,
+    query_gpr,
 )
 from tools.dna_tool import optimize_sequence
 
@@ -99,20 +108,39 @@ async def heterologous_tool(args: dict):
 
 @tool(
     "simulate_overexpression",
-    "Simulate gene overexpression by forcing a minimum flux on a reaction, "
-    "then observe how biomass growth is affected. "
-    "Returns the biomass change to assess metabolic burden.",
+    "Simulate gene overexpression: looks up the gene's associated reactions "
+    "via GPR (Gene-Protein-Reaction), forces a minimum flux on them, "
+    "and reports the biomass impact. Input a gene ID, not a reaction ID.",
     {
         "model_name": str,
-        "target_reaction": str,
+        "gene_id": str,
         "forced_lower_bound": float,
     },
 )
 async def overexpression_tool(args: dict):
     result = simulate_overexpression(
         model_name=args["model_name"],
-        target_reaction=args["target_reaction"],
+        gene_id=args["gene_id"],
         forced_lower_bound=args["forced_lower_bound"],
+    )
+    return {"content": [{"type": "text", "text": result}]}
+
+
+@tool(
+    "query_gpr",
+    "Look up Gene-Protein-Reaction (GPR) associations for a gene. "
+    "Returns all reactions the gene participates in, their GPR rules, "
+    "stoichiometry, and flux bounds. Use this before overexpression "
+    "or knockout to understand the gene's metabolic role.",
+    {
+        "model_name": str,
+        "gene_id": str,
+    },
+)
+async def gpr_tool(args: dict):
+    result = query_gpr(
+        model_name=args["model_name"],
+        gene_id=args["gene_id"],
     )
     return {"content": [{"type": "text", "text": result}]}
 
@@ -141,6 +169,7 @@ mcp_server = create_sdk_mcp_server(
         media_tool,
         heterologous_tool,
         overexpression_tool,
+        gpr_tool,
         dna_tool,
     ],
 )
@@ -159,10 +188,11 @@ SYSTEM_PROMPT = (
 async def run_agent(user_input: str) -> str:
     """Send a prompt to the agent and return the final text response."""
     options = ClaudeAgentOptions(
-        model="claude-sonnet-4-5",
+        model="claude-sonnet-4-6",
         system_prompt=SYSTEM_PROMPT,
         mcp_servers={"synbio": mcp_server},
         max_turns=20,
+        env=API_ENV,
     )
 
     result_text = ""

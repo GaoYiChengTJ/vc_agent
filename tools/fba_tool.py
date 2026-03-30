@@ -218,66 +218,452 @@ def add_heterologous_reaction(
         return f"Error during heterologous reaction FBA: {exc}"
 
 
-# ── 4. Simulate overexpression ──────────────────────────────────────────────
+# ── 4. Simulate overexpression (gene-level, GPR-aware) ──────────────────────
 
 def simulate_overexpression(
     model_name: str,
-    target_reaction: str,
+    gene_id: str,
     forced_lower_bound: float,
 ) -> str:
-    """Force a minimum flux on a reaction and observe biomass impact."""
+    """Look up reactions via GPR, force minimum flux, observe biomass impact."""
     try:
         model = _load_model(model_name)
     except Exception as exc:
         return f"Error loading model: {exc}"
 
-    if target_reaction not in model.reactions:
-        available = ", ".join(sorted(r.id for r in model.reactions))
+    # Validate gene exists
+    model_gene_ids = {g.id for g in model.genes}
+    if gene_id not in model_gene_ids:
         return (
-            f"Error: reaction '{target_reaction}' not found. "
-            f"Available reactions: {available}"
+            f"Error: gene '{gene_id}' not found in model. "
+            f"Available genes (first 20): "
+            f"{sorted(model_gene_ids)[:20]} ..."
         )
 
+    # GPR lookup: find reactions associated with this gene
+    gene = model.genes.get_by_id(gene_id)
+    associated_rxns = list(gene.reactions)
+    if not associated_rxns:
+        return f"Gene '{gene_id}' has no associated reactions in the model."
+
+    gpr_info = "\n".join(
+        f"  {r.id:20s}  GPR: {r.gene_reaction_rule}"
+        for r in associated_rxns
+    )
+
     try:
+        # Baseline
         baseline_sol = model.optimize()
         if baseline_sol.status != "optimal":
             return "Error: baseline model is infeasible."
         baseline_biomass = baseline_sol.objective_value
-        baseline_target_flux = baseline_sol.fluxes[target_reaction]
 
+        # Overexpression: force minimum flux on all associated reactions
         with model:
-            rxn = model.reactions.get_by_id(target_reaction)
-            rxn.lower_bound = forced_lower_bound
+            per_rxn_results = []
+            for rxn in associated_rxns:
+                old_lb = rxn.lower_bound
+                rxn.lower_bound = max(rxn.lower_bound, forced_lower_bound)
+                per_rxn_results.append(
+                    (rxn.id, old_lb, rxn.lower_bound)
+                )
 
             solution = model.optimize()
 
             if solution.status != "optimal":
+                bounds_desc = ", ".join(
+                    f"{rid} lb: {old}->{new}"
+                    for rid, old, new in per_rxn_results
+                )
                 return (
-                    f"Model is infeasible when forcing '{target_reaction}' "
-                    f"lower_bound={forced_lower_bound}. The forced flux "
-                    f"exceeds the metabolic network capacity."
+                    f"Model is infeasible when overexpressing gene '{gene_id}'.\n"
+                    f"Forced bounds: {bounds_desc}\n"
+                    f"The forced flux exceeds the metabolic network capacity."
                 )
 
             new_biomass = solution.objective_value
-            new_target_flux = solution.fluxes[target_reaction]
-            biomass_change = new_biomass - baseline_biomass
             pct_change = (
-                (biomass_change / baseline_biomass * 100)
+                (new_biomass - baseline_biomass) / baseline_biomass * 100
                 if baseline_biomass != 0
                 else 0.0
             )
 
+            flux_details = "\n".join(
+                f"  {rxn.id:20s}  baseline={baseline_sol.fluxes[rxn.id]:.6f}"
+                f"  new={solution.fluxes[rxn.id]:.6f}"
+                for rxn in associated_rxns
+            )
+
             return (
                 f"Model: {model_name}\n"
-                f"Overexpression of '{target_reaction}' "
+                f"Overexpression of gene '{gene_id}' "
                 f"(forced lower_bound={forced_lower_bound}):\n"
-                f"Baseline biomass: {baseline_biomass:.6f}\n"
-                f"New biomass:      {new_biomass:.6f}  "
-                f"({pct_change:+.2f}%)\n"
-                f"Baseline '{target_reaction}' flux: "
-                f"{baseline_target_flux:.6f}\n"
-                f"New '{target_reaction}' flux:      "
-                f"{new_target_flux:.6f}"
+                f"\nGPR associations:\n{gpr_info}\n"
+                f"\nBiomass impact:\n"
+                f"  Baseline: {baseline_biomass:.6f}\n"
+                f"  New:      {new_biomass:.6f}  ({pct_change:+.2f}%)\n"
+                f"\nFlux changes per reaction:\n{flux_details}"
             )
     except Exception as exc:
         return f"Error during overexpression simulation: {exc}"
+
+
+# ── 5. Query GPR ────────────────────────────────────────────────────────────
+
+def query_gpr(model_name: str, gene_id: str) -> str:
+    """Look up the Gene-Protein-Reaction associations for a gene."""
+    try:
+        model = _load_model(model_name)
+    except Exception as exc:
+        return f"Error loading model: {exc}"
+
+    model_gene_ids = {g.id for g in model.genes}
+    if gene_id not in model_gene_ids:
+        return (
+            f"Error: gene '{gene_id}' not found in model. "
+            f"Available genes (first 20): "
+            f"{sorted(model_gene_ids)[:20]} ..."
+        )
+
+    gene = model.genes.get_by_id(gene_id)
+    associated_rxns = list(gene.reactions)
+
+    if not associated_rxns:
+        return f"Gene '{gene_id}' ({gene.name}) has no associated reactions."
+
+    lines = [
+        f"Gene: {gene_id}  Name: {gene.name or 'N/A'}",
+        f"Associated reactions ({len(associated_rxns)}):",
+    ]
+    for r in sorted(associated_rxns, key=lambda x: x.id):
+        lines.append(f"  Reaction: {r.id}")
+        lines.append(f"    Name: {r.name}")
+        lines.append(f"    GPR:  {r.gene_reaction_rule}")
+        lines.append(f"    Stoichiometry: {r.reaction}")
+        lines.append(f"    Bounds: [{r.lower_bound}, {r.upper_bound}]")
+    return "\n".join(lines)
+
+
+# ── 6. Search metabolites and reactions ────────────────────────────────────
+
+def search_model(model_name: str, keyword: str) -> str:
+    """Search metabolites and reactions by keyword (case-insensitive substring match)."""
+    try:
+        model = _load_model(model_name)
+    except Exception as exc:
+        return f"Error loading model: {exc}"
+
+    if not keyword or not keyword.strip():
+        return "Error: keyword must be a non-empty string."
+
+    keyword_lower = keyword.strip().lower()
+    max_results = 30
+
+    try:
+        # Search metabolites
+        matched_mets = []
+        for met in model.metabolites:
+            if keyword_lower in met.id.lower() or keyword_lower in (met.name or "").lower():
+                matched_mets.append(met)
+                if len(matched_mets) >= max_results:
+                    break
+
+        # Search reactions
+        matched_rxns = []
+        for rxn in model.reactions:
+            if keyword_lower in rxn.id.lower() or keyword_lower in (rxn.name or "").lower():
+                matched_rxns.append(rxn)
+                if len(matched_rxns) >= max_results:
+                    break
+
+        lines = [f"Model: {model_name}", f"Search keyword: '{keyword.strip()}'", ""]
+
+        lines.append(f"Matching metabolites ({len(matched_mets)}"
+                     f"{'+' if len(matched_mets) >= max_results else ''}):")
+        if matched_mets:
+            for met in matched_mets:
+                lines.append(
+                    f"  {met.id:30s}  name={met.name or 'N/A':30s}  "
+                    f"formula={met.formula or 'N/A':15s}  compartment={met.compartment or 'N/A'}"
+                )
+        else:
+            lines.append("  (none)")
+
+        lines.append("")
+        lines.append(f"Matching reactions ({len(matched_rxns)}"
+                     f"{'+' if len(matched_rxns) >= max_results else ''}):")
+        if matched_rxns:
+            for rxn in matched_rxns:
+                lines.append(
+                    f"  {rxn.id:30s}  name={rxn.name or 'N/A':30s}  "
+                    f"reaction={rxn.reaction}"
+                )
+        else:
+            lines.append("  (none)")
+
+        return "\n".join(lines)
+    except Exception as exc:
+        return f"Error during search: {exc}"
+
+
+# ── 7. Add pathway (multiple reactions) ───────────────────────────────────
+
+def add_pathway(model_name: str, reactions: list[dict]) -> str:
+    """Add multiple reactions to the model and verify feasibility with FBA."""
+    try:
+        model = _load_model(model_name)
+    except Exception as exc:
+        return f"Error loading model: {exc}"
+
+    if not reactions:
+        return "Error: reactions list must be non-empty."
+
+    # Validate reaction dicts
+    for i, rxn_dict in enumerate(reactions):
+        if not isinstance(rxn_dict, dict):
+            return f"Error: reactions[{i}] is not a dict."
+        if "id" not in rxn_dict or "reaction_string" not in rxn_dict:
+            return (
+                f"Error: reactions[{i}] must have keys 'id' and 'reaction_string'. "
+                f"Got keys: {list(rxn_dict.keys())}"
+            )
+        if rxn_dict["id"] in model.reactions:
+            return f"Error: reaction '{rxn_dict['id']}' already exists in the model."
+
+    try:
+        biomass_rxn_id = _get_biomass_reaction_id(model)
+    except Exception as exc:
+        return f"Error identifying biomass reaction: {exc}"
+
+    # Add all reactions
+    added_ids = []
+    try:
+        for rxn_dict in reactions:
+            new_rxn = cobra.Reaction(rxn_dict["id"])
+            model.add_reactions([new_rxn])
+            new_rxn.build_reaction_from_string(rxn_dict["reaction_string"])
+            added_ids.append(rxn_dict["id"])
+    except Exception as exc:
+        return (
+            f"Error adding reaction '{rxn_dict['id']}': {exc}\n"
+            f"Successfully added before failure: {added_ids}"
+        )
+
+    # Run FBA with default objective (biomass) to verify feasibility
+    try:
+        solution = model.optimize()
+
+        if solution.status != "optimal":
+            return (
+                f"Reactions added: {added_ids}\n"
+                f"WARNING: model is infeasible after adding the pathway "
+                f"(status: {solution.status})."
+            )
+
+        biomass_flux = solution.objective_value
+        flux_lines = []
+        for rid in added_ids:
+            flux_lines.append(f"  {rid:30s}  flux={solution.fluxes[rid]:.6f}")
+
+        return (
+            f"Model: {model_name}\n"
+            f"Added reactions ({len(added_ids)}):\n"
+            + "\n".join(
+                f"  {rd['id']:30s}  {rd['reaction_string']}"
+                for rd in reactions
+            )
+            + f"\n\nBiomass flux after addition: {biomass_flux:.6f}\n"
+            f"\nFlux through new reactions (biomass-optimal):\n"
+            + "\n".join(flux_lines)
+        )
+    except Exception as exc:
+        return f"Error during FBA after adding pathway: {exc}"
+
+
+# ── 8. Maximize product flux ──────────────────────────────────────────────
+
+def maximize_product(
+    model_name: str,
+    target_reaction: str,
+    min_biomass_fraction: float = 0.0,
+    extra_reactions: list[dict] = None,
+) -> str:
+    """Maximize flux through a target reaction, optionally constraining minimum biomass."""
+    try:
+        model = _load_model(model_name)
+    except Exception as exc:
+        return f"Error loading model: {exc}"
+
+    # Add extra reactions if provided
+    if extra_reactions:
+        for i, rxn_dict in enumerate(extra_reactions):
+            if not isinstance(rxn_dict, dict):
+                return f"Error: extra_reactions[{i}] is not a dict."
+            if "id" not in rxn_dict or "reaction_string" not in rxn_dict:
+                return (
+                    f"Error: extra_reactions[{i}] must have keys 'id' and 'reaction_string'. "
+                    f"Got keys: {list(rxn_dict.keys())}"
+                )
+        try:
+            for rxn_dict in extra_reactions:
+                if rxn_dict["id"] not in model.reactions:
+                    new_rxn = cobra.Reaction(rxn_dict["id"])
+                    model.add_reactions([new_rxn])
+                    new_rxn.build_reaction_from_string(rxn_dict["reaction_string"])
+        except Exception as exc:
+            return f"Error adding extra reaction '{rxn_dict['id']}': {exc}"
+
+    # Validate target reaction
+    if target_reaction not in model.reactions:
+        available = ", ".join(sorted(r.id for r in model.reactions))
+        return (
+            f"Error: reaction '{target_reaction}' not found in model. "
+            f"Available reactions: {available}"
+        )
+
+    try:
+        biomass_rxn_id = _get_biomass_reaction_id(model)
+    except Exception as exc:
+        return f"Error identifying biomass reaction: {exc}"
+
+    try:
+        # If min_biomass_fraction > 0, compute wild-type biomass and constrain
+        if min_biomass_fraction > 0:
+            wt_solution = model.optimize()
+            if wt_solution.status != "optimal":
+                return "Error: wild-type model is infeasible; cannot compute biomass constraint."
+            wt_biomass = wt_solution.objective_value
+            biomass_rxn = model.reactions.get_by_id(biomass_rxn_id)
+            biomass_rxn.lower_bound = min_biomass_fraction * wt_biomass
+
+        # Set objective to target reaction
+        model.objective = target_reaction
+        solution = model.optimize()
+
+        if solution.status != "optimal":
+            return (
+                f"Model is infeasible when maximising '{target_reaction}' "
+                f"(min_biomass_fraction={min_biomass_fraction})."
+            )
+
+        max_product_flux = solution.objective_value
+        biomass_flux = solution.fluxes[biomass_rxn_id]
+
+        # Top 10 flux-carrying reactions by absolute flux
+        flux_series = solution.fluxes
+        top_rxns = flux_series.abs().sort_values(ascending=False).head(10)
+
+        top_lines = []
+        for rid in top_rxns.index:
+            top_lines.append(f"  {rid:30s}  flux={flux_series[rid]:.6f}")
+
+        return (
+            f"Model: {model_name}\n"
+            f"Target reaction: {target_reaction}\n"
+            f"Min biomass fraction: {min_biomass_fraction}\n"
+            f"Max product flux: {max_product_flux:.6f}\n"
+            f"Biomass flux: {biomass_flux:.6f}\n"
+            f"\nTop 10 flux-carrying reactions:\n"
+            + "\n".join(top_lines)
+        )
+    except Exception as exc:
+        return f"Error during product maximisation: {exc}"
+
+
+# ── 9. Production envelope ────────────────────────────────────────────────
+
+def production_envelope(
+    model_name: str,
+    target_reaction: str,
+    steps: int = 10,
+    extra_reactions: list[dict] = None,
+) -> str:
+    """Sweep biomass constraint and compute max product flux at each level."""
+    try:
+        model = _load_model(model_name)
+    except Exception as exc:
+        return f"Error loading model: {exc}"
+
+    # Add extra reactions if provided
+    if extra_reactions:
+        for i, rxn_dict in enumerate(extra_reactions):
+            if not isinstance(rxn_dict, dict):
+                return f"Error: extra_reactions[{i}] is not a dict."
+            if "id" not in rxn_dict or "reaction_string" not in rxn_dict:
+                return (
+                    f"Error: extra_reactions[{i}] must have keys 'id' and 'reaction_string'. "
+                    f"Got keys: {list(rxn_dict.keys())}"
+                )
+        try:
+            for rxn_dict in extra_reactions:
+                if rxn_dict["id"] not in model.reactions:
+                    new_rxn = cobra.Reaction(rxn_dict["id"])
+                    model.add_reactions([new_rxn])
+                    new_rxn.build_reaction_from_string(rxn_dict["reaction_string"])
+        except Exception as exc:
+            return f"Error adding extra reaction '{rxn_dict['id']}': {exc}"
+
+    # Validate target reaction
+    if target_reaction not in model.reactions:
+        available = ", ".join(sorted(r.id for r in model.reactions))
+        return (
+            f"Error: reaction '{target_reaction}' not found in model. "
+            f"Available reactions: {available}"
+        )
+
+    if steps < 1:
+        return "Error: steps must be >= 1."
+
+    try:
+        biomass_rxn_id = _get_biomass_reaction_id(model)
+    except Exception as exc:
+        return f"Error identifying biomass reaction: {exc}"
+
+    try:
+        # Get wild-type biomass
+        wt_solution = model.optimize()
+        if wt_solution.status != "optimal":
+            return "Error: wild-type model is infeasible; cannot compute production envelope."
+        wt_biomass = wt_solution.objective_value
+
+        biomass_rxn = model.reactions.get_by_id(biomass_rxn_id)
+        original_lb = biomass_rxn.lower_bound
+
+        # Switch objective to target
+        model.objective = target_reaction
+
+        # Sweep
+        rows = []
+        for i in range(steps + 1):
+            fraction = i / steps
+            biomass_min = fraction * wt_biomass
+            biomass_rxn.lower_bound = biomass_min
+
+            sol = model.optimize()
+            if sol.status == "optimal":
+                max_prod = sol.objective_value
+            else:
+                max_prod = float("nan")
+
+            rows.append((biomass_min, max_prod))
+
+        # Restore original lower bound
+        biomass_rxn.lower_bound = original_lb
+
+        # Format as text table
+        lines = [
+            f"Model: {model_name}",
+            f"Target reaction: {target_reaction}",
+            f"Wild-type biomass: {wt_biomass:.6f}",
+            f"Steps: {steps}",
+            "",
+            f"{'biomass_min':>15s} | {'max_product_flux':>18s}",
+            f"{'-' * 15}-+-{'-' * 18}",
+        ]
+        for bm, prod in rows:
+            prod_str = f"{prod:.6f}" if prod == prod else "infeasible"
+            lines.append(f"{bm:>15.6f} | {prod_str:>18s}")
+
+        return "\n".join(lines)
+    except Exception as exc:
+        return f"Error during production envelope computation: {exc}"
