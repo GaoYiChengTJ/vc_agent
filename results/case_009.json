@@ -1,6 +1,6 @@
 {
   "case_id": "case_009",
-  "product": "3'-Hydroxygenistein",
+  "product": "3'-Hydroxygenistein (Orobol)",
   "pathway": {
     "steps": [
       {
@@ -8,44 +8,43 @@
         "substrate": "L-Phenylalanine",
         "product": "trans-Cinnamate",
         "enzyme_ec": "EC 4.3.1.24",
-        "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL2)",
+        "kegg_reaction": "R00697",
+        "kegg_orthology": "K10775",
         "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P45724",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
-        "cofactors_produced": [
-          "NH3"
-        ]
+        "cofactors_produced": ["NH4+"]
       },
       {
         "step_number": 2,
         "substrate": "trans-Cinnamate",
         "product": "4-Coumarate",
         "enzyme_ec": "EC 1.14.14.91",
-        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H/CYP73A5)",
+        "enzyme_name": "trans-Cinnamate 4-monooxygenase (C4H/CYP73A5)",
+        "kegg_reaction": "R02253",
+        "kegg_orthology": "K00487",
         "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P92994",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [
-          "NADPH",
-          "O2"
-        ],
-        "cofactors_produced": []
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": ["NADP+", "H2O"],
+        "is_cyp450": true
       },
       {
         "step_number": 3,
-        "substrate": "4-Coumarate",
+        "substrate": "4-Coumarate + ATP + CoA",
         "product": "p-Coumaroyl-CoA",
         "enzyme_ec": "EC 6.2.1.12",
         "enzyme_name": "4-Coumarate-CoA ligase (4CL1)",
+        "kegg_reaction": "R01616",
+        "kegg_orthology": "K01904",
         "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q42524",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [
-          "ATP",
-          "CoA"
-        ],
-        "cofactors_produced": [
-          "AMP",
-          "PPi"
-        ]
+        "cofactors_consumed": ["ATP", "CoA"],
+        "cofactors_produced": ["AMP", "PPi"]
       },
       {
         "step_number": 4,
@@ -53,13 +52,13 @@
         "product": "Naringenin chalcone",
         "enzyme_ec": "EC 2.3.1.74",
         "enzyme_name": "Chalcone synthase (CHS/TT4)",
+        "kegg_reaction": "R01613",
+        "kegg_orthology": "K00660",
         "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P13114",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [],
-        "cofactors_produced": [
-          "4 CoA",
-          "3 CO2"
-        ]
+        "cofactors_consumed": ["3 Malonyl-CoA"],
+        "cofactors_produced": ["4 CoA", "3 CO2"]
       },
       {
         "step_number": 5,
@@ -67,7 +66,10 @@
         "product": "Naringenin",
         "enzyme_ec": "EC 5.5.1.6",
         "enzyme_name": "Chalcone isomerase (CHI1)",
+        "kegg_reaction": "R02446",
+        "kegg_orthology": "K01859",
         "source_organism": "Medicago sativa",
+        "uniprot_id": "P28012",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
         "cofactors_produced": []
@@ -77,14 +79,15 @@
         "substrate": "Naringenin",
         "product": "2-Hydroxy-2,3-dihydrogenistein",
         "enzyme_ec": "EC 1.14.14.87",
-        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS/CYP93C1v2)",
+        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS2/CYP93C1v2)",
+        "kegg_reaction": "R07778",
+        "kegg_orthology": "K13257",
         "source_organism": "Glycine max",
+        "uniprot_id": "Q9SWR5",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [
-          "NADPH",
-          "O2"
-        ],
-        "cofactors_produced": []
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": ["NADP+", "H2O"],
+        "is_cyp450": true
       },
       {
         "step_number": 7,
@@ -92,132 +95,291 @@
         "product": "Genistein",
         "enzyme_ec": "EC 4.2.1.105",
         "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDH)",
+        "kegg_reaction": "R06793",
+        "kegg_orthology": "K13258",
         "source_organism": "Glycine max",
+        "uniprot_id": "Q5NUF3",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
-        "cofactors_produced": []
+        "cofactors_produced": ["H2O"]
       },
       {
         "step_number": 8,
         "substrate": "Genistein",
         "product": "3'-Hydroxygenistein (Orobol)",
-        "enzyme_ec": "EC 1.14.14.88",
-        "enzyme_name": "Isoflavone 3'-hydroxylase (CYP57B3)",
-        "source_organism": "Aspergillus oryzae",
+        "enzyme_ec": "EC 1.14.14.82",
+        "enzyme_name": "Flavonoid 3'-monooxygenase (F3'H/CYP75B1)",
+        "kegg_reaction": "Novel (analogous to R06607 for 2'-hydroxylation)",
+        "kegg_orthology": "K05280",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SD85",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [
-          "NADPH",
-          "O2"
-        ],
-        "cofactors_produced": []
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": ["NADP+", "H2O"],
+        "is_cyp450": true
       }
     ],
     "total_cofactors": {
-      "NADPH": -3,
-      "NADH": 0,
-      "ATP": -1,
-      "O2": -3,
-      "FAD": 0
-    }
+      "NADPH": 3,
+      "ATP": 1,
+      "O2": 3,
+      "CoA": 1,
+      "Malonyl_CoA": 3
+    },
+    "auxiliary_enzymes": [
+      {
+        "enzyme_name": "NADPH-cytochrome P450 reductase 1 (ATR1/CPR1)",
+        "enzyme_ec": "EC 1.6.2.4",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SB48",
+        "role": "Electron transfer partner for all 3 CYP450 enzymes (C4H, IFS2, F3'H)",
+        "cofactors": ["FAD", "FMN", "NADPH"]
+      }
+    ]
   },
   "engineering": {
     "heterologous_genes": [
       {
-        "gene_name": "PAL1",
+        "gene_name": "PAL2",
         "source_organism": "Arabidopsis thaliana",
-        "uniprot_id": "P35510",
-        "ec_number": "EC 4.3.1.24",
-        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate + NH3; first committed step of phenylpropanoid pathway"
+        "uniprot_id": "P45724",
+        "enzyme_ec": "EC 4.3.1.24",
+        "molecular_weight_kDa": 77.9,
+        "km_uM": 64.0,
+        "vmax": "10.5 umol/sec/mg",
+        "transmembrane": false,
+        "subcellular_location": "Cytoplasm",
+        "instability_index": 33.5,
+        "pdb_structures": [],
+        "notes": "Soluble, stable cytoplasmic enzyme. Best kinetics among 4 AtPAL isoforms (lowest Km, highest Vmax). Homotetramer."
       },
       {
         "gene_name": "CYP73A5 (C4H)",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "P92994",
-        "ec_number": "EC 1.14.14.91",
-        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates trans-cinnamate to p-coumarate; CYP450 requiring heme and CPR"
+        "enzyme_ec": "EC 1.14.14.91",
+        "molecular_weight_kDa": 57.8,
+        "transmembrane": true,
+        "tm_topology": "1 TM helix (aa 3-23), N-terminal ER anchor",
+        "cofactors": ["Heme"],
+        "subcellular_location": "ER membrane",
+        "instability_index": 42.8,
+        "known_mutations": "G99E, R249K, A306T (loss-of-function, avoid)",
+        "notes": "CYP450 #1. Requires CPR (ATR1) for electron transfer. ER membrane-anchored."
       },
       {
         "gene_name": "4CL1",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "Q42524",
-        "ec_number": "EC 6.2.1.12",
-        "function": "4-Coumarate-CoA ligase; activates p-coumarate to p-coumaroyl-CoA using ATP; Km=38 uM for 4-coumarate"
+        "enzyme_ec": "EC 6.2.1.12",
+        "molecular_weight_kDa": 61.1,
+        "km_uM_coumarate": 38.0,
+        "km_uM_caffeate": 11.0,
+        "transmembrane": false,
+        "cofactors": ["Mg2+"],
+        "instability_index": 49.2,
+        "pdb_structures": ["3TSY"],
+        "notes": "Soluble enzyme. Crystal structure available for rational engineering. Requires Mg2+ cofactor."
       },
       {
-        "gene_name": "TT4 (CHS)",
+        "gene_name": "CHS (TT4)",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "P13114",
-        "ec_number": "EC 2.3.1.74",
-        "function": "Chalcone synthase; condenses p-coumaroyl-CoA with 3 malonyl-CoA to form naringenin chalcone"
+        "enzyme_ec": "EC 2.3.1.74",
+        "molecular_weight_kDa": 43.1,
+        "transmembrane": false,
+        "instability_index": 43.5,
+        "pdb_structures": ["6DXB", "6DXD", "6DXE"],
+        "known_mutations": "H309Y (loss-of-function, avoid)",
+        "notes": "Soluble. Multiple crystal structures available. Key flux control point -- consumes 3 malonyl-CoA per reaction."
       },
       {
         "gene_name": "CHI1",
         "source_organism": "Medicago sativa",
         "uniprot_id": "P28012",
-        "ec_number": "EC 5.5.1.6",
-        "function": "Chalcone isomerase; cyclizes naringenin chalcone to (2S)-naringenin; well-characterized with crystal structures (PDB: 1EYP)"
+        "enzyme_ec": "EC 5.5.1.6",
+        "molecular_weight_kDa": 23.8,
+        "km_uM_naringenin_chalcone": 112.0,
+        "transmembrane": false,
+        "instability_index": 34.2,
+        "pdb_structures": ["1EYP", "1EYQ", "1FM7", "1FM8", "1JEP", "1JX0", "1JX1", "6CJN", "6CJO"],
+        "known_mutations": "T48A (reduced activity), Y106F (reduced activity)",
+        "notes": "Small, stable, soluble enzyme. Extensive structural data available. Lowest expression risk in the pathway."
       },
       {
         "gene_name": "IFS2 (CYP93C1v2)",
         "source_organism": "Glycine max",
         "uniprot_id": "Q9SWR5",
-        "ec_number": "EC 1.14.14.87",
-        "function": "2-Hydroxyisoflavanone synthase; CYP450 that catalyzes aryl migration converting naringenin to 2-hydroxy-2,3-dihydrogenistein"
+        "enzyme_ec": "EC 1.14.14.87",
+        "molecular_weight_kDa": 58.9,
+        "transmembrane": true,
+        "tm_topology": "1 TM helix (aa 2-23), N-terminal ER anchor",
+        "cofactors": ["Heme"],
+        "subcellular_location": "ER membrane / Microsome",
+        "instability_index": 42.2,
+        "notes": "CYP450 #2. Key isoflavone-specific enzyme -- catalyzes the aryl migration unique to isoflavonoid biosynthesis. Requires CPR (ATR1). Only found in legumes (Glycine max, Glycyrrhiza). AlphaFold model available (AF-Q9SWR5-F1)."
       },
       {
         "gene_name": "HIDH",
         "source_organism": "Glycine max",
         "uniprot_id": "Q5NUF3",
-        "ec_number": "EC 4.2.1.105",
-        "function": "2-Hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein; Km=170 uM"
+        "enzyme_ec": "EC 4.2.1.105",
+        "molecular_weight_kDa": 35.1,
+        "km_uM_dihydrogenistein": 170.0,
+        "transmembrane": false,
+        "instability_index": 45.1,
+        "known_mutations": "D263N (complete loss), H295A (complete loss), T164A (reduced)",
+        "notes": "Soluble dehydratase. Alpha/beta hydrolase fold. Also has slight carboxylesterase activity. Km relatively high (170 uM) for dihydrogenistein substrate."
       },
       {
-        "gene_name": "CYP57B3",
-        "source_organism": "Aspergillus oryzae",
-        "uniprot_id": "D4QC19",
-        "ec_number": "EC 1.14.14.88",
-        "function": "Isoflavone 3'-hydroxylase; CYP450 that hydroxylates genistein at the 3' position to produce 3'-hydroxygenistein (orobol); fungal origin compatible with yeast expression"
-      }
-    ],
-    "knockouts": [
+        "gene_name": "CYP75B1 (F3'H/TT7)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SD85",
+        "enzyme_ec": "EC 1.14.14.82",
+        "molecular_weight_kDa": 56.8,
+        "transmembrane": true,
+        "tm_topology": "1 TM helix (aa 1-21), N-terminal ER anchor",
+        "cofactors": ["Heme"],
+        "subcellular_location": "ER membrane",
+        "instability_index": 46.8,
+        "notes": "CYP450 #3. Final hydroxylation step. Naturally hydroxylates flavonoid B-ring at 3' position. Substrate promiscuity: converts naringenin to eriodictyol, dihydrokaempferol to dihydroquercetin. Should accept genistein (isoflavone) as substrate for B-ring 3'-hydroxylation. Requires CPR (ATR1). AlphaFold model available (AF-Q9SD85-F1)."
+      },
       {
-        "gene_name": "ARO10",
-        "yeast_systematic_id": "YDR380W",
-        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
-        "rationale": "Blocks degradation of phenylpyruvate (Ehrlich pathway), increasing flux toward phenylalanine biosynthesis via PHETA1 reverse reaction; OR-logic requires combined KO with PDC genes for full effect"
+        "gene_name": "ATR1 (CPR1)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SB48",
+        "enzyme_ec": "EC 1.6.2.4",
+        "molecular_weight_kDa": 76.8,
+        "km_uM_NADPH": 2.2,
+        "transmembrane": true,
+        "tm_topology": "1 TM helix (aa 27-47), ER anchor",
+        "cofactors": ["FAD", "FMN"],
+        "subcellular_location": "ER membrane",
+        "instability_index": 47.4,
+        "notes": "Essential electron transfer partner for all 3 CYP450 enzymes. Single copy may be rate-limiting with 3 CYP450s competing for electrons -- consider multi-copy integration or strong promoter."
       }
     ],
+    "knockouts": [],
     "overexpressions": [
-      {
-        "gene_name": "ARO7",
-        "yeast_systematic_id": "YPR060C",
-        "reaction_boosted": "CHORM (chorismate mutase)",
-        "rationale": "Increases flux from chorismate to prephenate, boosting phenylalanine precursor supply; feedback-resistant mutant ARO7(T226I) preferred"
-      },
       {
         "gene_name": "ZWF1",
         "yeast_systematic_id": "YNL241C",
-        "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
-        "rationale": "Entry point of pentose phosphate pathway producing NADPH; pathway requires 3 NADPH per product molecule for C4H, IFS, and CYP57B3 reactions"
+        "reaction_boosted": "G6PDH2r (Glucose-6-phosphate dehydrogenase)",
+        "baseline_flux": 0.80,
+        "min_flux_forced": 2.0,
+        "rationale": "NADPH supply bottleneck: pathway demands 3 NADPH per product molecule (for C4H, IFS2, F3'H) plus NADPH consumed by ATR1/CPR. ZWF1 is the committed step of the pentose phosphate pathway, the major cytoplasmic NADPH source. Overexpression increases NADPH regeneration capacity."
       },
       {
-        "gene_name": "ACS2",
-        "yeast_systematic_id": "YLR153C",
-        "reaction_boosted": "ACS (acetyl-CoA synthetase)",
-        "rationale": "Increases cytoplasmic acetyl-CoA supply which feeds into malonyl-CoA via ACC1; CHS requires 3 malonyl-CoA per naringenin chalcone"
-      },
-      {
-        "gene_name": "ACC1",
-        "yeast_systematic_id": "YNR016C",
-        "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
-        "rationale": "Converts acetyl-CoA to malonyl-CoA; overexpression of ACC1(S659A/S1157A) phosphorylation-resistant mutant increases malonyl-CoA pool"
+        "gene_name": "ARO4",
+        "yeast_systematic_id": "YBR249C",
+        "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
+        "baseline_flux": 0.076,
+        "min_flux_forced": 0.2,
+        "rationale": "First committed step of the shikimate pathway producing aromatic amino acid precursors. Native ARO4 is feedback-inhibited by L-tyrosine. Overexpression (ideally with feedback-resistant variant ARO4-K229L) increases flux toward L-phenylalanine, the pathway entry substrate."
       }
-    ]
+    ],
+    "protein_engineering_notes": {
+      "cyp450_membrane_topology": "All 3 CYP450 enzymes (C4H/P92994, IFS2/Q9SWR5, F3'H/Q9SD85) have single N-terminal transmembrane helices anchoring them to the ER membrane. They share the same membrane topology and orientation -- catalytic domain facing the cytoplasm. No signal peptides present, so direct expression in yeast should correctly target them to the ER.",
+      "cpr_requirements": "All 3 CYP450s require NADPH-cytochrome P450 reductase (CPR/ATR1, Q9SB48) for electron transfer. ATR1 uses FAD and FMN as prosthetic groups and transfers electrons from NADPH to the CYP450 heme iron. A single ATR1 copy on the ER membrane may become rate-limiting with 3 CYP450 competing for electrons. Recommend multi-copy ATR1 integration (2-3 copies) or expression under a strong constitutive promoter (e.g., TEF1p).",
+      "heme_cofactor_needs": "All 3 CYP450s require heme b (protoheme) as their active site cofactor. In S. cerevisiae, heme biosynthesis may become limiting when 3 heterologous CYP450s plus 1 CPR are overexpressed simultaneously. Recommend overexpression of HEM3 (YDL205C, porphobilinogen deaminase) or HEM13 (YDR044W, coproporphyrinogen oxidase) to boost heme supply. Alternatively, supplement 5-aminolevulinic acid (ALA) in the growth medium.",
+      "er_membrane_expansion": "With 3 CYP450s + 1 CPR all anchored to the ER membrane, ER membrane surface area may become limiting. Recommend overexpression of INO2 (transcription factor for phospholipid biosynthesis) to expand ER membrane capacity, or engineering of lipid biosynthesis genes (e.g., OPI3, CHO2) to increase phospholipid production.",
+      "aro4_feedback_resistance": "ARO4 (YBR249C) is feedback-inhibited by L-tyrosine. The well-characterized K229L mutation eliminates tyrosine feedback inhibition without affecting catalytic activity. Strongly recommend using ARO4-K229L for overexpression.",
+      "acc1_phosphorylation": "ACC1 (YNR016C, acetyl-CoA carboxylase) produces malonyl-CoA consumed by CHS (3 molecules per product). Native ACC1 is inactivated by Snf1-mediated phosphorylation at S659 and S1157. The ACC1-S659A/S1157A double mutant is constitutively active and has been shown to boost malonyl-CoA-derived product titers 3-5 fold in yeast. Recommend using this phosphorylation-resistant variant.",
+      "cyp57b3_alternative": "An alternative to AtF3'H (CYP75B1) for the final hydroxylation step is CYP57B3 from Aspergillus oryzae. The triple mutant CYP57B3-V138I/S243N/V463F shows 14-fold improvement in 3'-hydroxygenistein production with dramatically improved Km (15.7 uM vs 14,600 uM for wild-type). This fungal CYP450 may have expression advantages in yeast vs. the plant CYP75B1. However, CYP57B3 is a fungal CYP and would need a compatible CPR partner.",
+      "vhb_recommendation": "With 3 heme-dependent CYP450 enzymes, consider expressing Vitreoscilla hemoglobin (VHb) to improve intracellular oxygen delivery and enhance CYP450 activity under oxygen-limited conditions."
+    }
   },
   "fba_results": {
-    "baseline_max_flux": 0.666667,
-    "optimized_max_flux": 0.666187,
-    "biomass_at_optimum": 0.025822,
-    "strategy_description": "Heterologous 8-step pathway from L-phenylalanine to 3'-hydroxygenistein via phenylpropanoid, flavonoid, isoflavonoid biosynthesis, and 3'-hydroxylation. Eight plant/fungal enzymes are required (PAL, C4H, 4CL, CHS from A. thaliana; CHI from M. sativa; IFS, HIDH from G. max; CYP57B3 from A. oryzae). Three CYP450 steps (C4H, IFS, CYP57B3) utilize the native yeast NADPH-cytochrome P450 reductase NCP1 (YHR042W). Engineering strategy includes ARO10 knockout to block phenylpyruvate degradation, and overexpression of ARO7 (feedback-resistant mutant), ZWF1, ACS2, and ACC1 to boost precursor and cofactor supply. FBA theoretical maximum flux is 0.667 mmol/gDW/h at zero growth and 0.666 at 10% minimum biomass. Production envelope shows linear growth-production tradeoff. Aerobic conditions required for three O2-dependent CYP450 reactions."
-  }
+    "model": "iMM904",
+    "exchange_reaction_added": "EX_hydroxygenistein: hydroxygenistein_c -->",
+    "heterologous_reactions_added": [
+      "PAL: phe__L_c --> cinnamate_c + nh4_c",
+      "C4H: cinnamate_c + o2_c + nadph_c + h_c --> coumarate_c + nadp_c + h2o_c",
+      "r4CL: coumarate_c + atp_c + coa_c --> coumaroylcoa_c + amp_c + ppi_c",
+      "CHS: coumaroylcoa_c + 3 malcoa_c + 3 h_c --> naringeninchalcone_c + 4 coa_c + 3 co2_c",
+      "CHI: naringeninchalcone_c --> naringenin_c",
+      "IFS: naringenin_c + o2_c + nadph_c + h_c --> dihydrogenistein_c + nadp_c + h2o_c",
+      "HID: dihydrogenistein_c --> genistein_c + h2o_c",
+      "F3pH: genistein_c + o2_c + nadph_c + h_c --> hydroxygenistein_c + nadp_c + h2o_c"
+    ],
+    "theoretical_max_flux": 0.666667,
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "Pathway only (8 heterologous reactions + exchange, no host modifications)",
+        "biomass": 0.028787,
+        "product_flux": 0.666132,
+        "vs_theoretical_max": "99.9%",
+        "notes": "10% biomass constraint. Very close to theoretical max even without interventions."
+      },
+      {
+        "round": "Baseline (no biomass)",
+        "strategy": "Pathway only, no biomass constraint",
+        "biomass": 0.0,
+        "product_flux": 0.666667,
+        "vs_theoretical_max": "100.0%",
+        "notes": "Theoretical ceiling. Top flux reactions: glycolysis (ENO/PGM/PGK/GAPD ~14.3), PYK=13.0, PYRDC=9.67"
+      },
+      {
+        "round": "Round 1",
+        "strategy": "OE ZWF1 (min_flux=2.0)",
+        "biomass": 0.027072,
+        "product_flux": 0.640526,
+        "vs_theoretical_max": "96.1%",
+        "notes": "NADPH overproduction shifts some carbon to PPP; slight decrease in product flux at 10% biomass due to carbon diversion through PPP"
+      },
+      {
+        "round": "Round 2",
+        "strategy": "OE ZWF1 (min_flux=2.0) + OE ARO4 (min_flux=0.2)",
+        "biomass": 0.026246,
+        "product_flux": 0.642698,
+        "vs_theoretical_max": "96.4%",
+        "notes": "ARO4 overexpression slightly improves product flux. Stopped: within 5% of baseline, diminishing returns."
+      },
+      {
+        "round": "Round 3",
+        "strategy": "OE ZWF1 + OE ARO4 + KO PDC1/PDC5/PDC6 (all pyruvate decarboxylase)",
+        "biomass": 0.017005,
+        "product_flux": 0.447733,
+        "vs_theoretical_max": "67.2%",
+        "notes": "Triple PDC knockout severely reduced product flux -- NAD+ regeneration via ethanol fermentation is essential for glycolytic flux. PDC knockout is counterproductive."
+      }
+    ],
+    "best_strategy": "Round 2: OE ZWF1 (min_flux=2.0) + OE ARO4 (min_flux=0.2)",
+    "production_envelope": [
+      {"biomass_fraction": 0.0, "biomass_flux": 0.000000, "max_product_flux": 0.666667},
+      {"biomass_fraction": 0.1, "biomass_flux": 0.026246, "max_product_flux": 0.642698},
+      {"biomass_fraction": 0.2, "biomass_flux": 0.052493, "max_product_flux": 0.573707},
+      {"biomass_fraction": 0.3, "biomass_flux": 0.078739, "max_product_flux": 0.504716},
+      {"biomass_fraction": 0.4, "biomass_flux": 0.104985, "max_product_flux": 0.435726},
+      {"biomass_fraction": 0.5, "biomass_flux": 0.131232, "max_product_flux": 0.366735},
+      {"biomass_fraction": 0.6, "biomass_flux": 0.157478, "max_product_flux": 0.297745},
+      {"biomass_fraction": 0.7, "biomass_flux": 0.183724, "max_product_flux": 0.228754},
+      {"biomass_fraction": 0.8, "biomass_flux": 0.209971, "max_product_flux": 0.159763},
+      {"biomass_fraction": 0.9, "biomass_flux": 0.236217, "max_product_flux": 0.081443},
+      {"biomass_fraction": 1.0, "biomass_flux": 0.262463, "max_product_flux": 0.000000}
+    ],
+    "strategy_description": "3'-Hydroxygenistein (orobol) production in S. cerevisiae via an 8-step entirely heterologous pathway from L-phenylalanine through the phenylpropanoid, flavonoid, and isoflavonoid biosynthesis routes. The pathway requires 9 heterologous enzymes: PAL2 (A. thaliana), C4H/CYP73A5 (A. thaliana), 4CL1 (A. thaliana), CHS/TT4 (A. thaliana), CHI1 (M. sativa), IFS2/CYP93C1v2 (G. max), HIDH (G. max), F3'H/CYP75B1 (A. thaliana), plus ATR1 (A. thaliana) as the NADPH-cytochrome P450 reductase serving all 3 CYP450 enzymes. Host modifications: overexpress ZWF1 (NADPH supply) and ARO4-K229L (feedback-resistant DAHP synthase for phenylalanine supply). The pathway contains 3 CYP450 enzymes (C4H, IFS2, F3'H) requiring heme, CPR, and ER membrane space -- ER expansion and heme supply enhancement are recommended. Theoretical max 0.667 mmol/gDW/h, optimized 0.643 at 10% biomass (96.4% of theoretical max). Additionally, ACC1-S659A/S1157A overexpression is recommended in practice to boost malonyl-CoA supply (CHS consumes 3 malonyl-CoA per product molecule) though FBA overexpression was infeasible due to GPR sharing with FAS genes."
+  },
+  "recommended_conditions": {
+    "carbon_source": "Glucose (standard YPD or minimal media with 2% glucose)",
+    "oxygen_level": "Aerobic (fully aerobic conditions essential -- 3 O2 molecules consumed per product by the 3 CYP450 steps)",
+    "supplements": [
+      "5-Aminolevulinic acid (ALA, 0.5-1 mM) to enhance heme biosynthesis for CYP450 cofactor supply",
+      "Fe2+ supplementation (FeSO4) to support heme iron insertion",
+      "Consider L-phenylalanine feeding (1-5 mM) to supplement endogenous shikimate pathway supply"
+    ],
+    "growth_phase_strategy": "Two-phase fermentation: aerobic growth phase for biomass accumulation, followed by production phase with continued aerobic conditions. The production envelope shows a strong growth-production tradeoff (linear inverse relationship), so growth should be separated from production."
+  },
+  "known_limitations": [
+    "FBA predicts flux capacity, not actual titers (g/L) -- in vivo protein expression levels, folding, and enzyme kinetics determine realized production",
+    "CYP450 expression in yeast ER is challenging: competition for ER membrane space, heme supply, and CPR electrons among 3 CYP450s may create bottlenecks not captured by FBA",
+    "AtF3'H (CYP75B1) naturally hydroxylates flavonoids (naringenin, dihydrokaempferol) but has not been experimentally validated for 3'-hydroxylation of genistein (an isoflavone). The CYP57B3 triple mutant from A. oryzae (V138I/S243N/V463F) has demonstrated activity (PMID: 28520936) and may be a safer choice",
+    "Product toxicity of 3'-hydroxygenistein to yeast cells is unknown and could limit achievable titers",
+    "Malonyl-CoA supply (3 per product) competes with essential fatty acid biosynthesis -- ACC1-S659A/S1157A is recommended but could not be modeled cleanly in FBA due to shared GPR with FAS",
+    "Feedback inhibition of native ARO4 by tyrosine is not captured in FBA -- the ARO4-K229L feedback-resistant mutant is critical in practice",
+    "Protein-protein interactions between CYP450s and CPR on the ER membrane may create channeling or competition effects not modeled by stoichiometric FBA",
+    "Adaptive laboratory evolution (ALE) outcomes cannot be predicted",
+    "No de novo mutation effect predictions -- only literature-reported mutations are included"
+  ]
 }

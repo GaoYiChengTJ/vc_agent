@@ -9,10 +9,13 @@
         "product": "L-Lactate",
         "enzyme_ec": "EC 1.1.1.27",
         "enzyme_name": "L-lactate dehydrogenase",
+        "kegg_reaction": "R00703",
+        "kegg_orthology": "K00016",
         "source_organism": "Lacticaseibacillus casei",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADH"],
-        "cofactors_produced": ["NAD+"]
+        "cofactors_produced": ["NAD+"],
+        "reaction_equation": "Pyruvate + NADH + H+ --> L-Lactate + NAD+"
       }
     ],
     "total_cofactors": {
@@ -30,7 +33,55 @@
         "source_organism": "Lacticaseibacillus casei",
         "uniprot_id": "P00343",
         "ec_number": "EC 1.1.1.27",
-        "function": "L-lactate dehydrogenase; converts pyruvate + NADH to L-lactate + NAD+"
+        "function": "L-lactate dehydrogenase; converts pyruvate + NADH + H+ to L-lactate + NAD+",
+        "molecular_weight_kDa": 35.5,
+        "length_aa": 326,
+        "subunit": "Homotetramer",
+        "km_pyruvate_mM": "0.45 (pH 4.8), 0.71 (pH 5.5), 3.0 (pH 6.2), 12.0 (pH 7.0)",
+        "vmax_umol_min_mg": "2500 (pH 4.8), 2400 (pH 5.5), 2000 (pH 6.2), 1900 (pH 7.0)",
+        "pdb_structures": ["1LLC", "2ZQY", "2ZQZ", "6J9S", "6J9T", "6J9U", "6JML"],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "activity_regulation": "Allosterically activated by fructose 1,6-bisphosphate (FBP) under acidic conditions; requires FBP + Mn2+ under neutral conditions",
+        "known_mutations": [
+          {
+            "mutation": "R171Q",
+            "effect": "No catalytic activity without FBP; marked activity with 5 mM FBP"
+          },
+          {
+            "mutation": "H174D",
+            "effect": "Lower thermoresistance; not thermostabilized by FBP or Mn2+"
+          }
+        ],
+        "expression_notes": "Soluble cytoplasmic protein, no TM or signal peptide. FBP allosteric activation is advantageous in yeast since FBP is a glycolytic intermediate present at high levels. GRAVY score -0.08 (hydrophilic), estimated pI 6.9. Multiple crystal structures available for rational engineering."
+      }
+    ],
+    "alternative_enzyme_candidates": [
+      {
+        "gene_name": "LDHA",
+        "source_organism": "Rhizopus oryzae",
+        "uniprot_id": "Q9P4B6",
+        "ec_number": "EC 1.1.1.27",
+        "length_aa": 320,
+        "molecular_weight_kDa": 34.2,
+        "notes": "Fungal origin (eukaryotic), potentially better codon compatibility and protein folding in yeast. Stable predicted (instability index 35.0). No FBP allosteric regulation reported. Cytoplasmic, soluble, no TM or signal peptide."
+      },
+      {
+        "gene_name": "ldh",
+        "source_organism": "Geobacillus stearothermophilus",
+        "uniprot_id": "P00344",
+        "ec_number": "EC 1.1.1.27",
+        "length_aa": 317,
+        "notes": "Thermostable bacterial LDH. FBP-allosteric activation. 3 PDB structures. May have advantages in thermotolerance."
+      },
+      {
+        "gene_name": "ldh",
+        "source_organism": "Lactobacillus helveticus",
+        "uniprot_id": "O32765",
+        "ec_number": "EC 1.1.1.27",
+        "length_aa": 323,
+        "notes": "Alternative bacterial LDH from dairy lactic acid bacterium."
       }
     ],
     "knockouts": [
@@ -38,49 +89,57 @@
         "gene_name": "PDC1",
         "yeast_systematic_id": "YLR044C",
         "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
-        "rationale": "Major pyruvate decarboxylase; blocks ethanol pathway to redirect pyruvate flux toward lactate (WT flux 15.95)"
+        "competing_flux_wt": 15.95,
+        "rationale": "Major pyruvate decarboxylase isozyme; blocks ethanol pathway by preventing pyruvate to acetaldehyde conversion. OR-logic GPR (YGR087C or YLR134W or YLR044C) requires all three PDC genes to be knocked out."
       },
       {
         "gene_name": "PDC5",
         "yeast_systematic_id": "YLR134W",
         "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
-        "rationale": "Isozyme of PDC1; must knock out all three PDC genes due to OR-logic GPR to fully disable PYRDC"
+        "competing_flux_wt": 15.95,
+        "rationale": "Second pyruvate decarboxylase isozyme; OR-logic GPR requires multi-gene knockout to fully disable PYRDC."
       },
       {
         "gene_name": "PDC6",
         "yeast_systematic_id": "YGR087C",
         "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
-        "rationale": "Third pyruvate decarboxylase isozyme; required for complete PYRDC elimination"
+        "competing_flux_wt": 15.95,
+        "rationale": "Third pyruvate decarboxylase isozyme; completes elimination of pyruvate decarboxylation."
       },
       {
         "gene_name": "ADH1",
         "yeast_systematic_id": "YOL086C",
         "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
-        "rationale": "Major alcohol dehydrogenase; blocks acetaldehyde to ethanol conversion (WT flux 15.82)"
+        "competing_flux_wt": 15.82,
+        "rationale": "Major alcohol dehydrogenase; blocks acetaldehyde to ethanol conversion. OR-logic GPR (YOL086C or YGL256W or YBR145W) requires all three ADH genes to be knocked out."
       },
       {
         "gene_name": "ADH3",
         "yeast_systematic_id": "YGL256W",
         "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
-        "rationale": "Alcohol dehydrogenase isozyme; OR-logic GPR requires multi-gene knockout"
+        "competing_flux_wt": 15.82,
+        "rationale": "Alcohol dehydrogenase isozyme; OR-logic GPR requires multi-gene knockout."
       },
       {
         "gene_name": "ADH5",
         "yeast_systematic_id": "YBR145W",
         "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
-        "rationale": "Alcohol dehydrogenase isozyme; completes elimination of ethanol production"
+        "competing_flux_wt": 15.82,
+        "rationale": "Alcohol dehydrogenase isozyme; completes elimination of ethanol production."
       },
       {
         "gene_name": "CYB2",
         "yeast_systematic_id": "YML054C",
         "reaction_blocked": "L_LACD2cm (L-lactate cytochrome c oxidoreductase)",
-        "rationale": "Degrades L-lactate back to pyruvate; knockout prevents product degradation"
+        "competing_flux_wt": 0.0,
+        "rationale": "Degrades L-lactate back to pyruvate via cytochrome c-dependent oxidation. Essential knockout to prevent product degradation. CYB2 interacts with DLD1/DLD2/DLD3, CDC19, NDE1/NDE2 in STRING DB (combined scores 0.94-0.99)."
       },
       {
         "gene_name": "GPD1",
         "yeast_systematic_id": "YDL022W",
         "reaction_blocked": "G3PD1ir (glycerol-3-phosphate dehydrogenase)",
-        "rationale": "Blocks glycerol pathway to redirect NADH toward LDH reaction (WT flux 0.007)"
+        "competing_flux_wt": 0.007,
+        "rationale": "Blocks glycerol biosynthesis pathway, redirecting NADH toward LDH reaction for lactate production."
       }
     ],
     "overexpressions": [
@@ -88,14 +147,130 @@
         "gene_name": "PYK1 (CDC19)",
         "yeast_systematic_id": "YAL038W",
         "reaction_boosted": "PYK (pyruvate kinase)",
-        "rationale": "Increase pyruvate supply from PEP; ensures high substrate availability for LDH"
+        "baseline_flux": 17.72,
+        "forced_min_flux": 1.0,
+        "rationale": "Increase pyruvate supply from PEP; ensures high substrate availability for heterologous LDH. PYK has OR-logic GPR (YAL038W or YOR347C)."
       }
-    ]
+    ],
+    "native_transport": {
+      "gene_name": "JEN1",
+      "yeast_systematic_id": "YKL217W",
+      "uniprot_id": "P36035",
+      "reaction": "L_LACt2r (L-lactate reversible transport via proton symport)",
+      "notes": "Native carboxylic acid transporter. Model already includes L-lactate exchange reaction (EX_lac__L_e). JEN1 overexpression may further improve export at high titers."
+    }
   },
   "fba_results": {
     "baseline_max_flux": 20.0,
+    "baseline_max_flux_10pct_biomass": 19.647173,
     "optimized_max_flux": 19.648346,
     "biomass_at_optimum": 0.028691,
-    "strategy_description": "Express heterologous L-LDH from L. casei (P00343). Knock out all three pyruvate decarboxylase genes (PDC1/PDC5/PDC6), three alcohol dehydrogenase genes (ADH1/ADH3/ADH5), CYB2 (lactate degradation), and GPD1 (glycerol pathway). This eliminates ethanol and glycerol as competing pathways, prevents L-lactate degradation, and redirects nearly all glycolytic flux through LDH. With 10% minimum biomass constraint, achieves 19.65 mmol/gDW/h lactate production (98.2% of theoretical maximum 20.0). Production envelope shows linear tradeoff: at full biomass (0.287) production is 15.83; at zero biomass production reaches 20.0."
-  }
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "LDH pathway only (no host modifications)",
+        "biomass": 0.028787,
+        "product_flux": 19.647173,
+        "vs_baseline": "reference",
+        "notes": "Theoretical ceiling at 10% biomass constraint"
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO PDC1/PDC5/PDC6 + ADH1/ADH3/ADH5 + CYB2 + GPD1, OE PYK1",
+        "biomass": 0.028691,
+        "product_flux": 19.648346,
+        "vs_baseline": "+0.006% vs baseline",
+        "notes": "17 reactions disabled. Near-theoretical maximum achieved. Stopped: <5% improvement over baseline."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "Same KOs/OE + microaerobic (O2 lb=-0.5)",
+        "biomass": 0.023043,
+        "product_flux": 19.717568,
+        "vs_baseline": "+0.36% vs baseline",
+        "notes": "Slightly higher product flux under microaerobic conditions."
+      },
+      {
+        "round": "Round 3",
+        "strategy": "Same KOs/OE + anaerobic (O2 lb=0)",
+        "biomass": 0.0,
+        "product_flux": 20.0,
+        "vs_baseline": "Max theoretical",
+        "notes": "No biomass produced under anaerobic conditions with all KOs; all carbon goes to lactate. Not viable for sustained production."
+      }
+    ],
+    "production_envelope": [
+      {"biomass_min": 0.000000, "max_product_flux": 20.000000},
+      {"biomass_min": 0.028691, "max_product_flux": 19.648346},
+      {"biomass_min": 0.057382, "max_product_flux": 19.296693},
+      {"biomass_min": 0.086073, "max_product_flux": 18.945039},
+      {"biomass_min": 0.114763, "max_product_flux": 18.593386},
+      {"biomass_min": 0.143454, "max_product_flux": 18.241732},
+      {"biomass_min": 0.172145, "max_product_flux": 17.890079},
+      {"biomass_min": 0.200836, "max_product_flux": 17.538425},
+      {"biomass_min": 0.229527, "max_product_flux": 17.035346},
+      {"biomass_min": 0.258218, "max_product_flux": 16.462974},
+      {"biomass_min": 0.286909, "max_product_flux": 15.827170}
+    ],
+    "strategy_description": "Express heterologous L-LDH from L. casei (P00343). Knock out all three pyruvate decarboxylase genes (PDC1/PDC5/PDC6), three alcohol dehydrogenase genes (ADH1/ADH3/ADH5), CYB2 (lactate degradation), and GPD1 (glycerol pathway). Overexpress PYK1 to boost pyruvate supply. This eliminates ethanol and glycerol as competing pathways, prevents L-lactate degradation, and redirects nearly all glycolytic flux through LDH. With 10% minimum biomass constraint, achieves 19.65 mmol/gDW/h lactate production (98.2% of theoretical maximum 20.0). Production envelope shows approximately linear tradeoff: at full biomass (0.287) production is 15.83; at zero biomass production reaches 20.0."
+  },
+  "protein_analysis": {
+    "ldh_kinetics_comparison": {
+      "L_casei_P00343": {
+        "km_pyruvate_mM": [0.45, 0.71, 3.0, 12.0],
+        "km_conditions": ["pH 4.8", "pH 5.5", "pH 6.2", "pH 7.0"],
+        "vmax_umol_min_mg": [2500, 2400, 2000, 1900],
+        "allosteric_activation": "FBP (fructose 1,6-bisphosphate) under acidic conditions; FBP + Mn2+ under neutral conditions",
+        "pdb_count": 7,
+        "best_resolution_A": 2.0,
+        "active_site_residue": "H181 (proton acceptor)",
+        "nad_binding_residues": [20, 41, 46, 71, 85, 107, 124, 149],
+        "substrate_binding_residues": [88, 94, 126, 154],
+        "fbp_binding_residues": [159, 171, 174],
+        "assessment": "Excellent candidate: high Vmax, well-characterized kinetics across pH range, FBP activation beneficial since FBP is abundant in glycolysis, multiple crystal structures for engineering"
+      },
+      "R_oryzae_Q9P4B6": {
+        "km_pyruvate_mM": "Not reported in UniProt",
+        "allosteric_activation": "None reported",
+        "pdb_count": 0,
+        "assessment": "Fungal origin (eukaryotic) may improve expression in yeast. Stable protein (instability index 35). Less kinetic data available. No FBP regulation simplifies engineering but loses glycolytic coupling."
+      },
+      "G_stearothermophilus_P00344": {
+        "km_pyruvate_mM": "Not reported in UniProt",
+        "allosteric_activation": "FBP activation (similar to L. casei)",
+        "pdb_count": 3,
+        "assessment": "Thermostable. FBP-dependent. 3 PDB structures. Known R157Q mutation affects subunit assembly."
+      }
+    },
+    "expression_risk_assessment": {
+      "transmembrane_domains": "None - soluble protein, low expression risk",
+      "signal_peptide": "None - no processing required",
+      "subcellular_targeting": "Cytoplasmic in source organism, should express cytoplasmically in yeast",
+      "cofactor_requirements": "NAD+/NADH only - abundantly available in yeast cytoplasm",
+      "protein_folding": "Homotetramer assembly required; bacterial proteins generally fold well in yeast cytoplasm",
+      "codon_optimization": "Recommended for L. casei gene (GC content mismatch with S. cerevisiae)"
+    },
+    "cyb2_interaction_analysis": {
+      "note": "CYB2 knockout to prevent lactate degradation. STRING analysis confirms CYB2 interacts with DLD1 (score 0.998), DLD2 (0.978), DLD3 (0.976), CDC19/PYK (0.954). Functional enrichment confirms monocarboxylic acid metabolism (FDR=8.5e-8) and lactate metabolism (FDR=1.4e-5). Knocking out CYB2 disrupts L-lactate cytochrome c oxidoreductase without affecting essential pathways."
+    }
+  },
+  "recommended_conditions": {
+    "carbon_source": "Glucose (EX_glc__D_e)",
+    "oxygen_level": "Aerobic (default) or microaerobic (O2 lb=-0.5) for slightly higher yield",
+    "special_notes": [
+      "L. casei LDH is allosterically activated by FBP, which is advantageous since FBP levels are high during active glycolysis in yeast",
+      "At low pH (4.8-5.5), LDH has lower Km for pyruvate (0.45-0.71 mM) and higher Vmax, favoring production at the naturally low pH of yeast fermentation",
+      "JEN1 (native lactate transporter) is present in the model; overexpression may be needed at high titers to avoid intracellular accumulation",
+      "PDC-null strains (delta-pdc1/pdc5/pdc6) are viable but grow slowly on glucose; adaptive laboratory evolution may be needed for robust growth"
+    ]
+  },
+  "known_limitations": [
+    "FBA provides flux values (mmol/gDW/h) not absolute titers (g/L); actual productivity depends on biomass density and fermentation conditions",
+    "Protein expression levels, folding efficiency, and in vivo solubility of heterologous LDH cannot be predicted by FBA",
+    "Product toxicity: L-lactic acid at high concentrations (>100 g/L) inhibits cell growth and may require adaptive evolution or acid tolerance engineering",
+    "PDC-null yeast strains (pdc1/pdc5/pdc6 triple knockout) require C2 supplements (ethanol or acetate) for growth on glucose due to loss of cytosolic acetyl-CoA supply; this is not captured in standard FBA",
+    "Allosteric regulation of L. casei LDH by FBP is not modeled in FBA but is beneficial in vivo",
+    "The model does not account for metabolite channeling, enzyme kinetics, or regulatory networks",
+    "Actual Km values at yeast cytoplasmic pH (~7.0) show reduced pyruvate affinity (12 mM); multi-copy LDH expression may be needed to compensate"
+  ]
 }

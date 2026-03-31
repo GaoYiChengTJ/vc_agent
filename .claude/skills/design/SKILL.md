@@ -13,15 +13,16 @@ Parse arguments:
 - Second argument = host GEM model name (optional, default `iMM904` for *S. cerevisiae*)
 - Available models: `iMM904` (yeast), `e_coli_core` (E. coli)
 
-Execute the following 4 phases **sequentially**. After each phase, print a summary before moving to the next.
+Execute the following phases **sequentially** (1 → 2 → 3 → 3.5 → 4). After each phase, print a summary before moving to the next.
 
-## Available MCP tools (6 total)
+## Available MCP tools (7 total)
 
 | Tool | Actions |
 |------|---------|
 | `mcp__synbio__kegg` | search, compound, pathway, reaction, orthology |
 | `mcp__synbio__gem` | search, gpr, reactions |
 | `mcp__synbio__uniprot` | search, entry, interpro |
+| `mcp__synbio__protein` | annotate, interactions, kinetics, structure |
 | `mcp__synbio__fba` | **Stateful**: reset, add_pathway, knockout, overexpress, media; **Analysis**: maximize, envelope |
 | `mcp__synbio__pubmed_search` | *(no action param)* |
 | `mcp__synbio__dna_optimize` | *(no action param)* |
@@ -124,6 +125,63 @@ For competing pathway reactions identified in Step 2 and cofactor genes from Ste
 
 ---
 
+## Phase 3.5 · Protein-Level Analysis
+
+**Goal**: For each heterologous enzyme selected in Phase 3, query protein-level data to identify expression risks, kinetic bottlenecks, known beneficial mutations, and interaction requirements. This data directly informs Phase 4 engineering strategy.
+
+**Steps**:
+
+### Step 1 — Annotation (all heterologous enzymes)
+For each candidate enzyme from Phase 3:
+`mcp__synbio__protein(action="annotate", accession=<UniProt_ID>)`
+→ Check:
+  - **Transmembrane domains?** → may need N-terminal truncation or ER membrane expansion
+  - **Signal/transit peptide?** → may need removal for cytoplasmic expression in yeast
+  - **Cofactor requirements** → cross-reference with Phase 2 cofactor gap list
+  - **Mutagenesis data** → known mutations that improve activity or remove regulation
+
+### Step 2 — Kinetics (all heterologous ECs)
+For each EC number in the pathway:
+`mcp__synbio__protein(action="kinetics", ec_number=<EC>, organism=<source_organism>)`
+→ Check:
+  - **Km**: lower = higher affinity = better at low intracellular substrate
+  - **kcat**: if very low (<1 /s), enzyme may need multi-copy expression or engineering
+  - **Ki**: inhibition by product or pathway metabolite → may need de-inhibition mutation
+  - **Known mutations**: feedback-resistant variants (e.g. ARO4-K229L), activity-improved variants
+
+### Step 3 — Interactions (for enzymes that need partners)
+For enzymes flagged in Step 1 as membrane-bound or requiring cofactors/partners:
+`mcp__synbio__protein(action="interactions", protein_id=<gene_name>, organism_taxid=<taxid>)`
+→ Check:
+  - **Electron transfer partners** (CYP450 → CPR/FDX): which reductase partner is needed?
+  - **Protein complex members**: disrupting a complex via KO may have side effects
+  - **Co-expression needs**: chaperones, assembly factors
+
+### Step 4 — Structure (optional, for bottleneck enzymes only)
+For enzymes where Steps 1-3 identified a kinetic or expression bottleneck:
+`mcp__synbio__protein(action="structure", accession=<UniProt_ID>)`
+→ Check:
+  - **PDB structures available?** → enables rational design
+  - **Active site residues** → targets for rational mutagenesis
+  - **Cofactor binding sites** → assess electron/substrate access geometry
+  - **AlphaFold model confidence** → pLDDT > 70 for reliable analysis
+
+**Decision criteria** — use Phase 3.5 data to:
+- Replace wild-type enzymes with known improved variants (e.g. ACC1-S659A/S1157A)
+- Add co-expression requirements to Phase 4 (CPR for CYP450, chaperones for large proteins)
+- Flag enzymes needing multi-copy integration (low kcat)
+- Recommend ER membrane expansion if >2 membrane-bound CYP450 enzymes compete for ER space
+- Recommend VHb / heme supply OE if ≥1 heme-dependent CYP450 is in the pathway
+
+**Print**: Updated enzyme table with protein-level data:
+
+| UniProt | Gene | EC | MW | TM? | Km | kcat | Known mutations | Expression notes |
+|---------|------|----|----|-----|-----|------|-----------------|------------------|
+| Q9SWR5 | IFS2 | 1.14.14.87 | 58 kDa | Yes (ER) | 8 µM | 0.5/s | multi-copy +3.2x | Needs CPR; consider ER expansion |
+| P28012 | CHI1 | 5.5.1.6 | 25 kDa | No | 15 µM | — | none | Low risk |
+
+---
+
 ## Phase 4 · Simulation & Optimization (FBA)
 
 **Goal**: Validate the pathway in silico, propose a combined engineering strategy, and iteratively optimize it.
@@ -214,7 +272,7 @@ If the model was reset in the last iteration, rebuild the best strategy first, t
 
 ## Final Output
 
-After all 4 phases, output a structured report with 5 sections:
+After all phases, output a structured report with 6 sections:
 
 ### 1. Biosynthetic Pathway
 Complete reaction chain from host precursors to the target product.
@@ -231,11 +289,12 @@ Cofactor demands per product molecule: N NADPH, M ATP, K O2, ...
 ### 2. Host Modifications
 Three sub-tables, each with evidence tracing:
 
-**a) Heterologous genes to express** (from Phase 3):
+**a) Heterologous genes to express** (from Phase 3 + Phase 3.5):
 
-| Gene | Organism | UniProt | Length | Km | Cofactors | Notes |
-|------|----------|---------|--------|-----|-----------|-------|
-| HpaB | *P. aeruginosa* | Q9HWT7 | 520 aa | — | FAD, O2 | PDB: 6QYH |
+| Gene | Organism | UniProt | MW | Km | kcat | TM? | Mutations | Notes |
+|------|----------|---------|-----|-----|------|-----|-----------|-------|
+| HpaB | *P. aeruginosa* | Q9HWT7 | 58 kDa | — | — | No | — | PDB: 6QYH |
+| IFS2 | *G. max* | Q9SWR5 | 58 kDa | 8µM | 0.5/s | Yes (ER) | multi-copy +3.2x | Needs CPR; ER expansion recommended |
 
 **b) Genes to knock out** (from Phase 2 competing pathways, validated in Phase 4):
 
@@ -262,6 +321,13 @@ From Phase 4 FBA iterative optimization:
 
 **Production envelope** (growth vs production tradeoff for final strategy).
 
+### 3a. Protein Engineering Notes (from Phase 3.5)
+- Enzymes requiring signal peptide removal/modification for expression in yeast
+- Known beneficial mutations to apply (feedback-resistant variants, activity-improved variants)
+- Interaction partner co-expression requirements (CPR for CYP450, chaperones)
+- ER membrane expansion / VHb / heme supply recommendations (if CYP450 present)
+- Enzymes recommended for multi-copy integration (low kcat)
+
 ### 4. Recommended Conditions
 - Carbon source
 - Oxygen level (aerobic / microaerobic / anaerobic)
@@ -269,8 +335,8 @@ From Phase 4 FBA iterative optimization:
 
 ### 5. Known Limitations
 What this analysis cannot predict:
-- Protein expression levels, solubility, folding
-- CYP450 membrane engineering, CPR stoichiometry
-- Product toxicity, feedback inhibition at high titers
+- Actual protein expression levels and in vivo solubility (Phase 3.5 provides annotations but not quantitative predictions)
+- Product toxicity and feedback inhibition at high titers
 - Adaptive laboratory evolution (ALE) outcomes
 - Actual titers (FBA gives flux, not g/L)
+- Mutation effects beyond what is in the literature (no de novo prediction)

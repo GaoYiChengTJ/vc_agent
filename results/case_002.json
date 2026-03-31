@@ -2,148 +2,396 @@
   "case_id": "case_002",
   "product": "Pregnenolone",
   "pathway": {
+    "description": "Heterologous production of pregnenolone in S. cerevisiae by redirecting the native ergosterol pathway toward cholesterol biosynthesis at the zymosterol branch point, then cleaving cholesterol via CYP11A1 (cholesterol side-chain cleavage enzyme). The shared mevalonate pathway from acetyl-CoA to FPP to squalene to lanosterol to zymosterol is native. From zymosterol, a heterologous cholesterol branch (DHCR24, EBP, SC5D-like, DHCR7) replaces the native ERG6-mediated C-24 methylation, and CYP11A1 with its redox partners (FDX1, FDXR) converts cholesterol to pregnenolone.",
     "steps": [
       {
         "step_number": 1,
+        "substrate": "Acetyl-CoA",
+        "product": "HMG-CoA",
+        "enzyme_ec": "EC 2.3.3.10",
+        "enzyme_name": "HMG-CoA synthase (ERG13)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["Acetoacetyl-CoA"],
+        "cofactors_produced": ["CoA"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "HMG-CoA",
+        "product": "Mevalonate",
+        "enzyme_ec": "EC 1.1.1.34",
+        "enzyme_name": "HMG-CoA reductase (HMG1/tHMG1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["2 NADPH"],
+        "cofactors_produced": ["2 NADP+", "CoA"]
+      },
+      {
+        "step_number": 3,
+        "substrate": "Mevalonate",
+        "product": "Farnesyl diphosphate (FPP)",
+        "enzyme_ec": "EC 2.7.1.36 / EC 4.1.1.33 / EC 2.5.1.10",
+        "enzyme_name": "Mevalonate kinase, PMVK, FPPS (ERG12, ERG8, ERG20)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["3 ATP"],
+        "cofactors_produced": ["3 ADP", "CO2", "PPi"]
+      },
+      {
+        "step_number": 4,
+        "substrate": "2 FPP",
+        "product": "Squalene",
+        "enzyme_ec": "EC 2.5.1.21",
+        "enzyme_name": "Squalene synthase (ERG9, K00801)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": ["NADP+", "2 PPi"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Squalene",
+        "product": "(S)-2,3-Epoxysqualene",
+        "enzyme_ec": "EC 1.14.14.17",
+        "enzyme_name": "Squalene epoxidase (ERG1, K00511)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": ["NADP+", "H2O"]
+      },
+      {
+        "step_number": 6,
+        "substrate": "(S)-2,3-Epoxysqualene",
+        "product": "Lanosterol",
+        "enzyme_ec": "EC 5.4.99.7",
+        "enzyme_name": "Lanosterol synthase (ERG7, K01852)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 7,
+        "substrate": "Lanosterol",
+        "product": "Zymosterol",
+        "enzyme_ec": "EC 1.14.14.154 / EC 1.3.1.70 / EC 1.14.18.9 / EC 1.1.1.170 / EC 1.1.1.270",
+        "enzyme_name": "ERG11 (CYP51), ERG24, ERG25, ERG26, ERG27 (native sterol demethylation cascade)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["9 NADPH", "6 O2"],
+        "cofactors_produced": ["9 NADP+", "Formate", "CO2"]
+      },
+      {
+        "step_number": 8,
         "substrate": "Zymosterol",
         "product": "5alpha-Cholest-8-en-3beta-ol",
         "enzyme_ec": "EC 1.3.1.72",
-        "enzyme_name": "Delta(24)-sterol reductase (DHCR24)",
+        "enzyme_name": "Delta(24)-sterol reductase (DHCR24, K09828)",
         "source_organism": "Homo sapiens",
+        "uniprot_id": "Q15392",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH"],
         "cofactors_produced": ["NADP+"]
       },
       {
-        "step_number": 2,
+        "step_number": 9,
         "substrate": "5alpha-Cholest-8-en-3beta-ol",
         "product": "Lathosterol",
         "enzyme_ec": "EC 5.3.3.5",
-        "enzyme_name": "Cholestenol delta-isomerase (EBP)",
+        "enzyme_name": "Cholestenol delta-isomerase (EBP, K01824)",
         "source_organism": "Homo sapiens",
+        "uniprot_id": "native ERG2 can partially substitute; heterologous EBP recommended",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
         "cofactors_produced": []
       },
       {
-        "step_number": 3,
+        "step_number": 10,
         "substrate": "Lathosterol",
         "product": "7-Dehydrocholesterol",
         "enzyme_ec": "EC 1.14.19.20",
-        "enzyme_name": "Delta7-sterol 5-desaturase (SC5D)",
+        "enzyme_name": "Delta7-sterol 5-desaturase (ERG3/SC5D, K00227)",
         "source_organism": "Saccharomyces cerevisiae",
         "native_or_heterologous": "native",
         "cofactors_consumed": ["NADPH", "O2"],
-        "cofactors_produced": ["NADP+"]
+        "cofactors_produced": ["NADP+", "2 H2O"]
       },
       {
-        "step_number": 4,
+        "step_number": 11,
         "substrate": "7-Dehydrocholesterol",
         "product": "Cholesterol",
         "enzyme_ec": "EC 1.3.1.21",
-        "enzyme_name": "7-dehydrocholesterol reductase (DHCR7)",
+        "enzyme_name": "7-dehydrocholesterol reductase (DHCR7, K00213)",
         "source_organism": "Homo sapiens",
+        "uniprot_id": "Q9UBM7",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH"],
         "cofactors_produced": ["NADP+"]
       },
       {
-        "step_number": 5,
+        "step_number": 12,
         "substrate": "Cholesterol",
-        "product": "Pregnenolone",
+        "product": "Pregnenolone + 4-Methylpentanal (isocaproaldehyde)",
         "enzyme_ec": "EC 1.14.15.6",
-        "enzyme_name": "Cholesterol side-chain cleavage enzyme (CYP11A1)",
+        "enzyme_name": "Cholesterol side-chain cleavage enzyme (CYP11A1, K00498)",
         "source_organism": "Bos taurus",
+        "uniprot_id": "P00189",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": ["NADPH", "NADPH", "NADPH", "O2", "O2", "O2"],
-        "cofactors_produced": ["NADP+", "NADP+", "NADP+"]
+        "cofactors_consumed": ["3 O2", "6 NADPH (via FDX1/FDXR electron chain)"],
+        "cofactors_produced": ["6 NADP+", "4 H2O"]
       }
     ],
-    "total_cofactors": {
-      "NADPH": -6,
-      "NADH": 0,
-      "ATP": 0,
-      "O2": -4,
-      "FAD": 0
+    "cofactor_demand_per_molecule": {
+      "NADPH": 12,
+      "O2": 5,
+      "ATP": 3,
+      "note": "12 NADPH total for steps 8-12 alone (1+0+1+1+6+shared upstream ~9 NADPH in steps 2-7). O2 required for steps 5,10,12. CYP11A1 requires 3 O2 and 6 NADPH equivalents delivered via the FDX1/FDXR electron transfer chain."
     }
   },
   "engineering": {
     "heterologous_genes": [
       {
-        "gene_name": "DHCR24",
-        "source_organism": "Homo sapiens",
+        "gene": "DHCR24",
+        "organism": "Homo sapiens",
         "uniprot_id": "Q15392",
-        "ec_number": "EC 1.3.1.72",
-        "function": "Delta(24)-sterol reductase; converts zymosterol to 5alpha-cholest-8-en-3beta-ol using NADPH. Redirects flux from ergosterol to cholesterol pathway."
+        "ec_number": "1.3.1.72",
+        "molecular_weight_kDa": 60.1,
+        "length_aa": 516,
+        "cofactor": "FAD",
+        "transmembrane": "1 TM helix (residues 32-52)",
+        "signal_peptide": "Yes (residues 1-22, ER targeting)",
+        "subcellular_location": "ER membrane / Golgi",
+        "pdb_structure": "None (AlphaFold available)",
+        "expression_notes": "ER-targeted; signal peptide retained for proper ER localization. FAD cofactor requirement. Interacts with DHCR7 to regulate its activity. Instability index 34.1 (stable)."
       },
       {
-        "gene_name": "DHCR7",
-        "source_organism": "Homo sapiens",
+        "gene": "DHCR7",
+        "organism": "Homo sapiens",
         "uniprot_id": "Q9UBM7",
-        "ec_number": "EC 1.3.1.21",
-        "function": "7-dehydrocholesterol reductase; converts 7-dehydrocholesterol to cholesterol using NADPH. Final step of cholesterol biosynthesis."
+        "ec_number": "1.3.1.21",
+        "molecular_weight_kDa": 54.5,
+        "length_aa": 475,
+        "cofactor": "NADPH",
+        "transmembrane": "7 TM helices (multi-pass membrane protein)",
+        "signal_peptide": "None",
+        "subcellular_location": "ER membrane",
+        "km": "4.47 uM (for epoxide substrate)",
+        "known_mutations": "N274K: loss of activity; L306R: loss of activity; A24S: neutral; L317V: neutral",
+        "expression_notes": "Integral ER membrane protein with 7 TM domains. NADPH-dependent. Co-expression with DHCR24 may improve activity (known physical interaction). High hydrophobicity (GRAVY +0.232). Consider ER membrane expansion (INO2/INO4 overexpression) due to multi-TM topology."
       },
       {
-        "gene_name": "CYP11A1",
-        "source_organism": "Bos taurus",
+        "gene": "CYP11A1",
+        "organism": "Bos taurus",
         "uniprot_id": "P00189",
-        "ec_number": "EC 1.14.15.6",
-        "function": "Cholesterol side-chain cleavage enzyme (P450scc); converts cholesterol to pregnenolone via three sequential oxidations. Requires adrenodoxin (FDX1) and adrenodoxin reductase (FDXR) as electron transfer partners. PDB: 3MZS."
+        "ec_number": "1.14.15.6",
+        "molecular_weight_kDa": 60.3,
+        "length_aa": 520,
+        "cofactor": "Heme (iron protoporphyrin IX)",
+        "transmembrane": "None (soluble, matrix-facing)",
+        "signal_peptide": "Mitochondrial targeting sequence (residues 1-39)",
+        "subcellular_location": "Mitochondrion inner membrane",
+        "pdb_structure": "3MZS (2.50 A resolution)",
+        "known_mutations": "F233A: impairs activity, increases electron leakage; F233K: markedly reduces activity",
+        "expression_notes": "Key bottleneck enzyme. Requires co-expression of FDX1 and FDXR electron transfer partners. Native mitochondrial targeting peptide should be REMOVED and replaced with yeast ER signal peptide for ER-localized expression, OR retained for mitochondrial expression. Heme supply is critical - consider overexpression of HEM1/HEM2/HEM3 pathway. Instability index 43.8 (borderline). Multi-copy integration recommended due to low overall conversion efficiency."
       },
       {
-        "gene_name": "FDX1",
-        "source_organism": "Bos taurus",
+        "gene": "FDX1 (Adrenodoxin)",
+        "organism": "Bos taurus",
         "uniprot_id": "P00257",
-        "ec_number": "",
-        "function": "Adrenodoxin (ferredoxin-1); 2Fe-2S iron-sulfur protein that shuttles electrons from FDXR to CYP11A1 for cholesterol side-chain cleavage. 186 aa."
+        "ec_number": "N/A (electron carrier)",
+        "molecular_weight_kDa": 19.8,
+        "length_aa": 186,
+        "cofactor": "[2Fe-2S] cluster",
+        "transmembrane": "None (soluble)",
+        "signal_peptide": "None annotated",
+        "subcellular_location": "Mitochondrion matrix",
+        "pdb_structure": "1AYF, 1CJE, 1E6E (multiple)",
+        "expression_notes": "Small soluble protein, [2Fe-2S] iron-sulfur cluster cofactor. Shuttles electrons from FDXR to CYP11A1. Must be co-localized with CYP11A1 (same compartment). Instability index 38.7 (stable). Good expression candidate."
       },
       {
-        "gene_name": "FDXR",
-        "source_organism": "Bos taurus",
+        "gene": "FDXR (Adrenodoxin reductase)",
+        "organism": "Bos taurus",
         "uniprot_id": "P08165",
-        "ec_number": "EC 1.18.1.6",
-        "function": "NADPH:adrenodoxin oxidoreductase; FAD-containing flavoprotein that transfers electrons from NADPH to adrenodoxin (FDX1) for mitochondrial P450 systems. PDB: 1CJC."
+        "ec_number": "1.18.1.6",
+        "molecular_weight_kDa": 54.3,
+        "length_aa": 492,
+        "cofactor": "FAD",
+        "transmembrane": "None (soluble)",
+        "signal_peptide": "None annotated",
+        "subcellular_location": "Mitochondrion inner membrane",
+        "pdb_structure": "1CJC, 1E1K, 1E6E (multiple)",
+        "expression_notes": "FAD-dependent NADPH:adrenodoxin oxidoreductase. Transfers electrons from NADPH to FDX1. Must be co-localized with FDX1 and CYP11A1. Instability index 53.7 (possibly unstable - may benefit from codon optimization and strong promoter). Monomer."
       }
     ],
     "knockouts": [
       {
-        "gene_name": "ERG6",
-        "yeast_systematic_id": "YML008C",
+        "gene": "ERG6",
+        "yeast_id": "YML008C",
         "reaction_blocked": "SAM24MT (zymosterol -> fecosterol)",
-        "rationale": "Block the native ergosterol branch at zymosterol to redirect flux toward cholesterol via the heterologous DHCR24. ERG6 KO eliminates zymosterol methylation to fecosterol, the first committed step of the ergosterol-specific pathway. Cholesterol can partially substitute for ergosterol in yeast membranes."
+        "competing_flux_wt": 0.0,
+        "rationale": "Blocks the native C-24 methylation of zymosterol to fecosterol, redirecting all zymosterol flux toward the heterologous cholesterol branch. NOTE: ERG6 KO is lethal in FBA (ergosterol required for biomass). In practice, yeast can grow without ERG6 (viable but slow growth, altered membrane composition). The biomass function must be adjusted to use cholesterol/zymosterol in place of ergosterol, or ERG6 should be attenuated (weak promoter) rather than fully deleted.",
+        "fba_notes": "Infeasible with full KO in iMM904 due to ergosterol biomass requirement. Recommended to implement as promoter attenuation in vivo."
+      },
+      {
+        "gene": "FRTT (ERG20 GGPP branch)",
+        "yeast_id": "YPL069C",
+        "reaction_blocked": "FRTT (FPP + IPP -> GGPP)",
+        "competing_flux_wt": 0.0,
+        "rationale": "Eliminates conversion of FPP to GGPP, increasing FPP availability for squalene synthase (ERG9) and downstream sterol pathway. Non-essential for core growth."
       }
     ],
     "overexpressions": [
       {
-        "gene_name": "tHMG1",
-        "yeast_systematic_id": "YML075C",
+        "gene": "tHMG1 (truncated HMG-CoA reductase)",
+        "yeast_id": "YML075C",
         "reaction_boosted": "HMGCOAR (HMG-CoA -> mevalonate)",
-        "rationale": "Truncated HMG-CoA reductase (catalytic domain only) is feedback-resistant and increases mevalonate pathway flux, the rate-limiting step in sterol biosynthesis."
+        "rationale": "N-terminally truncated HMG1 (tHMG1, catalytic domain only, residues 552-1054) removes ER membrane anchoring and feedback regulation, constitutively increasing mevalonate production. The single most impactful overexpression for terpenoid/sterol production in yeast.",
+        "fba_notes": "HMGCOAR in iMM904 is written in reverse direction. Overexpression not directly testable via FBA min_flux parameter but validated extensively in literature."
       },
       {
-        "gene_name": "ERG9",
-        "yeast_systematic_id": "YHR190W",
-        "reaction_boosted": "SQLS (2 FPP -> squalene)",
-        "rationale": "Overexpress squalene synthase to increase carbon flux from FPP into the sterol pathway and away from competing isoprenoid branches."
-      },
-      {
-        "gene_name": "ERG20",
-        "yeast_systematic_id": "YJL167W",
-        "reaction_boosted": "GRTT/DMATT (IPP+DMAPP -> GPP -> FPP)",
-        "rationale": "Overexpress farnesyl diphosphate synthase to increase FPP supply for squalene/sterol biosynthesis."
-      },
-      {
-        "gene_name": "ZWF1",
-        "yeast_systematic_id": "YNL241C",
+        "gene": "ZWF1",
+        "yeast_id": "YNL241C",
         "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
-        "rationale": "Overexpress the pentose phosphate pathway entry enzyme to increase NADPH supply. The pathway from zymosterol to pregnenolone consumes 6 NADPH per molecule."
+        "baseline_flux": 0.80,
+        "forced_to": 1.50,
+        "rationale": "Rate-limiting step of the pentose phosphate pathway. Increases cytoplasmic NADPH supply to meet the ~12 NADPH demand per pregnenolone molecule from the heterologous pathway steps."
+      },
+      {
+        "gene": "IDP2",
+        "yeast_id": "YLR174W",
+        "reaction_boosted": "ICDHyr (isocitrate dehydrogenase, NADP-dependent)",
+        "baseline_flux": 0.25,
+        "forced_to": 0.50,
+        "rationale": "Additional cytoplasmic NADPH supply via isocitrate -> alpha-ketoglutarate conversion."
+      },
+      {
+        "gene": "ERG9",
+        "yeast_id": "YHR190W",
+        "reaction_boosted": "SQLS (squalene synthase)",
+        "baseline_flux": 0.0006,
+        "rationale": "Increases flux from FPP to squalene. Upstream flux-pulling to increase sterol precursor pool."
       }
     ]
   },
+  "protein_engineering_notes": {
+    "CYP11A1_expression_strategy": {
+      "compartment_decision": "CYP11A1 can be expressed in mitochondria (native localization) or ER (more common for heterologous CYP450 in yeast). ER localization is recommended: remove the native mitochondrial targeting sequence (residues 1-39) and fuse with a yeast ER signal sequence. This co-localizes CYP11A1 with DHCR24/DHCR7 substrates/products.",
+      "electron_transfer_system": "CYP11A1 requires the FDX1/FDXR electron transfer chain. Both must be co-expressed and co-localized. Alternative: use yeast's native CPR (NCP1/YHR042W) as reductase if CYP11A1 is ER-localized, though efficiency may be lower than native FDX1/FDXR system.",
+      "heme_supply": "CYP11A1 requires heme as prosthetic group. Overexpression of HEM1 (5-aminolevulinate synthase) and HEM3 (porphobilinogen deaminase) can increase heme supply. Consider also expressing Vitreoscilla hemoglobin (VHb) for improved O2 delivery.",
+      "multi_copy": "CYP11A1 is likely the rate-limiting step. Multi-copy integration (delta-integration at Ty1 sites) recommended for 3-5 copies."
+    },
+    "DHCR7_membrane_challenges": {
+      "description": "DHCR7 has 7 transmembrane helices - an integral ER membrane protein. Expression of multi-pass membrane proteins in yeast can cause ER stress.",
+      "mitigation": "Overexpress INO2/INO4 (lipid biosynthesis regulators) to expand ER membrane capacity. Consider UPR pathway activation (HAC1 spliced form) to improve folding of ER-resident proteins."
+    },
+    "DHCR24_considerations": {
+      "signal_peptide": "Has an N-terminal signal peptide (residues 1-22) for ER targeting. Retain for proper ER localization in yeast.",
+      "FAD_cofactor": "Requires FAD as cofactor. FAD biosynthesis is native in yeast. No supplementation needed.",
+      "interaction_with_DHCR7": "DHCR24 physically interacts with DHCR7 and regulates its activity. Co-expression of both on the same plasmid or integration locus may improve activity through proximity."
+    },
+    "FDX1_FDXR_considerations": {
+      "iron_sulfur_cluster": "FDX1 requires a [2Fe-2S] cluster. Yeast has native iron-sulfur cluster assembly machinery (ISA1, ISA2 in mitochondria; CIA pathway in cytoplasm). If expressing FDX1 in cytoplasm/ER, may need to adapt to the CIA pathway or provide exogenous iron.",
+      "FDXR_stability": "FDXR has a high instability index (53.7). Codon optimization for S. cerevisiae and use of a strong constitutive promoter (TDH3p or TEF1p) recommended."
+    },
+    "known_beneficial_mutations": {
+      "tHMG1": "N-terminal truncation (residues 1-551 removed) to eliminate membrane anchor and regulatory domain. Well-established in yeast metabolic engineering.",
+      "CYP11A1_F233": "AVOID F233A and F233K mutations - both reduce activity.",
+      "DHCR7": "AVOID N274K and L306R mutations - both cause loss of activity."
+    },
+    "ER_membrane_expansion": "With DHCR24 (1 TM), DHCR7 (7 TMs), and potentially ER-localized CYP11A1, ER membrane expansion is strongly recommended. Overexpress INO2 and/or introduce the spliced form of HAC1.",
+    "VHb_recommendation": "CYP11A1 requires 3 O2 per catalytic cycle. Co-expression of Vitreoscilla hemoglobin (VHb, Vitreoscilla stercoraria) is recommended to improve intracellular oxygen delivery, especially under high-density fermentation conditions."
+  },
   "fba_results": {
-    "baseline_max_flux": 0.142857,
-    "optimized_max_flux": 0.142751,
-    "biomass_at_optimum": 0.026593,
-    "strategy_description": "Heterologous pathway (DHCR24, EBP, DHCR7, CYP11A1/FDX1/FDXR) inserted from zymosterol to pregnenolone with exchange reaction. Overexpress ERG9 (squalene synthase, min_flux=0.05), ZWF1 (G6PDH, min_flux=1.0), ERG20 (FPP synthase), and tHMG1 (feedback-resistant HMG-CoA reductase). ERG6 knockout recommended to redirect zymosterol from ergosterol to cholesterol pathway. At 10% min biomass fraction, max pregnenolone flux = 0.1428 mmol/gDW/h (99.9% of theoretical max 0.1429). Production envelope shows favorable growth-production tradeoff with >0.14 flux maintained up to 40% max biomass."
-  }
+    "model": "iMM904",
+    "biomass_reaction": "BIOMASS_SC5_notrace",
+    "target_reaction": "EX_pregnenolone",
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "Heterologous pathway only (DHCR24 + EBP + SC5D + DHCR7 + CYP11A1 + exchange)",
+        "interventions": [],
+        "biomass_flux": 0.0,
+        "product_flux": 0.142857,
+        "min_biomass_fraction": 0.0,
+        "notes": "Theoretical maximum with no biomass constraint. Pathway carries flux using zymosterol as branch point."
+      },
+      {
+        "round": "Baseline (10% biomass)",
+        "strategy": "Heterologous pathway only",
+        "interventions": [],
+        "biomass_flux": 0.028787,
+        "product_flux": 0.142743,
+        "min_biomass_fraction": 0.1,
+        "notes": "Near-maximum flux even at 10% biomass. PYRDC is the top glycolytic flux carrier."
+      },
+      {
+        "round": "Round 1 (failed)",
+        "strategy": "KO ERG6 (YML008C) + OE tHMG1 + OE ZWF1",
+        "interventions": ["KO YML008C", "OE YML075C min_flux=0.5", "OE YNL241C min_flux=2.0"],
+        "biomass_flux": "N/A",
+        "product_flux": "infeasible",
+        "min_biomass_fraction": 0.1,
+        "notes": "ERG6 knockout is lethal in iMM904 because ergosterol is a required biomass component (0.0007 coefficient). In vivo, ERG6-null yeast is viable but slow-growing; the model biomass function needs adjustment."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "OE ZWF1 + KO FRTT",
+        "interventions": ["KO YPL069C (FRTT)", "OE YNL241C min_flux=1.5 (ZWF1)"],
+        "biomass_flux": 0.028239,
+        "product_flux": 0.142745,
+        "min_biomass_fraction": 0.1,
+        "notes": "FRTT knockout eliminates FPP->GGPP diversion. Product flux near theoretical maximum."
+      },
+      {
+        "round": "Round 3 (final)",
+        "strategy": "KO FRTT + OE ZWF1 + OE IDP2",
+        "interventions": ["KO YPL069C (FRTT)", "OE YNL241C min_flux=1.5 (ZWF1)", "OE YLR174W min_flux=0.5 (IDP2)"],
+        "biomass_flux": 0.027326,
+        "product_flux": 0.142748,
+        "min_biomass_fraction": 0.1,
+        "notes": "Adding IDP2 OE provides additional NADPH. Product flux at 99.9% of theoretical maximum. Stopped: <5% improvement over Round 2."
+      }
+    ],
+    "production_envelope": {
+      "strategy": "Round 3 (KO FRTT + OE ZWF1 + OE IDP2)",
+      "data": [
+        {"biomass_fraction": 0.0, "biomass_flux": 0.0, "max_product_flux": 0.142857},
+        {"biomass_fraction": 0.1, "biomass_flux": 0.027326, "max_product_flux": 0.142748},
+        {"biomass_fraction": 0.2, "biomass_flux": 0.054652, "max_product_flux": 0.142640},
+        {"biomass_fraction": 0.3, "biomass_flux": 0.081978, "max_product_flux": 0.142531},
+        {"biomass_fraction": 0.4, "biomass_flux": 0.109304, "max_product_flux": 0.134506},
+        {"biomass_fraction": 0.5, "biomass_flux": 0.136630, "max_product_flux": 0.114001},
+        {"biomass_fraction": 0.6, "biomass_flux": 0.163956, "max_product_flux": 0.093288},
+        {"biomass_fraction": 0.7, "biomass_flux": 0.191282, "max_product_flux": 0.072575},
+        {"biomass_fraction": 0.8, "biomass_flux": 0.218608, "max_product_flux": 0.051863},
+        {"biomass_fraction": 0.9, "biomass_flux": 0.245934, "max_product_flux": 0.028255},
+        {"biomass_fraction": 1.0, "biomass_flux": 0.273260, "max_product_flux": 0.0}
+      ]
+    },
+    "heterologous_reactions_added": [
+      {"id": "DHCR24", "reaction_string": "zymst_c + nadph_c + h_c --> cholest8enol_c + nadp_c"},
+      {"id": "EBP_iso", "reaction_string": "cholest8enol_c --> lathosterol_c"},
+      {"id": "SC5D_rxn", "reaction_string": "lathosterol_c + nadph_c + h_c + o2_c --> dhcholesterol_c + nadp_c + 2 h2o_c"},
+      {"id": "DHCR7", "reaction_string": "dhcholesterol_c + nadph_c + h_c --> cholesterol_c + nadp_c"},
+      {"id": "CYP11A1", "reaction_string": "cholesterol_c + 3 o2_c + 6 nadph_c + 6 h_c --> pregnenolone_c + isoval_c + 6 nadp_c + 4 h2o_c"},
+      {"id": "SINK_isoval", "reaction_string": "isoval_c -->"},
+      {"id": "EX_pregnenolone", "reaction_string": "pregnenolone_c -->"}
+    ]
+  },
+  "recommended_conditions": {
+    "carbon_source": "Glucose (standard, 10-20 g/L)",
+    "oxygen_level": "Aerobic (CYP11A1 requires 3 O2 per catalytic cycle; ERG pathway also O2-dependent)",
+    "temperature": "30C (standard for S. cerevisiae)",
+    "supplements": "Hemin supplementation (10-50 uM) may boost CYP11A1 activity. Ergosterol supplementation in ERG6-attenuated strains to maintain membrane integrity.",
+    "fermentation_strategy": "Two-phase fermentation: (1) Growth phase with full glucose at 30C for biomass accumulation, (2) Production phase with reduced glucose feed rate and high aeration to maximize sterol flux and CYP11A1 activity."
+  },
+  "known_limitations": [
+    "FBA provides theoretical flux bounds, not actual titers (g/L). Real-world pregnenolone titers depend on enzyme expression levels, protein folding, and cofactor availability.",
+    "CYP11A1 activity in yeast is typically low due to: (a) inefficient electron transfer without native FDX1/FDXR, (b) limited heme supply, (c) cholesterol substrate availability.",
+    "ERG6 knockout makes ergosterol unavailable, requiring either cholesterol supplementation or adaptation of yeast membranes. ERG6-null yeast is viable but has altered membrane fluidity and reduced growth.",
+    "Product toxicity: Pregnenolone and cholesterol intermediates may be toxic at high intracellular concentrations. No toxicity modeling is included.",
+    "Protein expression levels and in vivo solubility cannot be predicted by FBA. Multi-pass membrane proteins (DHCR7 with 7 TM helices) are particularly challenging.",
+    "Feedback inhibition in the sterol pathway (e.g., by oxysterols on HMGCR) is not captured by FBA.",
+    "Actual titers reported in literature for pregnenolone in yeast are typically in the range of 10-100 mg/L, far below theoretical FBA predictions."
+  ]
 }

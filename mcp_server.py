@@ -1,11 +1,12 @@
 """
 MCP Server for Metabolic Engineering Tools
 
-6 coarse-grained tools:
+7 coarse-grained tools:
 
   kegg          — KEGG search/compound/pathway/reaction/orthology (5 actions)
   gem           — GEM model search, GPR lookup, metabolite reactions (3 actions)
   uniprot       — UniProt/InterPro search and entry retrieval (3 actions)
+  protein       — Protein analysis: annotate, interactions, kinetics, structure (4 actions)
   fba           — Stateful FBA: reset, add_pathway, knockout, overexpress,
                   media, maximize, envelope (7 actions)
   pubmed_search — PubMed literature search
@@ -49,6 +50,12 @@ from tools.fba_tool import (
     fba_envelope,
 )
 from tools.dna_tool import optimize_sequence
+from tools.protein_tools import (
+    protein_annotation,
+    protein_interactions,
+    enzyme_params,
+    protein_structure,
+)
 
 # ── Create MCP server ─────────────────────────────────────────────────────
 
@@ -193,7 +200,58 @@ def uniprot(
 
 
 # ══════════════════════════════════════════════════════════════════════════
-# Tool 4: FBA — stateful (7 actions)
+# Tool 4: Protein analysis (4 actions)
+# ══════════════════════════════════════════════════════════════════════════
+
+@mcp.tool()
+def protein(
+    action: Literal["annotate", "interactions", "kinetics", "structure"],
+    accession: Optional[str] = None,
+    protein_id: Optional[str] = None,
+    organism_taxid: Optional[int] = None,
+    ec_number: Optional[str] = None,
+    organism: Optional[str] = None,
+) -> str:
+    """Deep protein-level analysis for enzyme optimisation.
+
+    Actions:
+      action="annotate"      — Structural/functional features: domains, TM helices,
+                                signal peptide, localization, cofactors, MW, mutagenesis data.
+                                Required: accession (UniProt ID, e.g. 'Q9SWR5').
+      action="interactions"  — Protein-protein interactions from STRING DB.
+                                Required: protein_id (gene name or UniProt ID).
+                                Optional: organism_taxid (default 4932 for S. cerevisiae).
+      action="kinetics"      — Enzyme kinetic parameters (Km, kcat, Vmax, Ki) and known
+                                mutations with measured effects from SABIO-RK / UniProt.
+                                Required: ec_number (e.g. '1.14.14.87').
+                                Optional: organism (e.g. 'Glycine max').
+      action="structure"     — 3D structure from PDB (experimental) and AlphaFold (predicted).
+                                Active site, binding site, and metal binding residue annotation.
+                                Required: accession (UniProt ID).
+    """
+    if action == "annotate":
+        if not accession:
+            return "Error: action='annotate' requires 'accession' (UniProt ID)."
+        return protein_annotation(accession)
+    elif action == "interactions":
+        pid = protein_id or accession
+        if not pid:
+            return "Error: action='interactions' requires 'protein_id' or 'accession'."
+        return protein_interactions(pid, organism_taxid or 4932)
+    elif action == "kinetics":
+        if not ec_number:
+            return "Error: action='kinetics' requires 'ec_number' (e.g. '1.1.1.27')."
+        return enzyme_params(ec_number, organism)
+    elif action == "structure":
+        if not accession:
+            return "Error: action='structure' requires 'accession' (UniProt ID)."
+        return protein_structure(accession)
+    else:
+        return f"Error: unknown action '{action}'."
+
+
+# ══════════════════════════════════════════════════════════════════════════
+# Tool 5: FBA — stateful (7 actions)
 # ══════════════════════════════════════════════════════════════════════════
 
 @mcp.tool()
@@ -275,7 +333,7 @@ def fba(
 
 
 # ══════════════════════════════════════════════════════════════════════════
-# Tool 5 & 6: Auxiliary (kept as-is)
+# Tool 6 & 7: Auxiliary (kept as-is)
 # ══════════════════════════════════════════════════════════════════════════
 
 @mcp.tool()

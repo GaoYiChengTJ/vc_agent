@@ -1,6 +1,6 @@
 {
   "case_id": "case_003",
-  "product": "Short- and medium-chain fatty acids (C8, C10, C12)",
+  "product": "Octanoic acid (C8:0) / Short- and medium-chain fatty acids (SMCFAs)",
   "pathway": {
     "steps": [
       {
@@ -9,149 +9,402 @@
         "product": "Malonyl-CoA",
         "enzyme_ec": "EC 6.4.1.2",
         "enzyme_name": "Acetyl-CoA carboxylase (ACC1)",
+        "kegg_reaction": "R00742",
+        "kegg_orthology": "K11262",
         "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
+        "native_or_heterologous": "native (overexpressed with S659A/S1157A mutations)",
         "cofactors_consumed": ["ATP", "HCO3-"],
-        "cofactors_produced": ["ADP", "Pi"]
+        "cofactors_produced": ["ADP", "Pi"],
+        "reaction_equation": "Acetyl-CoA + ATP + HCO3- --> Malonyl-CoA + ADP + Pi"
       },
       {
         "step_number": 2,
-        "substrate": "Acetyl-CoA + 3 Malonyl-CoA",
+        "substrate": "Acetyl-CoA + 3 Malonyl-CoA + 6 NADPH",
         "product": "Octanoyl-CoA (C8-CoA)",
         "enzyme_ec": "EC 2.3.1.86",
         "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+        "kegg_reaction": "FAS80COA_L (lumped)",
+        "kegg_orthology": "K00667/K00668",
         "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
+        "native_or_heterologous": "native (engineered FAS with chain-length control mutations)",
         "cofactors_consumed": ["6 NADPH"],
-        "cofactors_produced": ["6 NADP+", "3 CO2", "3 CoA"]
+        "cofactors_produced": ["6 NADP+", "3 CoA", "3 CO2"],
+        "reaction_equation": "accoa_c + 3 malcoa_c + 6 nadph_c + 9 h_c --> occoa_c + 3 co2_c + 3 coa_c + 3 h2o_c + 6 nadp_c"
       },
       {
         "step_number": 3,
-        "substrate": "Octanoyl-CoA (C8-CoA) + Malonyl-CoA",
-        "product": "Decanoyl-CoA (C10-CoA)",
-        "enzyme_ec": "EC 2.3.1.86",
-        "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": ["2 NADPH"],
-        "cofactors_produced": ["2 NADP+", "CO2", "CoA"]
+        "substrate": "Octanoyl-CoA",
+        "product": "Octanoic acid (free fatty acid)",
+        "enzyme_ec": "EC 3.1.2.20 / EC 3.1.2.21",
+        "enzyme_name": "Acyl-CoA thioesterase II (TesB) / Acyl-ACP thioesterase (CvFatB1)",
+        "kegg_reaction": "R08157 (ACP variant)",
+        "kegg_orthology": "K01071 / K10781",
+        "source_organism": "Escherichia coli K12 (TesB) / Cuphea viscosissima (CvFatB1)",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["H2O"],
+        "cofactors_produced": ["CoA"],
+        "reaction_equation": "occoa_c + h2o_c --> octa_c + coa_c + h_c"
       },
       {
         "step_number": 4,
-        "substrate": "Decanoyl-CoA (C10-CoA) + Malonyl-CoA",
-        "product": "Dodecanoyl-CoA (C12-CoA)",
-        "enzyme_ec": "EC 2.3.1.86",
-        "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": ["2 NADPH"],
-        "cofactors_produced": ["2 NADP+", "CO2", "CoA"]
-      },
-      {
-        "step_number": 5,
-        "substrate": "Octanoyl-ACP / Decanoyl-ACP / Dodecanoyl-ACP",
-        "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + ACP",
-        "enzyme_ec": "EC 3.1.2.21",
-        "enzyme_name": "Medium-chain acyl-ACP thioesterase (CvFatB1)",
-        "source_organism": "Cuphea viscosissima",
-        "native_or_heterologous": "heterologous",
-        "cofactors_consumed": ["H2O"],
-        "cofactors_produced": []
-      },
-      {
-        "step_number": 6,
-        "substrate": "Octanoyl-ACP / Decanoyl-ACP / Dodecanoyl-ACP",
-        "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + ACP",
-        "enzyme_ec": "EC 3.1.2.21",
-        "enzyme_name": "Lauroyl-ACP thioesterase (UcFatB1)",
-        "source_organism": "Umbellularia californica",
-        "native_or_heterologous": "heterologous",
-        "cofactors_consumed": ["H2O"],
-        "cofactors_produced": []
-      },
-      {
-        "step_number": 7,
-        "substrate": "Octanoyl-CoA / Decanoyl-CoA / Dodecanoyl-CoA",
-        "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + CoA",
-        "enzyme_ec": "EC 3.1.2.14",
-        "enzyme_name": "Thioesterase I (TesA')",
-        "source_organism": "Escherichia coli K12",
-        "native_or_heterologous": "heterologous",
-        "cofactors_consumed": ["H2O"],
-        "cofactors_produced": []
+        "substrate": "Octanoate (cytoplasm)",
+        "product": "Octanoate (extracellular)",
+        "enzyme_ec": "N/A (passive diffusion at low pH / transporter-mediated)",
+        "enzyme_name": "Passive diffusion of protonated form / endogenous export",
+        "kegg_reaction": "N/A",
+        "kegg_orthology": "N/A",
+        "source_organism": "N/A",
+        "native_or_heterologous": "N/A",
+        "cofactors_consumed": [],
+        "cofactors_produced": [],
+        "reaction_equation": "octa_c --> octa_e"
       }
     ],
     "total_cofactors": {
-      "NADPH": -14,
+      "NADPH": -6,
       "NADH": 0,
-      "ATP": -4,
+      "ATP": -1,
       "O2": 0,
-      "FAD": 0
-    }
+      "FAD": 0,
+      "HCO3-": -3
+    },
+    "notes": "Per molecule of octanoic acid (C8): 1 acetyl-CoA + 3 malonyl-CoA (= 4 acetyl-CoA total) + 6 NADPH + 3 ATP (for ACC). The FAS80COA_L lumped reaction encodes 3 rounds of elongation from acetyl-CoA primer + 3 malonyl-CoA extender units. For C10 (decanoic acid), add 1 more malonyl-CoA + 2 NADPH; for C12 (dodecanoic acid), add 2 more."
   },
   "engineering": {
     "heterologous_genes": [
       {
-        "gene_name": "CvFATB1",
-        "source_organism": "Cuphea viscosissima",
-        "uniprot_id": "G3ESU9",
-        "ec_number": "EC 3.1.2.21",
-        "function": "Medium-chain acyl-ACP thioesterase with C8>C10 substrate preference; cleaves octanoyl-ACP and decanoyl-ACP to release free C8 and C10 fatty acids from the FAS elongation cycle"
+        "gene_name": "tesB",
+        "source_organism": "Escherichia coli K12",
+        "uniprot_id": "P0AGG2",
+        "ec_number": "EC 3.1.2.20",
+        "function": "Acyl-CoA thioesterase II; hydrolyzes octanoyl-CoA to free octanoate + CoA. Broad substrate specificity for C4-C18 acyl-CoAs with preference for C8-C14 range.",
+        "molecular_weight_kDa": 32.0,
+        "length_aa": 286,
+        "subunit": "Homotetramer",
+        "km_octanoyl_coa_uM": "13.0 (for decanoyl-CoA), 9.0 (for dodecanoyl-CoA)",
+        "vmax_umol_min_mg": "58.0 (decanoyl-CoA), 34.0 (dodecanoyl-CoA), 234.0 (3,5-tetradecadienoyl-CoA)",
+        "pdb_structures": ["1C8U"],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm (E. coli); target to cytoplasm in yeast",
+        "activity_regulation": "No allosteric regulation reported. Charge relay catalytic mechanism (D204, E228, Q278).",
+        "known_mutations": [
+          {
+            "mutation": "D204N",
+            "effect": "1000-fold reduction in catalytic activity; no change in substrate affinity"
+          },
+          {
+            "mutation": "E279Q",
+            "effect": "4-fold reduction in catalytic activity"
+          },
+          {
+            "mutation": "S107C",
+            "effect": "2-fold reduction in catalytic activity"
+          }
+        ],
+        "expression_notes": "Soluble cytoplasmic protein, no TM or signal peptide. Homotetramer. GRAVY -0.253 (hydrophilic), instability index 44.8 (borderline). Crystal structure 1C8U available at high resolution for rational engineering. Bacterial origin may require codon optimization for yeast expression."
       },
       {
-        "gene_name": "UcFATB1",
-        "source_organism": "Umbellularia californica",
+        "gene_name": "CvFatB1 (FATB1)",
+        "source_organism": "Cuphea viscosissima (Blue waxweed)",
+        "uniprot_id": "G3ESU9",
+        "ec_number": "EC 3.1.2.- (medium-chain acyl-ACP thioesterase)",
+        "function": "Acyl-ACP thioesterase with strong preference for C8:0-ACP > C10:0-ACP. Cleaves octanoyl-ACP to release free octanoic acid + holo-ACP. Key enzyme for short-chain FA production.",
+        "molecular_weight_kDa": 46.4,
+        "length_aa": 419,
+        "subunit": "Not determined (plant FatB enzymes typically homodimeric)",
+        "km_octanoyl_acp_uM": "Not quantified; substrate preference 8:0 > 10:0",
+        "pdb_structures": [],
+        "alphafold_model": "AF-G3ESU9-F1-model_v6",
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Chloroplast in source organism; express cytoplasmically in yeast (remove chloroplast transit peptide, ~first 40-60 aa)",
+        "activity_regulation": "None reported",
+        "known_mutations": [
+          {
+            "mutation": "H317A",
+            "effect": "Loss of thioesterase activity (active site residue)"
+          },
+          {
+            "mutation": "N315A",
+            "effect": "7-fold reduction in activity"
+          },
+          {
+            "mutation": "E351A",
+            "effect": "18-fold reduction in activity"
+          },
+          {
+            "mutation": "E351D",
+            "effect": "9-fold reduction in activity"
+          },
+          {
+            "mutation": "C352A",
+            "effect": "1.5-fold reduction in activity"
+          }
+        ],
+        "expression_notes": "Plant chloroplastic protein. MUST remove N-terminal chloroplast transit peptide for cytoplasmic expression in yeast. Instability index 44.9 (borderline unstable). No experimental crystal structure; AlphaFold model available. Active site: N315, H317, C352. Consider multi-copy integration due to potentially low activity in heterologous context. Plant codon usage differs significantly from yeast - codon optimization essential."
+      }
+    ],
+    "alternative_enzyme_candidates": [
+      {
+        "gene_name": "UcFatB1 (FATB1)",
+        "source_organism": "Umbellularia californica (California bay laurel)",
         "uniprot_id": "Q41635",
         "ec_number": "EC 3.1.2.21",
-        "function": "Lauroyl-ACP thioesterase with C12>C14 preference (Km 1.9 uM for C12-ACP); cleaves dodecanoyl-ACP to release free C12 fatty acid; has PDB structure 5X04"
+        "length_aa": 382,
+        "molecular_weight_kDa": 42.9,
+        "notes": "Lauroyl-ACP (C12:0) thioesterase. Km 1.9 uM for C12:0-ACP, 6.4 uM for C14:0-ACP. Homodimer. PDB: 5X04 (2.43 A resolution). Better suited for C12 dodecanoic acid production specifically. Stable protein (instability index 39.8). 18 characterized mutations available for engineering chain-length specificity. Widely used in industry for lauric acid production in transgenic oilseed plants."
       },
       {
-        "gene_name": "tesA (truncated, tesA')",
-        "source_organism": "Escherichia coli K12",
-        "uniprot_id": "P0ADA1",
-        "ec_number": "EC 3.1.2.14",
-        "function": "Cytoplasmic thioesterase I (leaderless variant); hydrolyzes acyl-CoA thioesters C10-C18 with broad specificity; Km 11.5 uM for decanoyl-CoA; multiple PDB structures available"
+        "gene_name": "CcFatB1 (FATB1)",
+        "source_organism": "Cinnamomum camphora (Camphor tree)",
+        "uniprot_id": "Q39473",
+        "ec_number": "EC 3.1.2.21",
+        "length_aa": 382,
+        "notes": "Myristoyl-ACP (C14:0) thioesterase. Alternative for C12-C14 production. Less C8 specificity than CvFatB1."
+      },
+      {
+        "gene_name": "CvFatB2",
+        "source_organism": "Cuphea viscosissima",
+        "uniprot_id": "G3ESV0",
+        "ec_number": "EC 3.1.2.-",
+        "length_aa": 412,
+        "notes": "Myristoyl/palmitoyl-ACP thioesterase. C14:0/C16:0 specificity. Less suitable for C8 but useful for broader SMCFA profile."
       }
     ],
     "knockouts": [
       {
-        "gene_name": "POX1",
-        "yeast_systematic_id": "YGL205W",
-        "reaction_blocked": "FAO80p, FAO141p, FAO161p, FAO181p, FAO182p, FAO240p, ACOAO4-9p (all peroxisomal beta-oxidation, 20 reactions disabled)",
-        "rationale": "POX1 encodes the sole acyl-CoA oxidase in yeast peroxisomes; knockout abolishes all peroxisomal beta-oxidation, preventing degradation of C8, C10, and C12 fatty acids back to acetyl-CoA"
+        "gene_name": "FAA2",
+        "yeast_systematic_id": "YER015W",
+        "reaction_blocked": "FACOAL80p, FACOAL100p, FACOAL120p, FACOAL140p, FACOAL160p, FACOAL161p, FACOAL141p (peroxisomal fatty-acyl-CoA ligases)",
+        "competing_flux_wt": 0.0,
+        "rationale": "Blocks peroxisomal activation of medium-chain fatty acids to their CoA esters, preventing their entry into beta-oxidation. FAA2 is the sole gene for peroxisomal FA-CoA ligase activity on C8-C16 fatty acids. Without this knockout, exported octanoate can be re-imported to peroxisomes and degraded. Essential for SMCFA accumulation."
       },
       {
-        "gene_name": "ELO1",
-        "yeast_systematic_id": "YJL196C",
-        "reaction_blocked": "FAS141, FAS161, FAS181 (unsaturated fatty acid elongation/desaturation)",
-        "rationale": "ELO1 elongates C12 to C14:1, C14 to C16:1, C16 to C18:1 unsaturated fatty acids; knockout prevents carbon diversion from the SMCFA pool into unsaturated long-chain fatty acids"
+        "gene_name": "POX1",
+        "yeast_systematic_id": "YGL205W",
+        "reaction_blocked": "FAO80p, FAO141p, FAO161p, FAO181p, FAO182p, FAO240p, ACOAO4p-ACOAO9p (peroxisomal fatty acid oxidation)",
+        "competing_flux_wt": 0.0,
+        "rationale": "Peroxisomal acyl-CoA oxidase; catalyzes the first step of beta-oxidation for all chain lengths. Knockout disables 17 peroxisomal FA oxidation reactions. Combined with FAA2 KO, completely blocks peroxisomal fatty acid degradation. These reactions have 0 flux at baseline but would activate if SMCFA accumulates."
+      },
+      {
+        "gene_name": "FAS140 pathway attenuation (not a gene KO)",
+        "yeast_systematic_id": "N/A - engineering FAS1/FAS2",
+        "reaction_blocked": "FAS100, FAS120, FAS140, FAS160 (elongation of C8 to C10, C12, C14, C16 free acids)",
+        "competing_flux_wt": 0.0,
+        "rationale": "In the native pathway, FAS elongates octanoate/octanoyl-CoA all the way to C16/C18. Since FAS100/120/140/160 share GPR with FAS80, they cannot be knocked out without losing C8 production. Instead, the strategy relies on the heterologous thioesterase (TesB/CvFatB1) to rapidly hydrolyze octanoyl-CoA before FAS can elongate it. This is a kinetic competition strategy rather than a genetic knockout. FAS1/FAS2 mutations (e.g., FAS1-R1834K or FAS2-G1250S) that shift chain-length specificity toward C8 release are the preferred approach in the literature."
       }
     ],
     "overexpressions": [
       {
-        "gene_name": "ACC1",
-        "yeast_systematic_id": "YNR016C",
-        "reaction_boosted": "ACCOAC (acetyl-CoA + ATP + HCO3- --> malonyl-CoA + ADP + Pi)",
-        "rationale": "ACC1 catalyzes the rate-limiting step of fatty acid biosynthesis converting acetyl-CoA to malonyl-CoA; overexpression increases malonyl-CoA supply, the primary C2-donor for FA chain elongation; baseline flux 0.1145"
-      },
-      {
         "gene_name": "ZWF1",
         "yeast_systematic_id": "YNL241C",
-        "reaction_boosted": "G6PDH2r (glucose-6-phosphate + NADP+ --> 6-phosphogluconolactone + NADPH)",
-        "rationale": "ZWF1 encodes glucose-6-phosphate dehydrogenase, the entry point of the pentose phosphate pathway and the major cytoplasmic NADPH source; overexpression increases NADPH availability for FA biosynthesis (14 NADPH needed per C12 molecule)"
+        "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+        "baseline_flux": 0.80,
+        "forced_min_flux": 2.0,
+        "rationale": "NADPH supply bottleneck. Each C8 fatty acid requires 6 NADPH. G6PDH2r is the entry point of the pentose phosphate pathway and a major NADPH source (baseline flux 0.80). Overexpression to 2.0 ensures sufficient NADPH for high FA synthesis flux. Combined with GND (6-phosphogluconate dehydrogenase), provides 2 NADPH per glucose diverted to PPP."
       },
       {
-        "gene_name": "ACS1",
+        "gene_name": "ACS2",
         "yeast_systematic_id": "YLR153C",
-        "reaction_boosted": "ACS (acetate + ATP + CoA --> acetyl-CoA + AMP + PPi)",
-        "rationale": "ACS catalyzes cytoplasmic acetyl-CoA production from acetate; overexpression increases the cytoplasmic acetyl-CoA pool, the starter unit for FA synthesis; baseline flux 0.1471"
+        "reaction_boosted": "ACS (acetyl-CoA synthetase)",
+        "baseline_flux": 0.15,
+        "forced_min_flux": 0.5,
+        "rationale": "Cytoplasmic acetyl-CoA supply. ACS converts acetate + ATP + CoA to acetyl-CoA. In the native yeast pathway, acetyl-CoA comes from the PDH bypass (pyruvate -> acetaldehyde -> acetate -> acetyl-CoA). Overexpression ensures high cytoplasmic acetyl-CoA availability for both ACC1 (malonyl-CoA) and the FAS primer."
+      },
+      {
+        "gene_name": "ACC1",
+        "yeast_systematic_id": "YNR016C",
+        "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
+        "baseline_flux": 0.11,
+        "forced_min_flux": "Overexpress with S659A/S1157A mutations to remove Snf1 phosphoinhibition",
+        "rationale": "Rate-limiting step for malonyl-CoA supply. ACC1 is phosphorylated and inactivated by Snf1 kinase. The S659A and S1157A mutations (well-established in literature) abolish Snf1-mediated phosphoinhibition, constitutively activating ACC1. This is critical because 3 malonyl-CoA are needed per C8 fatty acid. Not modeled as a numeric min_flux because the mutations change regulation, not expression level."
       }
-    ]
+    ],
+    "native_transport": {
+      "gene_name": "Passive diffusion",
+      "yeast_systematic_id": "N/A",
+      "uniprot_id": "N/A",
+      "reaction": "OCTAt (octanoate transport, cytoplasm to extracellular)",
+      "notes": "The iMM904 model has no native exchange reaction for octanoate (EX_octa_e does not exist natively). Medium-chain fatty acids at pH < pKa (4.89 for octanoic acid) are protonated and can passively diffuse across the membrane. At fermentation pH 5-6, a significant fraction is protonated. No dedicated SMCFA exporter has been identified in yeast; passive diffusion is the primary export mechanism. Exchange reactions exist for decanoate (EX_dca_e) and dodecanoate (EX_ddca_e) in the model."
+    }
   },
   "fba_results": {
-    "baseline_max_flux": 1.829545,
-    "optimized_max_flux": 1.652065,
-    "biomass_at_optimum": 0.028787,
-    "strategy_description": "Baseline theoretical max for octanoate (C8): 1.83 mmol/gDW/h at 0% biomass. With 10% biomass constraint: 1.65 mmol/gDW/h. Knockouts of POX1 (beta-oxidation, 20 rxns disabled) and ELO1 (unsaturated FA elongation, 3 rxns disabled) prevent product degradation and carbon diversion. Decanoate (C10) max: 1.44 (0% biomass), 1.30 (10% biomass). Dodecanoate (C12) max: 1.18 (0% biomass), 1.07 (10% biomass). Production envelope shows linear growth-production tradeoff. Key bottleneck is the ethanol pathway (PYRDC flux ~19.5, ALCD2ir ~12.6) competing for pyruvate-derived acetyl-CoA. Heterologous medium-chain thioesterases (CvFatB1 from C. viscosissima, UcFatB1 from U. californica, TesA' from E. coli) are essential to intercept FAS intermediates at C8/C10/C12 chain lengths rather than allowing full elongation to C16/C18."
-  }
+    "baseline_max_flux": 1.83,
+    "baseline_max_flux_10pct_biomass": 1.65,
+    "optimized_max_flux": 1.58,
+    "biomass_at_optimum": 0.0265,
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "FAS80_L pathway + OCTAt + EX_octa_e only (no host modifications)",
+        "biomass": 0.0,
+        "product_flux": 1.83,
+        "vs_baseline": "reference (0% biomass)",
+        "notes": "Theoretical ceiling at zero biomass. Native FAS pathway produces octanoate via FAS80_L. Added transport OCTAt and exchange EX_octa_e."
+      },
+      {
+        "round": "Baseline (10% biomass)",
+        "strategy": "FAS80_L pathway + OCTAt + EX_octa_e (10% biomass constraint)",
+        "biomass": 0.0288,
+        "product_flux": 1.65,
+        "vs_baseline": "reference at 10% biomass",
+        "notes": "With 10% minimum biomass fraction."
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO PDC1/PDC5/PDC6 (triple PDC knockout) + ACC1 OE + ZWF1 OE",
+        "biomass": "N/A",
+        "product_flux": "INFEASIBLE",
+        "vs_baseline": "N/A",
+        "notes": "Triple PDC knockout is lethal. Yeast cannot grow without pyruvate decarboxylase activity on glucose (redox imbalance, no cytoplasmic acetyl-CoA). Strategy abandoned."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "FAA2 KO (peroxisomal beta-oxidation) + ZWF1 OE (min 2.0) + ACS2 OE (min 0.5)",
+        "biomass": 0.0265,
+        "product_flux": 1.58,
+        "vs_baseline": "-3.8% vs baseline (10% biomass)",
+        "notes": "FAA2 KO blocks 7 peroxisomal FA-CoA ligase reactions. ZWF1 overexpression diverts glucose to PPP for NADPH. Slight reduction vs baseline because ZWF1 OE diverts carbon from glycolysis. Stopped: <5% improvement over baseline."
+      },
+      {
+        "round": "Round 3",
+        "strategy": "FAA2+POX1 KO + TesB heterologous thioesterase + ZWF1 OE + ACS2 OE",
+        "biomass": 0.0265,
+        "product_flux": 1.58,
+        "vs_baseline": "Same as Round 2",
+        "notes": "Adding POX1 KO (blocks all 17 peroxisomal oxidation reactions) and TesB (occoa_c -> octa_c + coa_c) did not improve flux because peroxisomal degradation has zero flux at baseline. The key bottleneck is carbon partitioning between ethanol (PYRDC flux ~16.4) and FA biosynthesis."
+      }
+    ],
+    "production_envelope": [
+      {"biomass_min": 0.000000, "max_product_flux": 1.756410},
+      {"biomass_min": 0.026450, "max_product_flux": 1.584826},
+      {"biomass_min": 0.052899, "max_product_flux": 1.413242},
+      {"biomass_min": 0.079349, "max_product_flux": 1.241658},
+      {"biomass_min": 0.105798, "max_product_flux": 1.070074},
+      {"biomass_min": 0.132248, "max_product_flux": 0.898490},
+      {"biomass_min": 0.158698, "max_product_flux": 0.726906},
+      {"biomass_min": 0.185147, "max_product_flux": 0.555322},
+      {"biomass_min": 0.211597, "max_product_flux": 0.383737},
+      {"biomass_min": 0.238047, "max_product_flux": 0.212153},
+      {"biomass_min": 0.264496, "max_product_flux": 0.000000}
+    ],
+    "strategy_description": "Express heterologous medium-chain acyl-CoA/ACP thioesterases (E. coli TesB P0AGG2 and/or C. viscosissima CvFatB1 G3ESU9) to intercept octanoyl-CoA and release free octanoic acid. Engineer native FAS1/FAS2 with chain-length control mutations (R1834K in FAS1) to preferentially release C8 intermediates. Knock out FAA2 (peroxisomal FA-CoA ligase) and POX1 (peroxisomal FA oxidase) to prevent SMCFA degradation. Overexpress ACC1 with S659A/S1157A mutations (Snf1-resistant) for malonyl-CoA supply, ZWF1 for NADPH regeneration, and ACS2 for cytoplasmic acetyl-CoA. Add octanoate transport and exchange reactions for export. Production envelope shows approximately linear tradeoff: at zero biomass max flux = 1.76 mmol/gDW/h; at 10% biomass = 1.58 mmol/gDW/h; production drops to zero at full biomass (0.26). The primary bottleneck is carbon flux competition with ethanol fermentation (PYRDC flux ~16.4 mmol/gDW/h)."
+  },
+  "protein_analysis": {
+    "tesb_analysis": {
+      "uniprot_id": "P0AGG2",
+      "gene": "tesB",
+      "ec": "3.1.2.20",
+      "mw_kDa": 32.0,
+      "transmembrane": false,
+      "signal_peptide": false,
+      "subcellular_location": "Cytoplasm",
+      "km_values": {
+        "octanoyl_CoA": "Not specifically reported; decanoyl-CoA Km = 13 uM",
+        "dodecanoyl_CoA": "9.0 uM (first measurement), 23.0 uM (second measurement)",
+        "tetradecanoyl_CoA": "13.0 uM",
+        "butanoyl_CoA": "75.0 uM"
+      },
+      "vmax_values": {
+        "decanoyl_CoA": "58.0 umol/min/mg",
+        "dodecanoyl_CoA": "34.0 umol/min/mg",
+        "3_5_tetradecadienoyl_CoA": "234.0 umol/min/mg"
+      },
+      "active_site_residues": "D204 (charge relay), E228 (charge relay), Q278 (charge relay)",
+      "pdb": "1C8U",
+      "gravy": -0.253,
+      "instability_index": 44.8,
+      "pi": 7.2,
+      "mutations_to_avoid": ["D204N (1000x activity loss)"],
+      "expression_risk": "LOW - soluble, no TM, no signal peptide, well-characterized. Homotetramer assembly may be rate-limiting for in vivo activity. Codon optimization recommended for bacterial gene in yeast.",
+      "multi_copy_recommendation": "Consider 2-3 copy integration to ensure sufficient thioesterase activity to outcompete FAS elongation of octanoyl-CoA"
+    },
+    "cvfatb1_analysis": {
+      "uniprot_id": "G3ESU9",
+      "gene": "CvFatB1 (FATB1)",
+      "ec": "3.1.2.- (acyl-ACP thioesterase)",
+      "mw_kDa": 46.4,
+      "transmembrane": false,
+      "signal_peptide": false,
+      "chloroplast_transit_peptide": "Yes - MUST remove N-terminal ~40-60 aa transit peptide for cytoplasmic expression in yeast",
+      "substrate_preference": "8:0-ACP > 10:0-ACP",
+      "active_site_residues": "N315, H317, C352",
+      "pdb": "None (AlphaFold model AF-G3ESU9-F1-model_v6 available)",
+      "gravy": -0.450,
+      "instability_index": 44.9,
+      "pi": 7.3,
+      "critical_residues": {
+        "H317": "Essential - H317A causes complete loss of activity",
+        "N315": "Important - N315A causes 7-fold reduction",
+        "E351": "Important - E351A causes 18-fold reduction, E351D causes 9-fold reduction",
+        "C352": "Minor - C352A causes only 1.5-fold reduction"
+      },
+      "expression_risk": "MODERATE - plant origin, chloroplast transit peptide must be removed, instability index borderline (44.9), no experimental structure available. HotDog fold domain should fold independently in yeast cytoplasm.",
+      "multi_copy_recommendation": "3+ copy integration recommended due to potentially low heterologous expression and need to kinetically outcompete FAS elongation"
+    },
+    "ucfatb1_analysis": {
+      "uniprot_id": "Q41635",
+      "gene": "UcFatB1 (FATB1)",
+      "ec": "3.1.2.21",
+      "mw_kDa": 42.9,
+      "transmembrane": false,
+      "signal_peptide": false,
+      "km_12_0_ACP_uM": 1.9,
+      "km_14_0_ACP_uM": 6.4,
+      "pdb": "5X04 (2.43 A resolution, chains A/B covering residues 97-365)",
+      "gravy": -0.298,
+      "instability_index": 39.8,
+      "pi": 7.3,
+      "subunit": "Homodimer",
+      "expression_risk": "LOW-MODERATE - stable protein (instability 39.8), experimental crystal structure available, homodimer. Better suited for C12 production than C8. Well-characterized mutagenesis (18 mutations). M197R/R199H double mutant shifts specificity toward C14.",
+      "chain_length_engineering": "T137G increases C14 selectivity. M197R+R199H+T231K triple mutant converts to C14 thioesterase. These mutations could potentially be adapted for C8 specificity through rational design using 5X04 structure."
+    },
+    "acc1_regulation": {
+      "gene": "ACC1",
+      "yeast_id": "YNR016C",
+      "uniprot_id": "Q00955",
+      "regulation": "Phosphorylated and inhibited by Snf1 kinase. Also inhibited by soraphen A.",
+      "recommended_mutations": "S659A + S1157A (abolish Snf1 phosphorylation sites, constitutively active ACC1)",
+      "string_interactions": {
+        "top_partners": ["BPL1 (0.999, biotin ligase)", "FAS1 (0.998)", "FAS2 (0.997)", "ACS2 (0.981)", "ACS1 (0.974)", "ERG10 (0.973)", "SNF1 (0.931)"],
+        "functional_enrichment": "Fatty acid synthase complex (FDR=1.5e-04), monocarboxylic acid metabolic process (FDR=7.1e-10)"
+      },
+      "notes": "ACC1 S659A/S1157A is a well-validated engineering target. Km for malonyl-CoA = 67 uM. L1705I and R1731S mutations raise Km 15-20x (avoid these). BPL1 co-expression may be beneficial to ensure full biotinylation of overexpressed ACC1."
+    },
+    "fas_engineering": {
+      "fas1_gene": "YKL182W (FAS1, beta subunit)",
+      "fas2_gene": "YPL231W (FAS2, alpha subunit)",
+      "string_interactions_fas1": {
+        "top_partners": ["FAS2 (0.999, direct complex partner)", "ACC1 (0.998)", "TMA17 (0.979, FAS stabilizer)", "FAA1 (0.979)", "HFA1 (0.977)"],
+        "complex": "FAS1/FAS2 form alpha6-beta6 dodecameric barrel complex"
+      },
+      "chain_length_control_strategy": "Literature reports FAS1-R1834K mutation shortens chain-length specificity to release C6/C8-CoA. The type I FAS in yeast operates as a megasynthase where the ketosynthase domain controls iteration count. Mutations in the malonyl/palmitoyl transferase (MPT) domain of FAS2 (e.g., G1250S) can also alter chain-length specificity. TMA17 (gamma subunit) stabilizes FAS complex; maintain expression.",
+      "notes": "Cannot simply knock out FAS - it is essential for cell viability (C16/C18 fatty acids are needed for membranes). Strategy: engineer FAS for shorter chain release + express heterologous thioesterase as a backup to intercept any octanoyl-CoA that escapes FAS."
+    }
+  },
+  "recommended_conditions": {
+    "carbon_source": "Glucose (EX_glc__D_e, default 10 mmol/gDW/h uptake)",
+    "oxygen_level": "Aerobic (default, O2 lower bound = -1000) for maximal NADPH regeneration through pentose phosphate pathway and oxidative phosphorylation. Microaerobic conditions may increase fermentative flux but reduce NADPH supply.",
+    "special_notes": [
+      "Octanoic acid (pKa 4.89) is toxic to yeast at concentrations above ~0.5-1.0 mM. In situ product removal (ISPR) strategies such as organic solvent overlay (dodecane), resin adsorption, or two-phase fermentation are essential for high-titer production.",
+      "Fed-batch glucose feeding is recommended to avoid Crabtree effect overflow metabolism and maximize carbon flux toward FA biosynthesis.",
+      "ACC1 S659A/S1157A mutations are essential to relieve Snf1-mediated phosphoinhibition of malonyl-CoA production.",
+      "FAS1-R1834K mutation (or equivalent) is critical for shifting FAS chain-length specificity toward C8 release.",
+      "Consider supplementing biotin to ensure full activation of overexpressed ACC1.",
+      "Adaptive laboratory evolution (ALE) under increasing octanoic acid concentrations can improve host tolerance.",
+      "For C10/C12 co-production: UcFatB1 (Q41635) provides C12 specificity (Km 1.9 uM for lauroyl-ACP) while CvFatB1 provides C8/C10 specificity. Co-expression of both enables tunable SMCFA profiles."
+    ]
+  },
+  "known_limitations": [
+    "FBA provides flux values (mmol/gDW/h), not absolute titers (g/L); actual productivity depends on biomass density and fermentation conditions.",
+    "The iMM904 model does not capture FAS chain-length specificity control. In the model, FAS80_L/FAS80COA_L and FAS100/FAS100COA are separate reactions, but in vivo they represent iterative cycles within the same FAS barrel. The heterologous thioesterase strategy works by kinetic competition, which FBA cannot model (no enzyme kinetics).",
+    "Octanoic acid toxicity is the primary titer-limiting factor in vivo (~0.5-1.0 mM tolerance). This is not captured in FBA.",
+    "Protein expression levels, folding efficiency, and in vivo solubility of heterologous thioesterases (particularly plant CvFatB1 with chloroplast transit peptide removed) cannot be predicted by FBA.",
+    "FAS1/FAS2 engineering mutations (R1834K, G1250S) for chain-length control are essential in practice but not modelable in FBA. The model treats each FAS elongation step as an independent reaction.",
+    "ACC1 S659A/S1157A phospho-dead mutations remove regulatory control but their effect on in vivo flux cannot be quantified by FBA (FBA only models steady-state stoichiometry, not regulation).",
+    "The production envelope theoretical maximum (~1.83 mmol/gDW/h at zero biomass) is modest compared to ethanol production (~12.6 mmol/gDW/h) because FA biosynthesis requires 6 NADPH per C8 molecule, creating a strong cofactor limitation.",
+    "Adaptive laboratory evolution (ALE) outcomes cannot be predicted.",
+    "The model does not account for metabolite channeling within the FAS megasynthase complex, which is critical for understanding chain-length control in vivo."
+  ]
 }

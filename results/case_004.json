@@ -8,162 +8,300 @@
         "substrate": "L-Phenylalanine",
         "product": "trans-Cinnamate",
         "enzyme_ec": "EC 4.3.1.24",
-        "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL2)",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
+        "uniprot_id": "P45724",
+        "kegg_reaction": "R00697",
+        "kegg_ko": "K10775",
         "cofactors_consumed": [],
-        "cofactors_produced": ["NH3"]
+        "cofactors_produced": ["NH4"]
       },
       {
         "step_number": 2,
-        "substrate": "trans-Cinnamate",
+        "substrate": "trans-Cinnamate + NADPH + O2",
         "product": "4-Coumarate",
         "enzyme_ec": "EC 1.14.14.91",
-        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H)",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (CYP73A5/C4H)",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
+        "uniprot_id": "P92994",
+        "kegg_reaction": "R02253",
+        "kegg_ko": "K00487",
         "cofactors_consumed": ["NADPH", "O2"],
-        "cofactors_produced": []
+        "cofactors_produced": ["NADP+", "H2O"]
       },
       {
         "step_number": 3,
-        "substrate": "4-Coumarate",
+        "substrate": "4-Coumarate + ATP + CoA",
         "product": "p-Coumaroyl-CoA",
         "enzyme_ec": "EC 6.2.1.12",
-        "enzyme_name": "4-Coumarate--CoA ligase (4CL)",
+        "enzyme_name": "4-Coumarate-CoA ligase 1 (4CL1)",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
+        "uniprot_id": "Q42524",
+        "kegg_reaction": "R01616",
+        "kegg_ko": "K01904",
         "cofactors_consumed": ["ATP", "CoA"],
         "cofactors_produced": ["AMP", "PPi"]
       },
       {
         "step_number": 4,
-        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA + NADPH",
         "product": "Isoliquiritigenin",
-        "enzyme_ec": "EC 2.3.1.170",
-        "enzyme_name": "6'-Deoxychalcone synthase (CHS + CHR)",
+        "enzyme_ec": "EC 2.3.1.74 + EC 2.3.1.170",
+        "enzyme_name": "Chalcone synthase (CHS1) + Chalcone reductase (CHR)",
         "source_organism": "Glycine max",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": ["NADPH"],
-        "cofactors_produced": ["4 CoA", "3 CO2"]
+        "uniprot_id": ["P24826", "P26690"],
+        "kegg_reaction": "R06568",
+        "kegg_ko": ["K00660", "K08243"],
+        "cofactors_consumed": ["NADPH", "3 Malonyl-CoA"],
+        "cofactors_produced": ["NADP+", "4 CoA", "3 CO2", "H2O"]
       },
       {
         "step_number": 5,
         "substrate": "Isoliquiritigenin",
         "product": "Liquiritigenin",
         "enzyme_ec": "EC 5.5.1.6",
-        "enzyme_name": "Chalcone isomerase (CHI)",
+        "enzyme_name": "Chalcone isomerase 1 (CHI1)",
         "source_organism": "Medicago sativa",
         "native_or_heterologous": "heterologous",
+        "uniprot_id": "P28012",
+        "kegg_reaction": "R06556",
+        "kegg_ko": "K01859",
         "cofactors_consumed": [],
         "cofactors_produced": []
       }
     ],
     "total_cofactors": {
-      "NADPH": -2,
-      "NADH": 0,
-      "ATP": -1,
-      "O2": -1,
-      "FAD": 0
+      "NADPH": 2,
+      "ATP": 1,
+      "O2": 1,
+      "CoA": 1,
+      "Malonyl-CoA": 3
     }
   },
   "engineering": {
     "heterologous_genes": [
       {
         "gene_name": "PAL2",
-        "source_organism": "Arabidopsis thaliana",
+        "organism": "Arabidopsis thaliana",
         "uniprot_id": "P45724",
-        "ec_number": "EC 4.3.1.24",
-        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate + NH3; first committed step of phenylpropanoid pathway"
+        "ec": "4.3.1.24",
+        "molecular_weight_kDa": 77.9,
+        "length_aa": 717,
+        "transmembrane": false,
+        "km": "64 uM (L-phenylalanine)",
+        "vmax": "10.5 umol/sec/mg",
+        "known_mutations": "none",
+        "expression_notes": "Soluble, cytoplasmic, stable (instability index 33.5). Homotetramer. Low expression risk."
       },
       {
         "gene_name": "CYP73A5 (C4H)",
-        "source_organism": "Arabidopsis thaliana",
+        "organism": "Arabidopsis thaliana",
         "uniprot_id": "P92994",
-        "ec_number": "EC 1.14.14.91",
-        "function": "Trans-cinnamate 4-monooxygenase (cytochrome P450 73); hydroxylates trans-cinnamate to 4-coumarate using NADPH and O2"
+        "ec": "1.14.14.91",
+        "molecular_weight_kDa": 57.8,
+        "length_aa": 505,
+        "transmembrane": true,
+        "tm_details": "1 TM helix at residues 3-23 (ER membrane anchor)",
+        "km": "not determined",
+        "kcat": "not determined",
+        "known_mutations": "G99E, R249K, A306T (all loss-of-function in planta; avoid these positions)",
+        "expression_notes": "CYP450 enzyme; requires heme cofactor and CPR electron transfer partner. ER-membrane anchored. Instability index 42.8 (borderline). Must co-express with CPR (ATR1 or overexpress yeast NCP1/YHR042W)."
       },
       {
-        "gene_name": "ATR1 (CPR)",
-        "source_organism": "Arabidopsis thaliana",
-        "uniprot_id": "Q9SB48",
-        "ec_number": "EC 1.6.2.4",
-        "function": "NADPH-cytochrome P450 reductase; required electron transfer partner for CYP73A5 (C4H); uses FAD and FMN cofactors"
-      },
-      {
-        "gene_name": "4CL2",
-        "source_organism": "Arabidopsis thaliana",
-        "uniprot_id": "Q9S725",
-        "ec_number": "EC 6.2.1.12",
-        "function": "4-Coumarate--CoA ligase; activates 4-coumarate to p-coumaroyl-CoA using ATP and CoA; Km=252 uM for 4-coumarate"
+        "gene_name": "4CL1",
+        "organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q42524",
+        "ec": "6.2.1.12",
+        "molecular_weight_kDa": 61.1,
+        "length_aa": 561,
+        "transmembrane": false,
+        "km": "38 uM (4-coumarate)",
+        "kcat": "~2.1/s (with p-coumarate)",
+        "known_mutations": "K211S, R449Q (loss-of-function); K540N (abolishes activity)",
+        "expression_notes": "Soluble, requires Mg2+ cofactor. PDB: 3TSY. Instability index 49.2 (borderline). May benefit from codon optimization."
       },
       {
         "gene_name": "CHS1",
-        "source_organism": "Glycine max",
+        "organism": "Glycine max",
         "uniprot_id": "P24826",
-        "ec_number": "EC 2.3.1.74",
-        "function": "Chalcone synthase; condenses p-coumaroyl-CoA with 3 malonyl-CoA; works with CHR to produce isoliquiritigenin instead of naringenin chalcone"
+        "ec": "2.3.1.74",
+        "molecular_weight_kDa": 42.5,
+        "length_aa": 388,
+        "transmembrane": false,
+        "km": "not determined for soybean CHS1",
+        "kcat": "not determined",
+        "known_mutations": "none in UniProt",
+        "expression_notes": "Soluble polyketide synthase type III. PDB: 7BUR, 7BUS. Must co-express with CHR (P26690) for isoliquiritigenin production; without CHR, produces naringenin chalcone instead."
       },
       {
         "gene_name": "CHR (6'-deoxychalcone synthase)",
-        "source_organism": "Glycine max",
+        "organism": "Glycine max",
         "uniprot_id": "P26690",
-        "ec_number": "EC 2.3.1.170",
-        "function": "Chalcone reductase; co-acts with CHS to reduce 6'-position during chalcone formation, producing isoliquiritigenin (the deoxychalcone) using NADPH"
+        "ec": "2.3.1.170",
+        "molecular_weight_kDa": 35.5,
+        "length_aa": 315,
+        "transmembrane": false,
+        "km": "not determined",
+        "kcat": "not determined",
+        "known_mutations": "none",
+        "expression_notes": "Monomer, soluble, stable (instability index 39.4). Aldo-keto reductase family. NADPH-dependent. Co-acts with CHS to produce isoliquiritigenin instead of naringenin chalcone."
       },
       {
         "gene_name": "CHI1",
-        "source_organism": "Medicago sativa",
+        "organism": "Medicago sativa",
         "uniprot_id": "P28012",
-        "ec_number": "EC 5.5.1.6",
-        "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin; Km=15.7 uM for 6'-deoxychalcone; has crystal structures (PDB: 1EYP, 1EYQ)"
+        "ec": "5.5.1.6",
+        "molecular_weight_kDa": 23.8,
+        "length_aa": 222,
+        "transmembrane": false,
+        "km": "15.7 uM (isoliquiritigenin/6'-deoxychalcone)",
+        "kcat": "not determined",
+        "known_mutations": "T48A (strongly reduced rate), Y106F (strongly reduced rate), N113A (reduced rate), T190A (reduced rate)",
+        "expression_notes": "Soluble, small, stable (instability index 34.2). Excellent Km for isoliquiritigenin substrate. 9 PDB structures available (1EYP at 2.5A, 1EYQ at 1.85A). Low expression risk."
+      },
+      {
+        "gene_name": "ATR1 (CPR)",
+        "organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SB48",
+        "ec": "1.6.2.4",
+        "molecular_weight_kDa": 76.8,
+        "length_aa": 692,
+        "transmembrane": true,
+        "tm_details": "1 TM helix at residues 27-47 (ER membrane anchor)",
+        "km": "2.2 uM (NADPH)",
+        "kcat": "not determined",
+        "known_mutations": "none",
+        "expression_notes": "ER membrane-bound NADPH-cytochrome P450 reductase. Requires FAD and FMN cofactors. Electron transfer partner for C4H. Alternative: overexpress yeast native NCP1 (P16603, YHR042W) which naturally interacts with ER-localized CYP450s. Instability index 47.4 (borderline)."
       }
     ],
     "knockouts": [
       {
-        "gene_name": "ARO10",
-        "yeast_systematic_id": "YDR380W",
-        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
-        "rationale": "Blocks degradation of phenylpyruvate (from phenylalanine catabolism) to phenylacetaldehyde, preserving phenylalanine precursor pool for the heterologous pathway"
-      },
-      {
-        "gene_name": "PDC5",
-        "yeast_systematic_id": "YLR134W",
-        "reaction_blocked": "PYRDC (pyruvate decarboxylase, partial)",
-        "rationale": "Partial reduction of pyruvate decarboxylase activity to reduce ethanol overflow and redirect carbon flux toward acetyl-CoA and malonyl-CoA for the pathway"
-      },
-      {
-        "gene_name": "PDC6",
-        "yeast_systematic_id": "YGR087C",
-        "reaction_blocked": "PYRDC (pyruvate decarboxylase, partial)",
-        "rationale": "Further reduction of pyruvate decarboxylase activity; combined with PDC5 KO, leaves PDC1 for essential ethanol production while freeing carbon"
+        "gene_name": "ARO9",
+        "yeast_systematic_id": "YHR137W",
+        "reaction_blocked": "PHETA1 (Phenylalanine transaminase; note: OR-logic with ARO8, single KO does not disable reaction)",
+        "rationale": "Reduces phenylalanine degradation to phenylpyruvate. However, due to OR-logic GPR with ARO8 (YGL202W), single KO of ARO9 is not sufficient to fully block PHETA1. Double KO of ARO8+ARO9 blocks PHETA1 but also disables TRPTA (tryptophan transaminase), making it lethal. Recommended: KO ARO9 to partially reduce Phe degradation; supplement tryptophan if double KO attempted."
       }
     ],
     "overexpressions": [
       {
-        "gene_name": "ARO7",
-        "yeast_systematic_id": "YPR060C",
-        "reaction_boosted": "CHORM (chorismate mutase)",
-        "rationale": "Increases flux from chorismate to prephenate, boosting the precursor supply for phenylalanine biosynthesis which feeds the heterologous pathway"
-      },
-      {
         "gene_name": "ARO4",
         "yeast_systematic_id": "YBR249C",
-        "reaction_boosted": "DDPA (DAHP synthase)",
-        "rationale": "First committed step of shikimate pathway; overexpression of feedback-resistant ARO4(K229L) increases carbon flux into aromatic amino acid biosynthesis"
+        "reaction_boosted": "DDPA (DAHP synthase, shikimate pathway entry)",
+        "min_flux_forced": 0.15,
+        "rationale": "Increases carbon flux into the shikimate pathway, boosting phenylalanine supply. ARO4 is feedback-inhibited by L-tyrosine in wild-type S. cerevisiae. Expression of the known feedback-resistant variant ARO4-K229L is strongly recommended for maximal effect."
+      },
+      {
+        "gene_name": "NCP1",
+        "yeast_systematic_id": "YHR042W",
+        "reaction_boosted": "CYP450 reductase (electron transfer to C4H)",
+        "min_flux_forced": "N/A (not modeled directly)",
+        "rationale": "Native yeast NADPH-cytochrome P450 reductase. Overexpression ensures adequate electron supply to heterologous C4H (CYP73A5). Alternative to expressing Arabidopsis ATR1. Interacts with ERG11, ERG5 and other yeast CYP450s (STRING data)."
       },
       {
         "gene_name": "ACC1",
         "yeast_systematic_id": "YNR016C",
-        "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
-        "rationale": "Increases malonyl-CoA supply for the CHS/CHR reaction which requires 3 malonyl-CoA per product molecule; overexpression of feedback-resistant ACC1(S659A,S1157A) recommended"
+        "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase, malonyl-CoA supply)",
+        "min_flux_forced": "N/A (post-translational deregulation preferred)",
+        "rationale": "ACC1 produces malonyl-CoA, of which 3 molecules are required per liquiritigenin. Baseline flux is 0.11 mmol/gDW/h. The known ACC1-S659A/S1157A double mutant abolishes Snf1-mediated phosphorylation and deregulates malonyl-CoA production. Recommended as a deregulated variant rather than simple overexpression (which would also upregulate all FAS reactions due to shared GPR)."
       }
-    ]
+    ],
+    "protein_engineering_notes": {
+      "c4h_cyp450_considerations": "C4H (P92994) is a CYP450 with 1 TM helix (residues 3-23) anchoring it to the ER membrane. Requires heme cofactor and electron transfer from CPR. Only 1 CYP450 in the pathway, so ER membrane space is not a bottleneck. Co-expression with either ATR1 (Arabidopsis CPR) or overexpression of yeast NCP1 is required. AlphaFold model available (no experimental structure).",
+      "chs_chr_co_expression": "CHS1 (P24826) and CHR (P26690) must be co-expressed and active simultaneously. CHR reduces the CHS polyketide intermediate on the CHS active site to produce isoliquiritigenin instead of naringenin chalcone. Without CHR, only naringenin (not liquiritigenin) is produced. Consider protein fusion or gene clustering on same promoter.",
+      "chi1_substrate_specificity": "CHI1 (P28012) from Medicago sativa has an excellent Km of 15.7 uM for isoliquiritigenin (6'-deoxychalcone), which is the direct substrate in the liquiritigenin pathway. This is better than its Km of 112 uM for naringenin chalcone, confirming it is well-suited for liquiritigenin production. 9 PDB structures enable rational engineering if needed.",
+      "aro4_feedback_resistance": "Native ARO4 (DAHP synthase) is feedback-inhibited by L-tyrosine. The well-characterized ARO4-K229L mutation abolishes this feedback inhibition, dramatically increasing flux through the shikimate pathway. This mutation is critical for maximizing phenylalanine supply.",
+      "acc1_deregulation": "Native ACC1 is phosphorylated and inactivated by Snf1 kinase. The ACC1-S659A/S1157A double mutation prevents this phosphorylation, constitutively activating malonyl-CoA production. Essential for ensuring adequate malonyl-CoA supply (3 molecules per product).",
+      "no_signal_peptides": "None of the heterologous enzymes have signal peptides requiring removal. PAL2, 4CL1, CHS1, CHR, and CHI1 are all soluble cytoplasmic proteins. Only C4H and CPR have ER membrane anchors, which are needed for their function.",
+      "heme_supply": "One CYP450 (C4H) requires heme. Standard yeast heme biosynthesis is sufficient for a single CYP450; no VHb (Vitreoscilla hemoglobin) overexpression needed unless titers are very high."
+    }
   },
   "fba_results": {
-    "baseline_max_flux": 1.074919,
-    "optimized_max_flux": 0.975755,
-    "biomass_at_optimum": 0.02788,
-    "strategy_description": "Heterologous 5-step pathway (PAL, C4H/CPR, 4CL, CHS+CHR, CHI) from L-phenylalanine to liquiritigenin added to iMM904. Theoretical max flux = 1.075 mmol/gDW/h at 0% biomass, 0.976 mmol/gDW/h at 10% biomass with KO of ARO10/PDC5/PDC6 and OE of ARO7. Production envelope shows linear tradeoff. Key bottlenecks: malonyl-CoA supply (3 mol/product), NADPH (2 mol/product), phenylalanine availability. Supplementary: feedback-resistant ARO4(K229L) and ACC1(S659A,S1157A) mutants recommended."
-  }
+    "model": "iMM904",
+    "heterologous_reactions_added": [
+      "PAL: phe__L_c --> cinnamate_c + nh4_c",
+      "C4H: cinnamate_c + nadph_c + o2_c + h_c --> coumarate_c + nadp_c + h2o_c",
+      "r4CL: coumarate_c + atp_c + coa_c --> coumaroylcoa_c + amp_c + ppi_c",
+      "CHSCHR: coumaroylcoa_c + 3 malcoa_c + nadph_c + h_c --> isoliq_c + 4 coa_c + 3 co2_c + nadp_c + h2o_c",
+      "CHI: isoliq_c --> liquiritigenin_c",
+      "EX_liquiritigenin: liquiritigenin_c -->"
+    ],
+    "theoretical_max_flux": 1.074919,
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "Heterologous pathway only (no host modifications)",
+        "biomass": 0.028787,
+        "product_flux": 0.972532,
+        "vs_theoretical_max": "90.5%",
+        "notes": "10% biomass constraint. Theoretical ceiling is 1.075 at 0% biomass."
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO ARO9 (YHR137W) + OE ZWF1 (min_flux=2.0) + OE ACC1 (min_flux=0.5)",
+        "biomass": "N/A",
+        "product_flux": "infeasible",
+        "vs_theoretical_max": "N/A",
+        "notes": "Infeasible: ACC1 overexpression forced min_flux on all 13 FAS reactions (shared GPR), requiring excessive malonyl-CoA consumption. Strategy abandoned."
+      },
+      {
+        "round": "Round 1 Revised",
+        "strategy": "KO ARO9 + OE ZWF1 (min_flux=2.0) + OE ARO4 (min_flux=0.5)",
+        "biomass": 0.024317,
+        "product_flux": 0.845393,
+        "vs_theoretical_max": "78.6%",
+        "notes": "Forced ZWF1 min_flux=2.0 diverts too much G6P to pentose phosphate pathway, reducing carbon available for glycolysis. ARO9 KO has no effect (OR-logic with ARO8)."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "KO ARO8+ARO9 + OE ZWF1 (1.5) + OE ACS2 (0.5)",
+        "biomass": 0.0,
+        "product_flux": 0.0,
+        "vs_theoretical_max": "0%",
+        "notes": "Infeasible: double KO of ARO8+ARO9 disabled both PHETA1 and TRPTA, blocking tryptophan metabolism. Lethal combination."
+      },
+      {
+        "round": "Round 3",
+        "strategy": "OE ARO4 (min_flux=0.15)",
+        "biomass": 0.028278,
+        "product_flux": 0.974339,
+        "vs_theoretical_max": "90.6%",
+        "notes": "Best feasible strategy. Minimal ARO4 overexpression marginally improves product flux (+0.2% over baseline). Stopped: <5% improvement over baseline."
+      }
+    ],
+    "best_strategy": "Round 3: Pathway + OE ARO4 (min_flux=0.15)",
+    "production_envelope": [
+      {"biomass_fraction": 0.0, "biomass_flux": 0.000000, "max_product_flux": 1.074919},
+      {"biomass_fraction": 0.1, "biomass_flux": 0.028278, "max_product_flux": 0.974339},
+      {"biomass_fraction": 0.2, "biomass_flux": 0.056557, "max_product_flux": 0.873759},
+      {"biomass_fraction": 0.3, "biomass_flux": 0.084835, "max_product_flux": 0.773179},
+      {"biomass_fraction": 0.4, "biomass_flux": 0.113114, "max_product_flux": 0.672600},
+      {"biomass_fraction": 0.5, "biomass_flux": 0.141392, "max_product_flux": 0.571436},
+      {"biomass_fraction": 0.6, "biomass_flux": 0.169671, "max_product_flux": 0.467418},
+      {"biomass_fraction": 0.7, "biomass_flux": 0.197949, "max_product_flux": 0.363400},
+      {"biomass_fraction": 0.8, "biomass_flux": 0.226228, "max_product_flux": 0.257129},
+      {"biomass_fraction": 0.9, "biomass_flux": 0.254506, "max_product_flux": 0.139848},
+      {"biomass_fraction": 1.0, "biomass_flux": 0.282785, "max_product_flux": 0.000000}
+    ],
+    "strategy_description": "Liquiritigenin production in S. cerevisiae via a 5-step heterologous phenylpropanoid/flavonoid pathway from L-phenylalanine (KEGG module M00940). The pathway requires PAL (A. thaliana PAL2), C4H (A. thaliana CYP73A5), 4CL (A. thaliana 4CL1), CHS+CHR (G. max CHS1+CHR), and CHI (M. sativa CHI1), plus CPR co-expression for C4H. Key engineering: (1) Express ARO4-K229L (feedback-resistant DAHP synthase) to boost shikimate/phenylalanine supply; (2) Express ACC1-S659A/S1157A (deregulated acetyl-CoA carboxylase) to increase malonyl-CoA supply; (3) Overexpress NCP1 (yeast native CPR) for C4H electron supply; (4) Optionally KO ARO9 to reduce Phe degradation. FBA theoretical max 1.075 mmol/gDW/h; 0.974 at 10% biomass (90.6% of max). The pathway is thermodynamically favorable with a near-linear growth-production tradeoff."
+  },
+  "conditions": {
+    "carbon_source": "Glucose (default 10 mmol/gDW/h uptake)",
+    "oxygen": "Aerobic (required for C4H CYP450 reaction; O2 consumed in Step 2)",
+    "supplements": "None required; optionally supplement L-phenylalanine to boost precursor supply",
+    "temperature": "30C (standard yeast cultivation)",
+    "notes": "Aerobic conditions are essential because C4H (trans-cinnamate 4-monooxygenase) is an oxygen-dependent CYP450. The CHS+CHR reaction (Step 4) also benefits from NADPH regeneration, which is more efficient under aerobic conditions via the pentose phosphate pathway."
+  },
+  "limitations": [
+    "FBA predicts flux, not actual titers (g/L) or yields; in vivo expression levels, protein folding, and enzyme kinetics may limit real production",
+    "CHS+CHR co-action is modeled as a single lumped reaction; actual product ratio (isoliquiritigenin vs naringenin chalcone) depends on CHR:CHS expression ratio and NADPH availability",
+    "Feedback inhibition of ARO4 by tyrosine is not captured in FBA; the ARO4-K229L mutation is critical but not modelable in stoichiometric FBA",
+    "ACC1 phosphorylation/deregulation (S659A/S1157A) is a regulatory effect not captured by FBA; actual malonyl-CoA supply improvement requires experimental validation",
+    "Product toxicity of liquiritigenin at high intracellular concentrations is unknown and not modeled",
+    "C4H membrane expression and CPR coupling efficiency cannot be predicted from stoichiometric models",
+    "Adaptive laboratory evolution outcomes and long-term genetic stability are not predictable"
+  ]
 }

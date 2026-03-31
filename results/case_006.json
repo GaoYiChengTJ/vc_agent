@@ -110,7 +110,13 @@
         "gene_name": "COX10",
         "yeast_systematic_id": "YPL172C",
         "reaction_blocked": "HEMEOSm (Heme O synthase)",
-        "rationale": "Prevents conversion of protoheme (heme B) to heme O, blocking the major product-degrading pathway that diverts heme toward cytochrome c oxidase assembly"
+        "rationale": "Prevents conversion of protoheme (heme B) to heme O, blocking the major product-consuming pathway that diverts heme toward cytochrome c oxidase assembly"
+      },
+      {
+        "gene_name": "MET1",
+        "yeast_systematic_id": "YKR069W",
+        "reaction_blocked": "UPP3MT (Uroporphyrinogen methyltransferase)",
+        "rationale": "Prevents diversion of uroporphyrinogen III toward siroheme biosynthesis, preserving flux through the heme branch"
       }
     ],
     "overexpressions": [
@@ -118,26 +124,81 @@
         "gene_name": "HEM1",
         "yeast_systematic_id": "YDR232W",
         "reaction_boosted": "ALASm (5-aminolevulinate synthase)",
-        "rationale": "Rate-limiting first step in heme biosynthesis; overexpression increases 5-aminolevulinate (ALA) flux, the committed precursor for the entire pathway"
+        "min_flux_forced": 0.5,
+        "rationale": "Rate-limiting first committed step in heme biosynthesis; feedback-inhibited by hemin (Km_glycine=3.0 mM, Km_succinyl-CoA=2.0 uM); overexpression increases ALA supply into the pathway"
       },
       {
-        "gene_name": "HEM12",
-        "yeast_systematic_id": "YDR047W",
-        "reaction_boosted": "UPPDC1 (Uroporphyrinogen decarboxylase)",
-        "rationale": "Catalyzes four sequential decarboxylations of uroporphyrinogen III to coproporphyrinogen III; overexpression prevents bottleneck at this branch point where uroporphyrinogen III can be diverted to siroheme"
-      },
-      {
-        "gene_name": "HEM13",
-        "yeast_systematic_id": "YDR044W",
-        "reaction_boosted": "CPPPGO (Coproporphyrinogen oxidase)",
-        "rationale": "Oxygen-dependent oxidative decarboxylation step; overexpression ensures flux through this step matches upstream ALA supply increase"
+        "gene_name": "HEM15",
+        "yeast_systematic_id": "YOR176W",
+        "reaction_boosted": "FCLTm (Ferrochelatase)",
+        "min_flux_forced": 0.5,
+        "rationale": "Terminal enzyme inserting Fe2+ into protoporphyrin IX; overexpression ensures protoporphyrin is efficiently converted to heme rather than accumulating as a toxic intermediate"
       }
-    ]
+    ],
+    "protein_engineering_notes": {
+      "hem1_feedback_inhibition": "HEM1 (P09950) is inhibited by hemin (heme). Engineering a feedback-resistant variant is critical for high-titer heme production. PDB structures available (5TXR at 1.9A resolution) enable rational design of de-inhibited mutants.",
+      "hem1_cofactor": "HEM1 requires pyridoxal 5'-phosphate (PLP) as cofactor. PLP supply is generally not limiting in S. cerevisiae.",
+      "hem2_stability": "HEM2 (P05373) has instability index 51.5 (possibly unstable); homooctamer requires Zn2+ cofactor. Zinc supplementation may benefit overexpression.",
+      "hem12_rsp5_regulation": "HEM12 (P32347) is regulated by RSP5 ubiquitin ligase via its PY motif (residues 36-37). LP36-37AA mutation destroys this motif, potentially stabilizing the protein but causing growth defects.",
+      "hem13_instability": "HEM13 (P11353) has highest instability index (54.9) among pathway enzymes; codon optimization or fusion protein strategies may improve stability during overexpression.",
+      "hem14_fad_cofactor": "HEM14 (P40012) requires FAD cofactor. Adequate FAD supply should be verified when overexpressing this enzyme.",
+      "hem15_frataxin_interaction": "HEM15 (P16622) interacts with YFH1/frataxin (STRING score 0.992), the mitochondrial iron chaperone that delivers Fe2+ for heme synthesis. Co-overexpression of YFH1 may improve iron delivery to ferrochelatase.",
+      "hem25_glycine_transport": "HEM25 (Q07534) is the mitochondrial glycine transporter (Km=0.75 mM glycine, Vmax=169.8 nmol/min/mg). Overexpression may relieve glycine supply limitation in the mitochondrial matrix where HEM1 operates.",
+      "all_enzymes_soluble": "All 8 heme pathway enzymes lack transmembrane domains and are soluble proteins, simplifying overexpression strategy."
+    }
   },
   "fba_results": {
-    "baseline_max_flux": 0.514135,
-    "optimized_max_flux": 0.54517,
-    "biomass_at_optimum": 0.004007,
-    "strategy_description": "Heme (protoheme/heme B) production in S. cerevisiae using the entirely native heme biosynthesis pathway (KEGG module M00868). All 8 enzymatic steps (HEM1-HEM4, HEM12-HEM15) are present in iMM904. Strategy: (1) KO COX10/YPL172C to block protoheme degradation via heme O synthase; (2) Overexpress HEM1/YDR232W (rate-limiting ALA synthase, min flux 0.5); (3) Overexpress HEM12/YDR047W (uroporphyrinogen decarboxylase, min flux 0.5); (4) Overexpress HEM13/YDR044W (coproporphyrinogen oxidase, min flux 0.5). Added transport (PHEMEtm) and exchange (EX_pheme_c) reactions. Theoretical max 0.5502, optimized 0.5452 at 10% biomass (6% improvement over baseline 0.5141). Aerobic conditions required. Iron supplementation recommended."
+    "model": "iMM904",
+    "exchange_reaction_added": "EX_pheme: pheme_m -->",
+    "theoretical_max_flux": 0.550189,
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "Pathway only (exchange reaction added, no modifications)",
+        "biomass": 0.028787,
+        "product_flux": 0.514135,
+        "vs_theoretical_max": "93.4%",
+        "notes": "10% biomass constraint"
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO COX10 (YPL172C) + KO MET1 (YKR069W) + OE HEM1 (min_flux=0.5) + OE HEM15 (min_flux=0.5)",
+        "biomass": 0.004007,
+        "product_flux": 0.545170,
+        "vs_theoretical_max": "99.1%",
+        "notes": "6.0% improvement over baseline; near theoretical maximum"
+      },
+      {
+        "round": "Round 2",
+        "strategy": "Round 1 + KO GCV1 (YDR019C) + OE HEM12 (min_flux=0.5) + OE HEM3 (min_flux=0.5)",
+        "biomass": 0.004007,
+        "product_flux": 0.545170,
+        "vs_theoretical_max": "99.1%",
+        "notes": "No improvement over Round 1; GCV1 KO and additional OE had no effect at this flux level"
+      },
+      {
+        "round": "Round 3",
+        "strategy": "Round 1 + KO GCV1 + OE HEM13 (min_flux=0.5) + OE HEM14 (min_flux=0.25)",
+        "biomass": 0.004007,
+        "product_flux": 0.545170,
+        "vs_theoretical_max": "99.1%",
+        "notes": "No further improvement; stopped per stopping criteria (product flux >=95% of theoretical max)"
+      }
+    ],
+    "best_strategy": "Round 1: KO COX10 + KO MET1 + OE HEM1 + OE HEM15",
+    "production_envelope": [
+      {"biomass_fraction": 0.0, "biomass_flux": 0.000000, "max_product_flux": 0.550189},
+      {"biomass_fraction": 0.1, "biomass_flux": 0.004007, "max_product_flux": 0.545170},
+      {"biomass_fraction": 0.2, "biomass_flux": 0.008014, "max_product_flux": 0.540152},
+      {"biomass_fraction": 0.3, "biomass_flux": 0.012022, "max_product_flux": 0.535133},
+      {"biomass_fraction": 0.4, "biomass_flux": 0.016029, "max_product_flux": 0.530114},
+      {"biomass_fraction": 0.5, "biomass_flux": 0.020036, "max_product_flux": 0.525095},
+      {"biomass_fraction": 0.6, "biomass_flux": 0.024043, "max_product_flux": 0.520076},
+      {"biomass_fraction": 0.7, "biomass_flux": 0.028051, "max_product_flux": 0.515057},
+      {"biomass_fraction": 0.8, "biomass_flux": 0.032058, "max_product_flux": 0.510038},
+      {"biomass_fraction": 0.9, "biomass_flux": 0.036065, "max_product_flux": 0.505019},
+      {"biomass_fraction": 1.0, "biomass_flux": 0.040072, "max_product_flux": 0.500000}
+    ],
+    "strategy_description": "Heme (protoheme/heme B) production in S. cerevisiae using the entirely native heme biosynthesis pathway (KEGG module M00868, 8 steps from glycine + succinyl-CoA). All enzymatic steps (HEM1-HEM4, HEM12-HEM15) are present in iMM904. Strategy: (1) KO COX10/YPL172C to block heme O synthase (product degradation); (2) KO MET1/YKR069W to block uroporphyrinogen III diversion to siroheme; (3) OE HEM1/YDR232W (rate-limiting ALA synthase, min flux 0.5); (4) OE HEM15/YOR176W (ferrochelatase, min flux 0.5). Theoretical max 0.5502, optimized 0.5452 at 10% biomass (99.1% of theoretical max, 6.0% improvement over baseline 0.5141). Key protein-level finding: HEM1 is feedback-inhibited by hemin, making de-regulation critical. HEM15 interacts with YFH1/frataxin for iron delivery. Aerobic conditions required (4 O2 per heme). Iron supplementation recommended."
   }
 }

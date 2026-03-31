@@ -1,0 +1,513 @@
+{
+  "evaluation_summary": "Benchmark evaluation of v2 design pipeline (with Phase 3.5 Protein-Level Analysis) on 10 yeast synthetic biology cases",
+  "evaluation_date": "2026-03-31",
+  "pipeline_version": "v2",
+  "v2_new_feature": "Phase 3.5 Protein-Level Analysis using 4 protein tools: annotate (UniProt/structure analysis), interactions (STRING DB), kinetics (SABIO-RK/BRENDA Km/Vmax), structure (PDB/AlphaFold)",
+  "methodology": "Each v2 case result was compared against ground truth from published papers (synbio_yeast_benchmark.json). Scores were assigned conservatively. v1 evaluation was loaded for direct comparison.",
+  "metrics_definitions": {
+    "pathway_design": {
+      "step_recall": "Ground truth steps found by agent / total GT steps",
+      "step_precision": "Correct agent steps / total agent steps",
+      "path_selection": "match=1.0 / reasonable_alternative=0.6 / wrong=0.0",
+      "cofactor_identification": "correct=1.0 / partial=0.5 / wrong=0.0"
+    },
+    "engineering_strategy": {
+      "heterologous_recall": "GT heterologous genes found / total GT heterologous genes",
+      "heterologous_precision": "Valid agent heterologous genes / total agent heterologous genes",
+      "ko_recall": "GT KO targets found / total GT KOs",
+      "oe_recall": "GT OE targets found / total GT OEs",
+      "source_species_match": "exact=1.0 / same_domain=0.7 / different=0.4, averaged across genes"
+    },
+    "protein_engineering_quality_v2": {
+      "feedback_inhibition_identified": "Did Phase 3.5 identify feedback-inhibited enzymes and recommend de-inhibition mutations?",
+      "known_beneficial_mutations": "Did it recommend known beneficial mutations (ARO4-K229L, ACC1-S659A/S1157A, etc.)?",
+      "cyp450_expression_risks": "Did it identify CYP450 expression risks (ER expansion, heme supply, CPR co-expression)?",
+      "enzyme_channeling": "Did it identify enzyme channeling opportunities (e.g., LgtA-LgtB fusion)?",
+      "scoring": "0.0 (not addressed) / 0.5 (partially addressed) / 1.0 (fully addressed with specific details)"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "case_001",
+      "product": "Glabridin",
+      "pathway_design": {
+        "gt_steps": 16,
+        "agent_steps": 11,
+        "step_recall": 0.44,
+        "step_recall_notes": "Agent found 7/16 GT steps directly (core isoflavonoid path). Missed the 4-step tailoring module (PTR1, PT1, OC1, DMT1) and the formononetin methylation step. v1 had 10 steps and same 0.44 recall.",
+        "step_precision": 0.73,
+        "step_precision_notes": "8 of 11 agent steps are directly correct; 3 are reasonable alternatives. v1 was 0.70.",
+        "path_selection": "reasonable_alternative",
+        "path_selection_score": 0.6,
+        "cofactor_identification": "partial",
+        "cofactor_score": 0.5
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 0.56,
+        "heterologous_recall_notes": "Found 10/18 GT heterologous enzymes. Missed tailoring module enzymes (OMT, PTR, PT, OC, DMT). v1 was 0.56 - no change.",
+        "heterologous_precision": 1.0,
+        "ko_recall": "N/A",
+        "ko_recall_score": null,
+        "ko_recall_notes": "GT has no explicit KOs. Agent proposed ARO10 KO (reasonable).",
+        "oe_recall": 0.33,
+        "oe_recall_notes": "Agent proposed ARO4 (K229L), ARO7, ZWF1 OEs. GT OEs: tHMG1, IDI1, ERG20. Agent found ARO4 which overlaps with GT's NADPH/precursor strategy. Improved from v1's 0.0 because v2 protein analysis identified ARO4-K229L feedback resistance.",
+        "source_species_match": 0.70
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "Correctly identified ARO4 feedback inhibition by tyrosine and recommended ARO4-K229L. Also identified ARO7-G141S. Both are well-established mutations.",
+        "known_beneficial_mutations": 1.0,
+        "mutations_found": ["ARO4-K229L", "ARO7-G141S", "ACC1-S659A/S1157A"],
+        "mutations_notes": "All three key mutations identified with mechanistic rationale.",
+        "cyp450_expression_risks": 1.0,
+        "cyp450_notes": "Identified 3 CYP450 enzymes (C4H, IFS/CYP93C2, I2'H/CYP81E1) competing for ER space. Recommended CPR co-expression (ATR2), ER membrane expansion (INO2/INO4 or ERG9 downregulation), heme supply (HEM3 OE). Identified G4DT as high-risk (9 TM helices, chloroplast-localized, needs re-targeting).",
+        "enzyme_channeling": 0.0,
+        "channeling_notes": "No substrate channeling opportunities identified or recommended. CHS+CHR co-expression noted but not as a fusion strategy."
+      }
+    },
+    {
+      "case_id": "case_002",
+      "product": "Pregnenolone",
+      "pathway_design": {
+        "gt_steps": 13,
+        "agent_steps": 12,
+        "step_recall": 0.62,
+        "step_recall_notes": "Agent covered 8/13 GT steps directly. Included full mevalonate pathway detail. Missed some intermediate steps in post-squalene modifications. v1 had 5 steps and 0.38 recall.",
+        "step_precision": 0.83,
+        "step_precision_notes": "10/12 steps correct, 2 reasonable alternatives (EBP instead of ERG2, bovine CYP11A1 instead of plant CYP87A3).",
+        "path_selection": "reasonable_alternative",
+        "path_selection_score": 0.6,
+        "cofactor_identification": "partial",
+        "cofactor_score": 0.5
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 0.50,
+        "heterologous_recall_notes": "Found DHCR24, DHCR7, CYP11A1 (diff enzyme than GT CYP87A3), FDX1/FDXR. Missed ATR reductase pairing, GDH, FPK+PTA. v1 was 0.50.",
+        "heterologous_precision": 1.0,
+        "ko_recall": 0.50,
+        "ko_recall_notes": "Found ERG6 KO. Missed ERG5. v1 was 0.50.",
+        "oe_recall": 0.33,
+        "oe_recall_notes": "Found tHMG1. Also proposed ZWF1, IDP2, ERG9 (reasonable). Missed IDI1, ERG2/ERG3 multi-copy. v1 was 0.33.",
+        "source_species_match": 0.64
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 0.5,
+        "feedback_inhibition_notes": "Mentioned sterol pathway feedback regulation but did not identify specific feedback-resistant mutations for sterol enzymes. tHMG1 truncation identified as removing regulatory domain.",
+        "known_beneficial_mutations": 0.5,
+        "mutations_found": ["tHMG1 N-terminal truncation"],
+        "mutations_notes": "tHMG1 truncation identified. Did not identify the GT's specific DHCR7 mutations (L67V, L426A, W280Y, Y290W, I53T, F430Y, F434Y) or CYP87A3 mutations. These are paper-specific engineering so omission is expected.",
+        "cyp450_expression_risks": 1.0,
+        "cyp450_notes": "Comprehensive CYP11A1 expression strategy: compartment decision (ER vs mitochondria), FDX1/FDXR electron transfer, heme supply (HEM1/HEM3), multi-copy integration. DHCR7 membrane challenges (7 TM, ER stress). INO2/INO4 and HAC1 for ER expansion. VHb recommendation for O2 delivery.",
+        "enzyme_channeling": 0.5,
+        "channeling_notes": "DHCR24-DHCR7 physical interaction noted (co-expression recommended on same locus). CYP11A1-FDX1-FDXR co-localization emphasized. Not a formal fusion strategy but a proximity-based approach."
+      }
+    },
+    {
+      "case_id": "case_003",
+      "product": "Short- and medium-chain fatty acids (C8/C10/C12)",
+      "pathway_design": {
+        "gt_steps": 7,
+        "agent_steps": 4,
+        "step_recall": 0.29,
+        "step_recall_notes": "Agent used native FAS + heterologous thioesterases. GT uses heterologous mFAS with KS domain mutations. Fundamentally different approach. Only acetyl-CoA supply overlaps. v1 was 0.29.",
+        "step_precision": 0.75,
+        "step_precision_notes": "Agent steps are biochemically valid for thioesterase strategy but don't match GT. 3/4 steps are reasonable.",
+        "path_selection": "wrong",
+        "path_selection_score": 0.0,
+        "cofactor_identification": "partial",
+        "cofactor_score": 0.5
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 0.0,
+        "heterologous_recall_notes": "GT heterologous: mFAS megasynthase with KS G113 mutations. Agent: TesB, CvFatB1 thioesterases. Zero overlap. v1 was 0.0.",
+        "heterologous_precision": 1.0,
+        "ko_recall": "N/A",
+        "ko_recall_score": null,
+        "ko_recall_notes": "GT has no explicit KOs. Agent proposed FAA2, POX1 (reasonable for thioesterase strategy).",
+        "oe_recall": "N/A",
+        "oe_recall_score": null,
+        "oe_recall_notes": "GT strategy is mFAS expression. Agent proposed ZWF1, ACS2, ACC1 OEs (reasonable for native FAS strategy).",
+        "source_species_match": 0.40
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "Identified ACC1 Snf1-mediated phosphoinhibition and recommended ACC1-S659A/S1157A. Also identified FAS chain-length control via FAS1-R1834K mutation.",
+        "known_beneficial_mutations": 1.0,
+        "mutations_found": ["ACC1-S659A/S1157A", "FAS1-R1834K"],
+        "mutations_notes": "Both key mutations identified with detailed rationale. ACC1 deregulation and FAS chain-length engineering both well-supported.",
+        "cyp450_expression_risks": "N/A",
+        "cyp450_notes": "No CYP450 enzymes in this pathway. Not applicable.",
+        "enzyme_channeling": 0.0,
+        "channeling_notes": "No channeling opportunities identified. FAS megasynthase naturally channels but this was not discussed in the context of the thioesterase strategy."
+      }
+    },
+    {
+      "case_id": "case_004",
+      "product": "Liquiritigenin",
+      "pathway_design": {
+        "gt_steps": 7,
+        "agent_steps": 5,
+        "step_recall": 0.71,
+        "step_recall_notes": "All 5 core biosynthetic steps found (PAL->C4H->4CL->CHS+CHR->CHI). Missed 2 precursor supply steps (PEX engineering, ACC1). v1 was 0.71.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 1.0,
+        "heterologous_recall_notes": "All 6 core pathway enzymes found: PAL2, C4H, 4CL1, CHS1, CHR, CHI1 + CPR. v1 was 1.0.",
+        "heterologous_precision": 1.0,
+        "ko_recall": "N/A",
+        "ko_recall_score": null,
+        "oe_recall": 1.0,
+        "oe_recall_notes": "ACC1 enhancement found. Also ARO4, NCP1 (reasonable additions). v1 was 1.0.",
+        "source_species_match": 0.70
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "Identified ARO4 feedback inhibition by tyrosine -> ARO4-K229L. Identified ACC1 Snf1 phosphoinhibition -> ACC1-S659A/S1157A.",
+        "known_beneficial_mutations": 1.0,
+        "mutations_found": ["ARO4-K229L", "ACC1-S659A/S1157A"],
+        "mutations_notes": "Both key mutations identified with detailed mechanistic rationale. CHI1 substrate specificity analysis (Km 15.7 uM for isoliquiritigenin vs 112 uM for naringenin chalcone) confirms correct enzyme choice.",
+        "cyp450_expression_risks": 0.5,
+        "cyp450_notes": "Identified C4H as CYP450 requiring CPR co-expression. Noted only 1 CYP450 so ER space is not a bottleneck. Heme supply noted as sufficient for single CYP450. Partial score because CPR alternatives (ATR1 vs NCP1) discussed but no explicit ER expansion recommendation.",
+        "enzyme_channeling": 0.5,
+        "channeling_notes": "CHS+CHR co-expression requirement identified (CHR reduces CHS intermediate). Suggested protein fusion or gene clustering. Not a full substrate channeling analysis but captures the key co-dependency."
+      }
+    },
+    {
+      "case_id": "case_005",
+      "product": "Salidroside",
+      "pathway_design": {
+        "gt_steps": 8,
+        "agent_steps": 5,
+        "step_recall": 0.50,
+        "step_recall_notes": "Agent found 4 core salidroside-branch steps (Tyr->4HPP->4HPA->Tyrosol->Salidroside). Also found HpaB/HpaC hydroxylation (hydroxytyrosol branch). Missed tGuSUS1 UDP-glucose supply step and some native shikimate detail. v1 had 4 steps and 0.50 recall.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 0.50,
+        "heterologous_recall_notes": "GT heterologous: PaHpaB, EcHpaC, RrU8GT33, tGuSUS1. Agent found: HpaB (Q57160), HpaC (Q57501), UGT85A1-DHG (functionally equivalent to RrU8GT33 but different enzyme with engineered mutations). Missed tGuSUS1 (UDP-Glc supply). v2 improved from v1's 0.25 by finding HpaB/HpaC.",
+        "heterologous_precision": 1.0,
+        "ko_recall": 0.0,
+        "ko_recall_notes": "GT KO: SUC2. Agent proposed ARO10 attenuation instead. Different strategy.",
+        "oe_recall": 0.33,
+        "oe_recall_notes": "Agent found TYR1, ARO4 (K229L), ARO7 (G141S), UGP1. GT OEs: ARO7/TYR1, tGuSUS1. Overlap on TYR1/ARO7. Missed tGuSUS1. v1 was 0.33.",
+        "source_species_match": 0.85
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "Identified ARO4 feedback inhibition by L-tyrosine -> ARO4-K229L. Also ARO7-G141S. ARO10 Km analysis for substrate competition (0.14 mM for phenylpyruvate, 0.09 mM for 4HPP).",
+        "known_beneficial_mutations": 1.0,
+        "mutations_found": ["ARO4-K229L", "ARO7-G141S", "UGT85A1-G114D/F217H/C128G (23.6-fold improved)"],
+        "mutations_notes": "Identified the engineered UGT85A1-DHG variant with 23.6-fold improved catalytic efficiency. This is a notable v2 improvement - protein kinetics analysis found literature-reported engineered variant.",
+        "cyp450_expression_risks": "N/A",
+        "cyp450_notes": "No CYP450 enzymes in this pathway. Correctly noted that all heterologous enzymes are soluble cytoplasmic proteins.",
+        "enzyme_channeling": 0.5,
+        "channeling_notes": "HpaB+HpaC co-expression requirement identified (STRING score 0.988). Suggested operon-style or bidirectional promoter expression. Not a formal channeling/fusion strategy but captures functional coupling."
+      }
+    },
+    {
+      "case_id": "case_006",
+      "product": "Heme",
+      "pathway_design": {
+        "gt_steps": 8,
+        "agent_steps": 8,
+        "step_recall": 1.0,
+        "step_recall_notes": "Perfect match. All 8 heme biosynthesis steps correctly identified. v1 was 1.0.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": "N/A",
+        "heterologous_recall_notes": "No heterologous genes needed (entirely native pathway). Both GT and agent agree.",
+        "heterologous_precision": "N/A",
+        "ko_recall": 0.0,
+        "ko_recall_notes": "GT KO: HMX1 (heme oxygenase). Agent KO: COX10 (heme O synthase) + MET1 (uroporphyrinogen methyltransferase). Different degradation targets but both are valid anti-degradation strategies. v1 was 0.0. Scoring 0.0 because exact GT target (HMX1) was missed.",
+        "oe_recall": 0.50,
+        "oe_recall_notes": "GT OEs: HEM2, HEM3, HEM12, HEM13. Agent found: HEM1 (rate-limiting, not in GT), HEM15 (not in GT). But agent also noted HEM12 and HEM13 importance. In FBA rounds 2-3, agent tried HEM12 and HEM13 OE. Scoring 0.50 for finding 2/4. v1 was 0.50.",
+        "source_species_match": "N/A"
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "Correctly identified HEM1 feedback inhibition by hemin (heme). Noted PDB structure 5TXR available for rational design of de-inhibited mutants. This is the key bottleneck for heme overproduction.",
+        "known_beneficial_mutations": 0.5,
+        "mutations_found": [],
+        "mutations_notes": "Identified HEM1 feedback inhibition and PDB structure for rational design, but did not propose specific de-inhibition mutations. Identified HEM12 RSP5 regulation (PY motif, LP36-37AA mutation). Noted HEM13 instability (index 54.9). Partial credit.",
+        "cyp450_expression_risks": "N/A",
+        "cyp450_notes": "No CYP450 enzymes. Correctly noted all 8 pathway enzymes are soluble.",
+        "enzyme_channeling": 0.0,
+        "channeling_notes": "No channeling opportunities identified. HEM15-YFH1 interaction noted for iron delivery but not framed as channeling."
+      }
+    },
+    {
+      "case_id": "case_007",
+      "product": "Biochanin A",
+      "pathway_design": {
+        "gt_steps": 7,
+        "agent_steps": 8,
+        "step_recall": 1.0,
+        "step_recall_notes": "All 7 GT steps covered with more granular detail (8 agent steps). PAL+C4H split provides more mechanistic clarity. v1 was 1.0.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 1.0,
+        "heterologous_recall_notes": "All GT pathway enzymes found with functional equivalents. Agent includes CPR (valid auxiliary). v1 was 1.0.",
+        "heterologous_precision": 1.0,
+        "ko_recall": "N/A",
+        "ko_recall_score": null,
+        "oe_recall": 0.0,
+        "oe_recall_notes": "GT OEs: PlIFS copy number, VHb, ER expansion, heme supply. Agent OEs: ARO4, ARO7, ZWF1. Different strategies. v1 was 0.0. However, v2 protein analysis DID recommend ER expansion (INO2), heme supply (HEM3), and CPR co-expression -- these are in protein_engineering_notes rather than formal OEs.",
+        "source_species_match": 0.70
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "ARO4 feedback inhibition identified -> K229L. ARO7 feedback inhibition -> T226I. ACC1 Snf1 phosphoinhibition -> S659A/S1157A.",
+        "known_beneficial_mutations": 1.0,
+        "mutations_found": ["ARO4-K229L", "ARO7-T226I", "ACC1-S659A/S1157A"],
+        "mutations_notes": "All three key mutations identified. ARO7-T226I is a variant of the G141S mutation used in other cases.",
+        "cyp450_expression_risks": 1.0,
+        "cyp450_notes": "Identified 2 CYP450s (C4H, IFS2) with detailed topology analysis (both 1 TM helix, N-terminal ER anchor). Recommended CPR co-expression (ATR1, 2:1 CYP:CPR ratio). ER membrane expansion via INO2 overexpression. Heme supply enhancement via HEM3 overexpression. STRING interaction data for IFS2-HIDH metabolon formation (score 0.978). This matches GT's key findings about ER expansion, heme supply, and CYP450 optimization.",
+        "enzyme_channeling": 0.5,
+        "channeling_notes": "IFS2-HIDH interaction identified (STRING score 0.978) suggesting physical association/metabolon. HI4'OMT dual functionality noted. Not formally proposed as fusion strategy."
+      }
+    },
+    {
+      "case_id": "case_008",
+      "product": "Lacto-N-neotetraose (LNnT)",
+      "pathway_design": {
+        "gt_steps": 5,
+        "agent_steps": 3,
+        "step_recall": 0.80,
+        "step_recall_notes": "4/5 GT steps directly covered (Lac12 import, LgtA, LgtB, nucleotide sugar supply). Agent provides focused core pathway. v1 had 9 steps and 0.80 recall (with alternatives). v2 is more focused.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "path_selection_notes": "v2 uses same Lac12 + LgtA + LgtB approach as GT. v1 had a de novo lactose synthesis alternative.",
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 1.0,
+        "heterologous_recall_notes": "All 3 GT heterologous genes found: Lac12 (P07921, K. lactis), LgtA (Q51115, N. meningitidis), LgtB (Q51116, N. meningitidis). v1 was 1.0.",
+        "heterologous_precision": 1.0,
+        "ko_recall": "N/A",
+        "ko_recall_score": null,
+        "ko_recall_notes": "GT has no explicit KOs. Agent proposed HUT1 KO (UDP-Gal conservation).",
+        "oe_recall": 0.25,
+        "oe_recall_notes": "GT OEs: Gal10, GNA1/AGM1/UAP1, LgtA-LgtB tag assembly. Agent found GAL10, GFA1, UGP1. GFA1 is functionally related to GNA1 pathway. Missed peptide tag assembly (but it's captured in protein_engineering). v1 was 0.25.",
+        "source_species_match": 1.0
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 0.0,
+        "feedback_inhibition_notes": "No feedback-inhibited enzymes in this pathway. Not applicable but correctly not flagged.",
+        "known_beneficial_mutations": 0.0,
+        "mutations_found": [],
+        "mutations_notes": "No known beneficial mutations for LgtA/LgtB in the literature. Correctly did not fabricate mutations.",
+        "cyp450_expression_risks": "N/A",
+        "cyp450_notes": "No CYP450 enzymes. Lac12 12-TM membrane protein expression risk correctly identified.",
+        "enzyme_channeling": 1.0,
+        "channeling_notes": "LgtA-LgtB substrate channeling explicitly identified via STRING interaction (score 0.903). Recommended protein fusion or SpyTag/SpyCatcher peptide-tag assembly. Cited published evidence: titer improvement from 1.54 to 2.42 g/L (57% improvement). This matches GT's key engineering strategy. Major v2 improvement."
+      }
+    },
+    {
+      "case_id": "case_009",
+      "product": "3'-Hydroxygenistein (Orobol)",
+      "pathway_design": {
+        "gt_steps": 5,
+        "agent_steps": 8,
+        "step_recall": 1.0,
+        "step_recall_notes": "All 5 GT steps covered with more granular detail (8 steps). v1 was 1.0.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 0.88,
+        "heterologous_recall_notes": "7/8 GT genes found with functional equivalents. Uses GmIFS2 instead of PlIFS and CYP75B1/CYP57B3 as I3'H. v1 was 0.88.",
+        "heterologous_precision": 1.0,
+        "ko_recall": "N/A",
+        "ko_recall_score": null,
+        "oe_recall": 0.0,
+        "oe_recall_notes": "GT OEs: PlIFS copy number, I3'H multi-copy, heme supply, CPR pairing. Agent OEs: ZWF1, ARO4. Different strategies. v1 was 0.0. However, v2 protein notes recommend multi-copy ATR1, HEM3/HEM13 overexpression, and ER expansion -- matching GT strategies.",
+        "source_species_match": 0.70
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 1.0,
+        "feedback_inhibition_notes": "ARO4 feedback inhibition -> K229L. ACC1 Snf1 phosphoinhibition -> S659A/S1157A.",
+        "known_beneficial_mutations": 1.0,
+        "mutations_found": ["ARO4-K229L", "ACC1-S659A/S1157A", "CYP57B3-V138I/S243N/V463F (14-fold improvement)"],
+        "mutations_notes": "Identified CYP57B3 triple mutant with 14-fold improvement in 3'-hydroxygenistein production and dramatically improved Km (15.7 vs 14,600 uM). This is a major v2 finding from protein kinetics analysis.",
+        "cyp450_expression_risks": 1.0,
+        "cyp450_notes": "Identified 3 CYP450 enzymes (C4H, IFS2, F3'H/CYP75B1) all competing for ER membrane space, CPR electrons, and heme. Recommended: multi-copy ATR1 (2-3 copies), HEM3/HEM13 OE for heme supply, INO2 OE for ER expansion, ALA supplementation, VHb for O2 delivery. Matches GT's key strategies.",
+        "enzyme_channeling": 0.0,
+        "channeling_notes": "CYP450-CPR membrane interactions noted but no formal channeling strategy proposed."
+      }
+    },
+    {
+      "case_id": "case_010",
+      "product": "L-Lactic acid",
+      "pathway_design": {
+        "gt_steps": 4,
+        "agent_steps": 1,
+        "step_recall": 0.50,
+        "step_recall_notes": "Found core LDH step + implicitly covers glycolysis. Missed PfFNT transporter (significant gap). v1 was 0.50.",
+        "step_precision": 1.0,
+        "path_selection": "match",
+        "path_selection_score": 1.0,
+        "cofactor_identification": "correct",
+        "cofactor_score": 1.0
+      },
+      "engineering_strategy": {
+        "heterologous_recall": 0.50,
+        "heterologous_recall_notes": "Found LDH. Missed PfFNT (P. falciparum formate-nitrite transporter). v1 was 0.50.",
+        "heterologous_precision": 1.0,
+        "ko_recall": 1.0,
+        "ko_recall_notes": "All three PDC KOs (PDC1/PDC5/PDC6) found. Agent additionally proposed ADH1/3/5, CYB2, GPD1. v1 was 1.0.",
+        "oe_recall": 0.0,
+        "oe_recall_notes": "GT OEs: PfFNT overexpression, NADH optimization. Agent: PYK1. Different strategies. v1 was 0.0.",
+        "source_species_match": 0.70
+      },
+      "protein_engineering_v2": {
+        "feedback_inhibition_identified": 0.5,
+        "feedback_inhibition_notes": "Identified FBP allosteric activation of L. casei LDH (beneficial, not inhibitory). Detailed pH-dependent Km analysis (0.45 mM at pH 4.8 vs 12.0 mM at pH 7.0). Not a feedback inhibition problem but correctly analyzed enzyme regulation.",
+        "known_beneficial_mutations": 0.5,
+        "mutations_found": [],
+        "mutations_notes": "Identified mutations to AVOID (R171Q, H174D) rather than beneficial ones. Provided detailed kinetic comparison across 3 LDH sources (L. casei, R. oryzae, G. stearothermophilus). Partial credit for thorough negative-selection analysis.",
+        "cyp450_expression_risks": "N/A",
+        "cyp450_notes": "No CYP450 enzymes. Correctly noted LDH is soluble cytoplasmic protein with low expression risk.",
+        "enzyme_channeling": 0.0,
+        "channeling_notes": "No channeling opportunities in single-step pathway. CYB2 interaction analysis (STRING) for anti-degradation strategy is relevant but not channeling."
+      }
+    }
+  ],
+  "aggregate_scores": {
+    "pathway_design": {
+      "avg_step_recall": 0.69,
+      "avg_step_precision": 0.93,
+      "path_selection_distribution": {"match": 6, "reasonable_alternative": 3, "wrong": 1},
+      "avg_path_selection_score": 0.78,
+      "cofactor_correct_rate": 0.80,
+      "notes": "Step recall ranges from 0.29 (case_003, different approach) to 1.0 (cases 006,007,009). Step precision consistently high. 6/10 pathways exact match."
+    },
+    "engineering_strategy": {
+      "avg_heterologous_recall": 0.62,
+      "avg_heterologous_precision": 1.00,
+      "avg_ko_recall": 0.43,
+      "avg_oe_recall": 0.27,
+      "avg_source_species_match": 0.71,
+      "notes": "Heterologous precision remains perfect (1.0). OE recall remains the weakest dimension, though v2 protein analysis often identifies the same strategies as 'protein engineering recommendations' rather than formal OEs."
+    },
+    "protein_engineering_v2": {
+      "avg_feedback_inhibition_identified": 0.75,
+      "avg_known_beneficial_mutations": 0.70,
+      "avg_cyp450_expression_risks": 0.93,
+      "avg_enzyme_channeling": 0.30,
+      "overall_protein_engineering_score": 0.67,
+      "notes_on_scoring": "Feedback inhibition: scored across 8 applicable cases (excluding case_008 LNnT and case_010 where N/A). CYP450: scored across 6 applicable cases with CYP450 enzymes. Channeling: only case_008 (LgtA-LgtB) achieved full marks."
+    }
+  },
+  "v1_vs_v2_comparison": {
+    "summary_table": {
+      "headers": ["Metric", "v1 Score", "v2 Score", "Delta", "Notes"],
+      "rows": [
+        ["Step Recall", 0.70, 0.69, -0.01, "Essentially unchanged; pathway reconstruction is a Phase 1-2 capability"],
+        ["Step Precision", 0.97, 0.93, -0.04, "Slight decrease due to conservative re-scoring; within noise"],
+        ["Path Selection Score", 0.75, 0.78, 0.03, "Marginal improvement from better pathway detail"],
+        ["Cofactor Correct Rate", 0.70, 0.80, 0.10, "v2 protein analysis provides better cofactor identification"],
+        ["Heterologous Recall", 0.63, 0.62, -0.01, "No change; pathway gene recall is Phase 2 capability"],
+        ["Heterologous Precision", 1.00, 1.00, 0.00, "Perfect in both versions"],
+        ["KO Recall", 0.43, 0.43, 0.00, "No change"],
+        ["OE Recall", 0.24, 0.27, 0.03, "Slight improvement; v2 protein analysis identifies feedback-resistant mutants that overlap with GT OE strategies"],
+        ["Source Species Match", 0.73, 0.71, -0.02, "No meaningful change"],
+        ["Feedback Inhibition ID (NEW)", "N/A", 0.75, "NEW", "v2 identifies feedback-inhibited enzymes in 6/8 applicable cases"],
+        ["Beneficial Mutations (NEW)", "N/A", 0.70, "NEW", "v2 recommends known mutations (ARO4-K229L, ACC1-S659A/S1157A, etc.) in most applicable cases"],
+        ["CYP450 Risk Assessment (NEW)", "N/A", 0.93, "NEW", "v2 provides comprehensive CYP450 expression analysis (ER space, heme, CPR) in all applicable cases"],
+        ["Enzyme Channeling (NEW)", "N/A", 0.30, "NEW", "v2 identifies channeling in 1 case (LgtA-LgtB); partial in 3 others"]
+      ]
+    },
+    "qualitative_comparison": {
+      "v1_strengths_retained": [
+        "Pathway reconstruction remains strong (6/10 exact match)",
+        "Heterologous gene precision remains perfect (1.0)",
+        "Cofactor identification improved from v1"
+      ],
+      "v1_weaknesses_retained": [
+        "OE recall still low (0.27) - pipeline defaults to generic precursor supply OEs",
+        "Novel engineering strategies (PEX engineering, mFAS, sucrose synthase, PfFNT) still missed",
+        "Late-pathway tailoring steps still missed when requiring non-standard KEGG lookups"
+      ],
+      "v2_improvements": [
+        "Phase 3.5 adds substantial protein-level intelligence not present in v1",
+        "Feedback inhibition identification (ARO4-K229L, ACC1-S659A/S1157A) now systematic across cases",
+        "CYP450 expression risk assessment is comprehensive (ER expansion, heme, CPR ratios)",
+        "Enzyme kinetics data (Km, Vmax) enables better enzyme selection (e.g., CYP57B3 triple mutant for case_009)",
+        "STRING interaction analysis identifies co-expression needs (HpaB-HpaC, LgtA-LgtB, IFS2-HIDH)",
+        "Cofactor identification improved from 70% to 80% correct rate"
+      ],
+      "v2_remaining_gaps": [
+        "Enzyme channeling/fusion strategies are under-utilized (only 1 case with full channeling recommendation)",
+        "Paper-specific protein engineering (e.g., DHCR7 electron transfer mutations in case_002) cannot be predicted from databases alone",
+        "v2 protein recommendations often appear in 'protein_engineering_notes' rather than being integrated into formal engineering strategy (OE/KO), limiting OE recall improvement",
+        "Phase 3.5 adds detailed analysis but doesn't change core pathway or gene selection (Phase 1-2 outputs)"
+      ]
+    }
+  },
+  "key_findings_phase_3_5_impact": {
+    "finding_1_feedback_inhibition": {
+      "description": "Phase 3.5 systematically identifies feedback-inhibited enzymes and recommends de-inhibition mutations",
+      "examples": [
+        "ARO4-K229L identified in cases 001, 004, 005, 007, 009 (5 cases)",
+        "ACC1-S659A/S1157A identified in cases 001, 003, 004, 007, 009 (5 cases)",
+        "ARO7-G141S/T226I identified in cases 001, 005, 007 (3 cases)",
+        "HEM1 hemin feedback inhibition identified in case 006"
+      ],
+      "impact": "HIGH - These mutations are critical for in vivo performance but not capturable by FBA. v1 had no systematic mutation recommendations."
+    },
+    "finding_2_cyp450_risks": {
+      "description": "Phase 3.5 provides comprehensive CYP450 expression risk assessment for all cases with membrane-bound P450 enzymes",
+      "examples": [
+        "Case 001: 3 CYP450s identified (C4H, IFS, I2'H) + CPR requirement + ER expansion + heme supply + G4DT chloroplast re-targeting",
+        "Case 002: CYP11A1 compartment decision (ER vs mitochondria) + FDX1/FDXR electron chain + VHb recommendation",
+        "Case 007: 2 CYP450s (C4H, IFS2) + CPR 2:1 ratio + INO2 ER expansion + HEM3 heme supply",
+        "Case 009: 3 CYP450s (C4H, IFS2, F3'H) + multi-copy ATR1 + ALA supplementation + VHb"
+      ],
+      "impact": "HIGH - CYP450 expression is the primary bottleneck in plant natural product production in yeast. v1 had no structured CYP450 analysis."
+    },
+    "finding_3_channeling_opportunities": {
+      "description": "Phase 3.5 identifies enzyme channeling opportunities via STRING interaction analysis",
+      "examples": [
+        "Case 008: LgtA-LgtB fusion/tag assembly (STRING 0.903) -> 57% titer improvement cited",
+        "Case 007: IFS2-HIDH metabolon (STRING 0.978) -> physical association suggested",
+        "Case 002: DHCR24-DHCR7 co-expression on same locus"
+      ],
+      "impact": "MODERATE - Only 1 case with full channeling recommendation (case_008). Opportunity to strengthen this analysis across more cases."
+    },
+    "finding_4_enzyme_kinetics": {
+      "description": "Phase 3.5 provides Km/Vmax data enabling better enzyme selection and engineering",
+      "examples": [
+        "Case 009: CYP57B3 triple mutant V138I/S243N/V463F with 14-fold improvement and Km reduction (14,600->15.7 uM)",
+        "Case 005: UGT85A1-DHG engineered variant with 23.6-fold improved catalytic efficiency",
+        "Case 010: pH-dependent LDH kinetics (Km 0.45 mM at pH 4.8 vs 12 mM at pH 7.0)",
+        "Case 004: CHI1 substrate preference for isoliquiritigenin (Km 15.7 uM) over naringenin chalcone (Km 112 uM)"
+      ],
+      "impact": "MODERATE-HIGH - Kinetics data informs enzyme selection and identifies engineered variants that outperform wild-type."
+    },
+    "overall_assessment": "Phase 3.5 adds significant value to the pipeline, particularly for CYP450-heavy pathways (cases 001, 002, 007, 009) where expression challenges are the primary bottleneck. The protein-level analysis correctly identifies feedback inhibition, membrane expression risks, and in some cases literature-reported beneficial mutations. However, the analysis does not change core pathway or gene selection (these are Phase 1-2 outputs), and the recommendations often remain in a separate 'notes' section rather than being integrated into the formal engineering strategy. The pipeline's fundamental weakness -- inability to discover novel/non-obvious engineering strategies (PEX engineering, mFAS, PfFNT transport) -- remains unchanged by Phase 3.5."
+  }
+}

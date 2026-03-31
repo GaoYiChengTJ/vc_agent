@@ -4,189 +4,345 @@
   "pathway": {
     "steps": [
       {
-        "step_number": 1,
-        "substrate": "Fructose-6-phosphate + L-Glutamine",
-        "product": "D-Glucosamine-6-phosphate + L-Glutamate",
-        "enzyme_ec": "EC 2.6.1.16",
-        "enzyme_name": "Glutamine--fructose-6-phosphate transaminase (GFA1)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
+        "step_number": 0,
+        "substrate": "Lactose (extracellular)",
+        "product": "Lactose (cytoplasmic)",
+        "enzyme_ec": "N/A (transporter)",
+        "enzyme_name": "Lactose permease (Lac12)",
+        "kegg_reaction": "N/A",
+        "kegg_orthology": "N/A",
+        "source_organism": "Kluyveromyces lactis",
+        "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
-        "cofactors_produced": []
+        "cofactors_produced": [],
+        "reaction_equation": "Lactose_e + H+_e --> Lactose_c + H+_c"
+      },
+      {
+        "step_number": 1,
+        "substrate": "Lactose + UDP-GlcNAc",
+        "product": "Lacto-N-triose II (LNT II) + UDP",
+        "enzyme_ec": "EC 2.4.1.206",
+        "enzyme_name": "beta-1,3-N-acetylglucosaminyltransferase (LgtA)",
+        "kegg_reaction": "R05971",
+        "kegg_orthology": "K03766",
+        "source_organism": "Neisseria meningitidis",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["UDP-GlcNAc"],
+        "cofactors_produced": ["UDP"],
+        "reaction_equation": "Lactose + UDP-GlcNAc --> LNT-II + UDP + H+"
       },
       {
         "step_number": 2,
-        "substrate": "D-Glucosamine-6-phosphate + Acetyl-CoA",
-        "product": "N-Acetyl-D-glucosamine-6-phosphate + CoA",
-        "enzyme_ec": "EC 2.3.1.4",
-        "enzyme_name": "Glucosamine-phosphate N-acetyltransferase (GNA1)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": ["Acetyl-CoA"],
-        "cofactors_produced": ["CoA"]
-      },
-      {
-        "step_number": 3,
-        "substrate": "N-Acetyl-D-glucosamine-6-phosphate",
-        "product": "N-Acetyl-D-glucosamine-1-phosphate",
-        "enzyme_ec": "EC 5.4.2.3",
-        "enzyme_name": "Phosphoacetylglucosamine mutase (AGM1/PCM1)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": [],
-        "cofactors_produced": []
-      },
-      {
-        "step_number": 4,
-        "substrate": "N-Acetyl-D-glucosamine-1-phosphate + UTP",
-        "product": "UDP-GlcNAc + PPi",
-        "enzyme_ec": "EC 2.7.7.23",
-        "enzyme_name": "UDP-N-acetylglucosamine diphosphorylase (QRI1)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": ["UTP"],
-        "cofactors_produced": ["PPi"]
-      },
-      {
-        "step_number": 5,
-        "substrate": "Glucose-1-phosphate + UTP",
-        "product": "UDP-glucose + PPi",
-        "enzyme_ec": "EC 2.7.7.9",
-        "enzyme_name": "UTP--glucose-1-phosphate uridylyltransferase (UGP1)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": ["UTP"],
-        "cofactors_produced": ["PPi"]
-      },
-      {
-        "step_number": 6,
-        "substrate": "UDP-glucose",
-        "product": "UDP-galactose",
-        "enzyme_ec": "EC 5.1.3.2",
-        "enzyme_name": "UDP-glucose 4-epimerase (GAL10)",
-        "source_organism": "Saccharomyces cerevisiae",
-        "native_or_heterologous": "native",
-        "cofactors_consumed": [],
-        "cofactors_produced": []
-      },
-      {
-        "step_number": 7,
-        "substrate": "UDP-galactose + D-Glucose",
-        "product": "Lactose + UDP",
-        "enzyme_ec": "EC 2.4.1.22",
-        "enzyme_name": "Beta-1,4-galactosyltransferase 1 (B4GALT1)",
-        "source_organism": "Homo sapiens",
-        "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [],
-        "cofactors_produced": []
-      },
-      {
-        "step_number": 8,
-        "substrate": "Lactose + UDP-GlcNAc",
-        "product": "Lacto-N-triose II (LNT-3) + UDP",
-        "enzyme_ec": "EC 2.4.1.149",
-        "enzyme_name": "Beta-1,3-N-acetylglucosaminyltransferase (LgtA)",
+        "substrate": "LNT II + UDP-Gal",
+        "product": "LNnT + UDP",
+        "enzyme_ec": "EC 2.4.1.275",
+        "enzyme_name": "beta-1,4-galactosyltransferase (LgtB)",
+        "kegg_reaction": "R05977",
+        "kegg_orthology": "K07966",
         "source_organism": "Neisseria meningitidis",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [],
-        "cofactors_produced": []
-      },
-      {
-        "step_number": 9,
-        "substrate": "Lacto-N-triose II + UDP-galactose",
-        "product": "Lacto-N-neotetraose (LNnT) + UDP",
-        "enzyme_ec": "EC 2.4.1.90",
-        "enzyme_name": "Beta-1,4-galactosyltransferase (LgtB)",
-        "source_organism": "Neisseria meningitidis",
-        "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [],
-        "cofactors_produced": []
+        "cofactors_consumed": ["UDP-Gal"],
+        "cofactors_produced": ["UDP"],
+        "reaction_equation": "LNT-II + UDP-Gal --> LNnT + UDP + H+"
       }
     ],
     "total_cofactors": {
+      "UDP-GlcNAc": -1,
+      "UDP-Gal": -1,
       "NADPH": 0,
       "NADH": 0,
       "ATP": 0,
       "O2": 0,
       "FAD": 0
-    }
+    },
+    "precursor_supply_notes": "LNnT biosynthesis requires two nucleotide sugar donors per molecule: (1) UDP-GlcNAc synthesized via F6P -> GlcN-6P (GFA1) -> GlcNAc-6P (GNA1) -> GlcNAc-1P (PCM1/AGM1) -> UDP-GlcNAc (QRI1/UAP1), and (2) UDP-Gal synthesized via G1P -> UDP-Glc (UGP1) -> UDP-Gal (GAL10). Lactose serves as the acceptor substrate and must be imported via heterologous Lac12 permease."
   },
   "engineering": {
     "heterologous_genes": [
       {
         "gene_name": "lgtA",
-        "source_organism": "Neisseria meningitidis",
-        "uniprot_id": "Q8KHG4",
-        "ec_number": "EC 2.4.1.149",
-        "function": "Beta-1,3-N-acetylglucosaminyltransferase; transfers GlcNAc from UDP-GlcNAc to lactose forming lacto-N-triose II (GlcNAc-beta1,3-Gal-beta1,4-Glc)"
+        "source_organism": "Neisseria meningitidis (serogroup B, MC58)",
+        "uniprot_id": "Q51115",
+        "ec_number": "EC 2.4.1.206",
+        "function": "Beta-1,3-N-acetylglucosaminyltransferase; transfers GlcNAc from UDP-GlcNAc to lactose acceptor forming LNT II (GlcNAc-beta1,3-Gal-beta1,4-Glc)",
+        "molecular_weight_kDa": 38.6,
+        "length_aa": 333,
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasmic (soluble)",
+        "km_mM": "Not reported in UniProt/SABIO-RK",
+        "kcat_per_s": "Not reported",
+        "pdb_structures": [],
+        "alphafold_model": "AF-Q51115-F1-model_v6",
+        "known_mutations": [],
+        "expression_notes": "Soluble bacterial protein, no TM domains or signal peptide. GRAVY -0.472 (hydrophilic). Instability index 40.8 (borderline). GT-A fold (PF00535/GT2 family). No experimental PDB structure available but AlphaFold model covers full length. STRING DB shows strong functional association with LgtB (score 0.903), supporting co-expression and potential substrate channeling via protein fusion.",
+        "interaction_partners": "LgtB (combined score 0.903), galE (0.725), lgtE (0.838), lgtF (0.697)"
       },
       {
         "gene_name": "lgtB",
-        "source_organism": "Neisseria meningitidis",
+        "source_organism": "Neisseria meningitidis (serogroup B, MC58)",
         "uniprot_id": "Q51116",
-        "ec_number": "EC 2.4.1.90",
-        "function": "Beta-1,4-galactosyltransferase; transfers Gal from UDP-Gal to lacto-N-triose II forming LNnT (Gal-beta1,4-GlcNAc-beta1,3-Gal-beta1,4-Glc)"
-      },
-      {
-        "gene_name": "B4GALT1",
-        "source_organism": "Homo sapiens",
-        "uniprot_id": "P15291",
-        "ec_number": "EC 2.4.1.22",
-        "function": "Beta-1,4-galactosyltransferase 1; catalyzes lactose synthesis from UDP-galactose and glucose; requires Mn2+ cofactor; PDB structures available (2AE7, 2AEC, etc.)"
+        "ec_number": "EC 2.4.1.275",
+        "function": "Beta-1,4-galactosyltransferase; transfers Gal from UDP-Gal to LNT II acceptor forming LNnT (Gal-beta1,4-GlcNAc-beta1,3-Gal-beta1,4-Glc)",
+        "molecular_weight_kDa": 31.6,
+        "length_aa": 275,
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasmic (soluble)",
+        "km_mM": "Not reported directly; human B4GALT3 homolog: Km 0.084 mM for UDP-galactose, 0.58 mM for benzyl-beta-D-GlcNAc",
+        "kcat_per_s": "Not reported",
+        "pdb_structures": [],
+        "alphafold_model": "AF-Q51116-F1-model_v6",
+        "cofactors": "Mn2+ (based on B4GALT family requirement)",
+        "known_mutations": [],
+        "expression_notes": "Soluble bacterial protein, no TM domains or signal peptide. GRAVY -0.268 (hydrophilic). Instability index 45.1 (possibly unstable, may benefit from codon optimization and multi-copy integration). GT-B fold (PF01755/GT25 family). STRING DB confirms strong association with LgtA (score 0.903). Literature demonstrates LgtA-LgtB fusion or peptide-tag assembly improves LNnT titer from 1.54 to 2.42 g/L.",
+        "interaction_partners": "LgtA (combined score 0.903), galE (0.723), lgtF (0.655)"
       },
       {
         "gene_name": "LAC12",
         "source_organism": "Kluyveromyces lactis",
         "uniprot_id": "P07921",
-        "ec_number": "N/A",
-        "function": "Lactose permease (587 aa); mediates lactose transport via proton symport; used to facilitate LNnT export or as alternative lactose import route"
+        "ec_number": "N/A (transporter)",
+        "function": "Lactose permease; imports lactose via H+ symport mechanism",
+        "molecular_weight_kDa": 65.4,
+        "length_aa": 587,
+        "transmembrane": true,
+        "transmembrane_domains": 12,
+        "signal_peptide": false,
+        "subcellular_location": "Plasma membrane",
+        "km_mM": "Not reported in UniProt",
+        "kcat_per_s": "N/A (transporter)",
+        "pdb_structures": [],
+        "known_mutations": [],
+        "expression_notes": "12-TM domain membrane protein (MFS superfamily, PF00083). GRAVY 0.117 (hydrophobic). Instability index 28.6 (stable). From closely related yeast K. lactis, favorable for membrane integration in S. cerevisiae. Critical for lactose import since S. cerevisiae lacks native lactose transport.",
+        "interaction_partners": "N/A"
+      }
+    ],
+    "alternative_enzyme_candidates": [
+      {
+        "gene_name": "lgtA",
+        "source_organism": "Neisseria meningitidis (Q8KHG4)",
+        "uniprot_id": "Q8KHG4",
+        "ec_number": "EC 2.4.1.206",
+        "length_aa": 332,
+        "notes": "Alternative LgtA variant from a different N. meningitidis strain. 332 aa, same GT2 family. Could be tested if Q51115 shows poor expression."
+      },
+      {
+        "gene_name": "lgtA",
+        "source_organism": "Neisseria gonorrhoeae (Q93PS0)",
+        "uniprot_id": "Q93PS0",
+        "ec_number": "EC 2.4.1.206",
+        "length_aa": 346,
+        "notes": "LgtA from N. gonorrhoeae. Slightly longer (346 aa). Alternative source for directed evolution or screening."
+      },
+      {
+        "gene_name": "lgtB",
+        "source_organism": "Neisseria gonorrhoeae (Q50947)",
+        "uniprot_id": "Q50947",
+        "ec_number": "EC 2.4.1.275",
+        "length_aa": 279,
+        "notes": "LgtB from N. gonorrhoeae. Reviewed entry. Alternative for testing expression/activity."
+      },
+      {
+        "gene_name": "B4GALT1",
+        "source_organism": "Homo sapiens",
+        "uniprot_id": "P15291",
+        "ec_number": "EC 2.4.1.22/2.4.1.90/2.4.1.275",
+        "length_aa": 398,
+        "notes": "Human beta-1,4-galactosyltransferase. Eukaryotic, but membrane-anchored (Golgi type II TM). Would require N-terminal truncation for cytoplasmic expression."
       }
     ],
     "knockouts": [
       {
-        "gene_name": "GLG1",
-        "yeast_systematic_id": "YKR058W",
-        "reaction_blocked": "GLCS2 (glycogen synthase, UDP-Glc -> glycogen) and GLYGS (glycogen/starch synthase)",
-        "rationale": "Eliminates glycogen synthesis that consumes UDP-glucose (baseline flux 0.149 mmol/gDW/h), redirecting UDP-Glc toward UDP-Gal via GAL10 for LNnT biosynthesis"
-      },
-      {
         "gene_name": "HUT1",
         "yeast_systematic_id": "YPL244C",
-        "reaction_blocked": "UDPGALt2g (UDP-galactose transport from cytoplasm to Golgi)",
-        "rationale": "Prevents loss of cytoplasmic UDP-galactose to the Golgi apparatus, retaining the precursor for the cytoplasmic LNnT pathway which requires 2 UDP-Gal per molecule"
-      },
-      {
-        "gene_name": "EHT1",
-        "yeast_systematic_id": "YLR189C",
-        "reaction_blocked": "ERGSTGLCT (UDP-glucose:ergosterol glucosyltransferase)",
-        "rationale": "Eliminates ergosterol glucosylation that competes for UDP-glucose, further increasing UDP-Glc availability for conversion to UDP-Gal"
+        "reaction_blocked": "UDPGALt2g (UDP-galactose Golgi transport)",
+        "competing_flux_wt": 0.0,
+        "rationale": "Blocks transport of UDP-galactose from cytoplasm to Golgi, redirecting the UDP-Gal pool toward LNnT biosynthesis via LgtB. UDPGALt2g is the sole consuming reaction for udpgal_c in the model. Baseline flux is 0.0 (under glucose conditions) but may divert UDP-Gal under galactose growth."
       }
     ],
     "overexpressions": [
       {
         "gene_name": "GAL10",
         "yeast_systematic_id": "YBR019C",
-        "reaction_boosted": "UDPG4E (UDP-glucose 4-epimerase; UDP-Glc <=> UDP-Gal)",
-        "rationale": "Enhances conversion of UDP-glucose to UDP-galactose; two molecules of UDP-Gal are consumed per LNnT (lactose synthesis + final galactosylation); forced min flux = 0.5"
+        "reaction_boosted": "UDPG4E (UDP-glucose 4-epimerase)",
+        "baseline_flux": 0.0,
+        "forced_min_flux": 1.0,
+        "rationale": "Converts UDP-glucose to UDP-galactose, the sugar donor for LgtB. Native GAL10 is under Gal4p regulation and repressed on glucose. Constitutive overexpression ensures UDP-Gal supply regardless of carbon source. Also has mutarotase activity useful for lactose metabolism."
       },
       {
         "gene_name": "GFA1",
-        "yeast_systematic_id": "YMR085W",
-        "reaction_boosted": "GF6PTA (glutamine--fructose-6-phosphate transaminase; F6P + Gln -> GlcN-6P + Glu)",
-        "rationale": "Rate-limiting entry point for UDP-GlcNAc biosynthesis from fructose-6-phosphate; overexpression increases hexosamine pathway flux for UDP-GlcNAc supply; forced min flux = 0.3"
+        "yeast_systematic_id": "YKL104C",
+        "reaction_boosted": "GF6PTA (glutamine:fructose-6-phosphate amidotransferase)",
+        "baseline_flux": 0.0,
+        "forced_min_flux": 0.5,
+        "rationale": "Rate-limiting step in the hexosamine biosynthetic pathway. Converts F6P + glutamine to GlcN-6P + glutamate. Overexpression increases flux toward UDP-GlcNAc, the sugar donor for LgtA. GF6PTA has OR-logic GPR (YMR085W or YKL104C or YMR084W)."
       },
       {
         "gene_name": "UGP1",
         "yeast_systematic_id": "YKL035W",
-        "reaction_boosted": "GALUi (UTP--glucose-1-phosphate uridylyltransferase; G1P + UTP -> UDP-Glc + PPi)",
-        "rationale": "Increases UDP-glucose supply from glucose-1-phosphate, feeding the GAL10 epimerase for enhanced UDP-Gal production; forced min flux = 0.5"
+        "reaction_boosted": "GALUi (UDP-glucose pyrophosphorylase)",
+        "baseline_flux": 0.4827,
+        "forced_min_flux": 1.0,
+        "rationale": "Catalyzes G1P + UTP -> UDP-glucose + PPi. Overexpression increases UDP-glucose supply which feeds both UDP-Gal production (via GAL10/UDPG4E) and cell wall biosynthesis."
       }
-    ]
+    ],
+    "substrate_channeling": {
+      "strategy": "LgtA-LgtB protein fusion or peptide-tag assembly",
+      "evidence": "STRING DB interaction analysis shows LgtA-LgtB combined score 0.903 (primarily text mining). Published literature (Mund et al., ChemBioEng 2025) demonstrated that LgtA-LgtB assembly using short peptide tags increased LNnT titer from 1.54 to 2.42 g/L in S. cerevisiae, confirming substrate channeling benefit.",
+      "mechanism": "Channeling the LNT-II intermediate directly from LgtA active site to LgtB active site reduces diffusion loss and intermediate degradation."
+    }
   },
   "fba_results": {
-    "baseline_max_flux": 1.391304,
-    "optimized_max_flux": 1.279171,
-    "biomass_at_optimum": 0.023674,
-    "strategy_description": "Heterologous pathway adds 3 glycosyltransferase reactions (LACS: UDP-Gal + Glc -> Lactose; LGTA: Lactose + UDP-GlcNAc -> LNT-3; LGTB: LNT-3 + UDP-Gal -> LNnT) plus an export reaction. The theoretical ceiling (no growth) is 1.391 mmol/gDW/h on 10 mmol/gDW/h glucose. With 10% minimum biomass constraint and optimized knockouts (GLG1, HUT1, YLR189C) plus overexpressions (GAL10 min=0.5, GFA1 min=0.3, UGP1 min=0.5), the optimized max flux is 1.279 mmol/gDW/h at biomass=0.0237. The production envelope shows a linear tradeoff: at full wild-type growth (0.237), residual LNnT flux is 0.250 mmol/gDW/h. Key metabolic bottleneck is UDP-Gal supply (consumed 2x per LNnT) from the limited UDP-Glc pool. TPS1 and GLG1+GLG2 double knockouts are lethal in the iMM904 model and were avoided."
-  }
+    "baseline_max_flux": 2.115385,
+    "baseline_max_flux_10pct_biomass": 1.924128,
+    "optimized_max_flux": 2.014154,
+    "biomass_at_optimum": 0.015605,
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "LNnT pathway only (Lac12 + LgtA + LgtB, no host modifications)",
+        "biomass": 0.0,
+        "product_flux": 2.115385,
+        "vs_baseline": "reference (theoretical ceiling)",
+        "notes": "Theoretical maximum with no biomass constraint. With 10% biomass, product flux = 1.924128."
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO HUT1 + OE GAL10 (min_flux=1.0) + OE GFA1 (min_flux=0.5)",
+        "biomass": 0.015605,
+        "product_flux": 2.014154,
+        "vs_baseline": "+4.7% vs baseline at 10% biomass (1.924 -> 2.014)",
+        "notes": "HUT1 KO eliminates UDP-Gal competition from Golgi transport. GAL10 OE ensures UDP-Gal supply. GFA1 OE boosts UDP-GlcNAc supply."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "Round 1 + KO GSY1/GSY2 (glycogen synthase)",
+        "biomass": 0.0,
+        "product_flux": 2.115385,
+        "vs_baseline": "reached theoretical max but 0 biomass",
+        "notes": "Glycogen synthase KOs eliminated a major UDP-glucose sink but also abolished biomass production (glycogen required for biomass). Not viable for sustained production."
+      },
+      {
+        "round": "Round 3",
+        "strategy": "Round 1 + OE UGP1 (min_flux=1.0) - FINAL STRATEGY",
+        "biomass": 0.015605,
+        "product_flux": 2.014154,
+        "vs_baseline": "+4.7% vs baseline at 10% biomass",
+        "notes": "UGP1 overexpression added to boost UDP-glucose supply. Same product flux as Round 1 at 10% biomass. At 30% biomass: product flux = 1.793. Stopped: <5% additional improvement."
+      }
+    ],
+    "production_envelope": [
+      {"biomass_min": 0.000000, "max_product_flux": 2.115385},
+      {"biomass_min": 0.015605, "max_product_flux": 2.014154},
+      {"biomass_min": 0.031209, "max_product_flux": 1.906604},
+      {"biomass_min": 0.046814, "max_product_flux": 1.793333},
+      {"biomass_min": 0.062418, "max_product_flux": 1.680000},
+      {"biomass_min": 0.078023, "max_product_flux": 1.566667},
+      {"biomass_min": 0.093628, "max_product_flux": 1.453333},
+      {"biomass_min": 0.109232, "max_product_flux": 1.340000},
+      {"biomass_min": 0.124837, "max_product_flux": 1.226667},
+      {"biomass_min": 0.140442, "max_product_flux": 1.113333},
+      {"biomass_min": 0.156046, "max_product_flux": 1.000000}
+    ],
+    "strategy_description": "Express three heterologous genes: Lac12 (P07921, K. lactis) for lactose import, LgtA (Q51115, N. meningitidis) for beta-1,3-GlcNAc transfer, and LgtB (Q51116, N. meningitidis) for beta-1,4-Gal transfer. Knock out HUT1 (YPL244C) to eliminate UDP-galactose diversion to Golgi. Overexpress GAL10 (YBR019C, min_flux=1.0) for UDP-Gal supply, GFA1 (YKL104C, min_flux=0.5) for UDP-GlcNAc supply, and UGP1 (YKL035W, min_flux=1.0) for UDP-glucose supply. With 10% minimum biomass constraint, achieves 2.014 mmol/gDW/h LNnT production (95.2% of theoretical maximum 2.115). Production envelope shows linear tradeoff: at full biomass (0.156) production is 1.000; at zero biomass production reaches 2.115. LgtA-LgtB protein fusion recommended for substrate channeling based on STRING interaction data."
+  },
+  "protein_analysis": {
+    "glycosyltransferase_comparison": {
+      "LgtA_Q51115": {
+        "molecular_weight_kDa": 38.6,
+        "transmembrane": false,
+        "signal_peptide": false,
+        "gravy_score": -0.472,
+        "instability_index": 40.8,
+        "pI_estimated": 7.2,
+        "domain_family": "GT2 (Glyco_trans_2-like, PF00535)",
+        "pdb_available": false,
+        "alphafold_available": true,
+        "cofactors": "None annotated (likely requires divalent metal ion based on GT2 family)",
+        "expression_risk": "Low-moderate. Soluble protein, no TM or signal peptide. Borderline instability index (40.8). Bacterial origin requires codon optimization for S. cerevisiae.",
+        "substrate_channeling": "Strong functional association with LgtB (STRING score 0.903). Protein fusion or peptide-tag assembly recommended for substrate channeling of LNT-II intermediate."
+      },
+      "LgtB_Q51116": {
+        "molecular_weight_kDa": 31.6,
+        "transmembrane": false,
+        "signal_peptide": false,
+        "gravy_score": -0.268,
+        "instability_index": 45.1,
+        "pI_estimated": 7.2,
+        "domain_family": "GT25 (Glyco_trans_25, PF01755)",
+        "pdb_available": false,
+        "alphafold_available": true,
+        "cofactors": "Mn2+ (inferred from B4GALT family)",
+        "expression_risk": "Low-moderate. Soluble protein, no TM or signal peptide. Higher instability index (45.1) than LgtA. May benefit from multi-copy integration and codon optimization.",
+        "substrate_channeling": "Strong functional association with LgtA (STRING score 0.903). When fused or assembled with LgtA via peptide tags, LNnT titer increased from 1.54 to 2.42 g/L in yeast (Mund et al. 2025)."
+      },
+      "Lac12_P07921": {
+        "molecular_weight_kDa": 65.4,
+        "transmembrane": true,
+        "transmembrane_domains": 12,
+        "signal_peptide": false,
+        "gravy_score": 0.117,
+        "instability_index": 28.6,
+        "domain_family": "MFS (Major Facilitator Superfamily, PF00083)",
+        "pdb_available": false,
+        "alphafold_available": false,
+        "cofactors": "None",
+        "expression_risk": "Moderate. 12-TM domain membrane protein requires proper membrane integration. From closely related yeast K. lactis, which improves compatibility with S. cerevisiae membrane. Stable protein (instability index 28.6). May need titration of expression level to avoid membrane stress.",
+        "substrate_channeling": "N/A (membrane transporter)"
+      }
+    },
+    "native_enzyme_overexpression": {
+      "GAL10_P04397": {
+        "molecular_weight_kDa": "~77 (bifunctional, 699 aa)",
+        "function": "Bifunctional: UDP-glucose 4-epimerase (EC 5.1.3.2) + aldose 1-epimerase/mutarotase (EC 5.1.3.3)",
+        "cofactor": "NAD+",
+        "pdb": "1Z45",
+        "notes": "Native yeast enzyme under Gal4p regulation. Must be placed under constitutive promoter (e.g., TEF1p, PGK1p) for expression on glucose medium. Well-characterized crystal structure available."
+      },
+      "GFA1_P14742": {
+        "molecular_weight_kDa": "~80 (717 aa)",
+        "function": "Glutamine:fructose-6-phosphate amidotransferase (EC 2.6.1.16), rate-limiting step in hexosamine pathway",
+        "cofactor": "None annotated",
+        "notes": "Native yeast enzyme. Rate-limiting for UDP-GlcNAc biosynthesis. Overexpression increases flux from F6P into hexosamine pathway."
+      },
+      "UGP1": {
+        "yeast_systematic_id": "YKL035W",
+        "function": "UDP-glucose pyrophosphorylase, converts G1P + UTP to UDP-glucose",
+        "notes": "Native yeast enzyme. Overexpression increases UDP-glucose pool, feeding UDP-Gal synthesis."
+      }
+    },
+    "substrate_channeling_analysis": {
+      "lgtA_lgtB_interaction": {
+        "string_score": 0.903,
+        "score_breakdown": "Experimental: 0.000, Co-expression: 0.058, Database: 0.000, TextMining: 0.732",
+        "interpretation": "High combined score driven primarily by text mining (co-mention in LNnT biosynthesis literature). No direct experimental protein-protein interaction data. In vivo, LgtA and LgtB operate sequentially on the same glycan chain in Neisseria LOS biosynthesis.",
+        "recommendation": "Implement LgtA-LgtB fusion protein or peptide-tag-mediated assembly (SpyTag/SpyCatcher or RIAD/RIDD). Published evidence shows 57% improvement in LNnT titer with peptide-tag assembly (1.54 -> 2.42 g/L). Fusion order: LgtA-linker-LgtB preferred (product of LgtA is substrate of LgtB)."
+      }
+    }
+  },
+  "recommended_conditions": {
+    "carbon_source": "Glucose (EX_glc__D_e) as primary carbon source + Lactose as substrate/acceptor",
+    "oxygen_level": "Aerobic (default, O2 lb=-1000)",
+    "special_notes": [
+      "Lactose serves dual role: it is both the acceptor substrate for LgtA and a potential carbon source. Feed lactose continuously during production phase.",
+      "GAL10 must be constitutively expressed (e.g., TEF1p or PGK1p promoter) since native Gal4p regulation represses it on glucose.",
+      "Supplement MnCl2 (0.1-1 mM) in the medium to support LgtB (Mn2+-dependent galactosyltransferase).",
+      "Consider two-phase fermentation: growth phase on glucose, then production phase with lactose feeding.",
+      "LgtA-LgtB fusion or peptide-tag assembly (SpyTag/SpyCatcher) recommended for substrate channeling to improve titer.",
+      "Published benchmark: 6.25 g/L LNnT achieved in S. cerevisiae under fed-batch conditions with LgtA-LgtB peptide-tag assembly (Mund et al. 2025, ChemBioEng)."
+    ]
+  },
+  "known_limitations": [
+    "FBA provides flux values (mmol/gDW/h) not absolute titers (g/L); actual productivity depends on biomass density and fermentation conditions.",
+    "Protein expression levels, folding efficiency, and in vivo solubility of heterologous LgtA and LgtB cannot be predicted by FBA.",
+    "Product toxicity: LNnT is non-toxic but high concentrations of intracellular nucleotide sugars (UDP-GlcNAc, UDP-Gal) may inhibit other pathways.",
+    "The LNnT intermediate (LNT-II, lacto-N-triose II) may accumulate if LgtB activity is rate-limiting; enzyme ratio optimization is needed.",
+    "UDP released by both glycosyltransferase reactions must be recycled to UTP; this is handled natively by NDPK2 (YKL067W) but may become limiting at high flux.",
+    "Lactose import rate via Lac12 may be limiting; expression level titration or alternative permease variants should be tested.",
+    "The iMM904 model uses 'udpacgal_c' for UDP-N-acetylgalactosamine which overlaps with UDP-GlcNAc; the hexosamine pathway representation is simplified.",
+    "Allosteric regulation, enzyme kinetics, and metabolite channeling effects are not captured by FBA.",
+    "Actual Km/kcat values for LgtA and LgtB from N. meningitidis are not available in public databases; directed evolution may be needed to improve catalytic efficiency.",
+    "Cell wall integrity may be affected by UDP-Gal diversion (HUT1 knockout) and UDP-Glc competition; monitor growth phenotype carefully."
+  ]
 }

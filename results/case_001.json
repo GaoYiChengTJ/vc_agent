@@ -7,8 +7,8 @@
         "step_number": 1,
         "substrate": "L-Phenylalanine",
         "product": "trans-Cinnamate",
-        "enzyme_ec": "EC 4.3.1.24",
-        "enzyme_name": "Phenylalanine ammonia-lyase (PAL1)",
+        "enzyme_ec": "4.3.1.24",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
@@ -18,8 +18,8 @@
         "step_number": 2,
         "substrate": "trans-Cinnamate",
         "product": "4-Coumarate",
-        "enzyme_ec": "EC 1.14.14.91",
-        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H/CYP73A5)",
+        "enzyme_ec": "1.14.14.91",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H / CYP73A)",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH", "O2"],
@@ -29,8 +29,8 @@
         "step_number": 3,
         "substrate": "4-Coumarate",
         "product": "p-Coumaroyl-CoA",
-        "enzyme_ec": "EC 6.2.1.12",
-        "enzyme_name": "4-Coumarate-CoA ligase (4CL1)",
+        "enzyme_ec": "6.2.1.12",
+        "enzyme_name": "4-Coumarate:CoA ligase (4CL)",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["ATP", "CoA"],
@@ -40,8 +40,8 @@
         "step_number": 4,
         "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
         "product": "Isoliquiritigenin",
-        "enzyme_ec": "EC 2.3.1.170",
-        "enzyme_name": "6'-Deoxychalcone synthase (CHS+CHR)",
+        "enzyme_ec": "2.3.1.74 / 2.3.1.170",
+        "enzyme_name": "Chalcone synthase (CHS) + Chalcone reductase (CHR)",
         "source_organism": "Glycine max",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH"],
@@ -51,8 +51,8 @@
         "step_number": 5,
         "substrate": "Isoliquiritigenin",
         "product": "Liquiritigenin",
-        "enzyme_ec": "EC 5.5.1.6",
-        "enzyme_name": "Chalcone isomerase (CHI1)",
+        "enzyme_ec": "5.5.1.6",
+        "enzyme_name": "Chalcone isomerase (CHI)",
         "source_organism": "Medicago sativa",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
@@ -62,8 +62,8 @@
         "step_number": 6,
         "substrate": "Liquiritigenin",
         "product": "2,7,4'-Trihydroxyisoflavanone",
-        "enzyme_ec": "EC 1.14.14.87",
-        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS/CYP93C2)",
+        "enzyme_ec": "1.14.14.87",
+        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS / CYP93C2)",
         "source_organism": "Glycyrrhiza echinata",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH", "O2"],
@@ -73,7 +73,7 @@
         "step_number": 7,
         "substrate": "2,7,4'-Trihydroxyisoflavanone",
         "product": "Daidzein",
-        "enzyme_ec": "EC 4.2.1.105",
+        "enzyme_ec": "4.2.1.105",
         "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDM)",
         "source_organism": "Glycyrrhiza echinata",
         "native_or_heterologous": "heterologous",
@@ -84,8 +84,8 @@
         "step_number": 8,
         "substrate": "Daidzein",
         "product": "2'-Hydroxydaidzein",
-        "enzyme_ec": "EC 1.14.14.90",
-        "enzyme_name": "Isoflavone 2'-hydroxylase (I2'H/CYP81E1)",
+        "enzyme_ec": "1.14.14.90",
+        "enzyme_name": "Isoflavone 2'-hydroxylase (I2'H / CYP81E1)",
         "source_organism": "Glycyrrhiza echinata",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH", "O2"],
@@ -94,21 +94,32 @@
       {
         "step_number": 9,
         "substrate": "2'-Hydroxydaidzein",
-        "product": "2'-Hydroxydihydrodaidzein",
-        "enzyme_ec": "EC 1.3.1.45",
+        "product": "(3R)-Vestitone",
+        "enzyme_ec": "1.3.1.45",
         "enzyme_name": "Isoflavone reductase (IFR)",
-        "source_organism": "Medicago sativa",
+        "source_organism": "Glycine max",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH"],
         "cofactors_produced": []
       },
       {
         "step_number": 10,
-        "substrate": "2'-Hydroxydihydrodaidzein",
+        "substrate": "(3R)-Vestitone",
+        "product": "Prenylated vestitone intermediate",
+        "enzyme_ec": "2.5.1.36",
+        "enzyme_name": "Glycinol 4-dimethylallyltransferase (G4DT / prenyltransferase)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["DMAPP"],
+        "cofactors_produced": ["PPi"]
+      },
+      {
+        "step_number": 11,
+        "substrate": "Prenylated vestitone intermediate",
         "product": "Glabridin",
-        "enzyme_ec": "EC 1.1.1.348 / EC 4.2.1.139",
-        "enzyme_name": "Vestitone reductase (VR) + Pterocarpan synthase (PTS1)",
-        "source_organism": "Glycyrrhiza echinata",
+        "enzyme_ec": "1.14.14.-",
+        "enzyme_name": "Pterocarpan reductase / cyclization enzyme (CYP-mediated ring closure)",
+        "source_organism": "Glycyrrhiza glabra",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH"],
         "cofactors_produced": []
@@ -125,128 +136,144 @@
   "engineering": {
     "heterologous_genes": [
       {
-        "gene_name": "PAL1",
+        "gene_name": "PAL2",
         "source_organism": "Arabidopsis thaliana",
-        "uniprot_id": "P35510",
-        "ec_number": "EC 4.3.1.24",
-        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate (725 aa, Km=68 uM)"
+        "uniprot_id": "P45724",
+        "ec_number": "4.3.1.24",
+        "function": "Phenylalanine ammonia-lyase; deaminates L-phenylalanine to trans-cinnamate, the first committed step in phenylpropanoid biosynthesis"
       },
       {
         "gene_name": "CYP73A5 (C4H)",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "P92994",
-        "ec_number": "EC 1.14.14.91",
-        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (505 aa, CYP450)"
-      },
-      {
-        "gene_name": "ATR2 (CPR)",
-        "source_organism": "Arabidopsis thaliana",
-        "uniprot_id": "Q9SUM3",
-        "ec_number": "EC 1.6.2.4",
-        "function": "NADPH-cytochrome P450 reductase; electron donor for C4H, IFS, and I2'H CYP450s (711 aa, PDB:5GXU)"
+        "ec_number": "1.14.14.91",
+        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate. CYP450 requiring CPR electron donor"
       },
       {
         "gene_name": "4CL1",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "Q42524",
-        "ec_number": "EC 6.2.1.12",
-        "function": "4-Coumarate-CoA ligase; activates coumarate with CoA to form p-coumaroyl-CoA (561 aa)"
+        "ec_number": "6.2.1.12",
+        "function": "4-Coumarate:CoA ligase; activates coumarate to coumaroyl-CoA using ATP"
       },
       {
-        "gene_name": "CHS+CHR (6'-deoxychalcone synthase)",
+        "gene_name": "CHS7",
+        "source_organism": "Glycine max",
+        "uniprot_id": "P30081",
+        "ec_number": "2.3.1.74",
+        "function": "Chalcone synthase; condenses coumaroyl-CoA with 3 malonyl-CoA to form naringenin chalcone. Works with CHR for isoliquiritigenin"
+      },
+      {
+        "gene_name": "CHR",
         "source_organism": "Glycine max",
         "uniprot_id": "P26690",
-        "ec_number": "EC 2.3.1.170",
-        "function": "NAD(P)H-dependent 6'-deoxychalcone synthase; produces isoliquiritigenin from coumaroyl-CoA + malonyl-CoA (315 aa)"
+        "ec_number": "2.3.1.170",
+        "function": "Chalcone reductase; co-acts with CHS to produce isoliquiritigenin (6'-deoxychalcone) instead of naringenin chalcone"
       },
       {
         "gene_name": "CHI1",
         "source_organism": "Medicago sativa",
         "uniprot_id": "P28012",
-        "ec_number": "EC 5.5.1.6",
-        "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin (222 aa)"
+        "ec_number": "5.5.1.6",
+        "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin (a flavanone)"
       },
       {
         "gene_name": "CYP93C2 (IFS)",
         "source_organism": "Glycyrrhiza echinata",
         "uniprot_id": "Q9SXS3",
-        "ec_number": "EC 1.14.14.87",
-        "function": "2-Hydroxyisoflavanone synthase; converts liquiritigenin to trihydroxyisoflavanone with aryl migration (523 aa, Km=8 uM, CYP450)"
+        "ec_number": "1.14.14.87",
+        "function": "2-Hydroxyisoflavanone synthase; catalyzes hydroxylation and 1,2-aryl migration converting liquiritigenin to 2,7,4'-trihydroxyisoflavanone. Key CYP450 for isoflavone skeleton"
       },
       {
         "gene_name": "HIDM",
         "source_organism": "Glycyrrhiza echinata",
         "uniprot_id": "Q5NUF4",
-        "ec_number": "EC 4.2.1.105",
-        "function": "2-Hydroxyisoflavanone dehydratase; dehydrates trihydroxyisoflavanone to daidzein (328 aa, Km=210 uM)"
+        "ec_number": "4.2.1.105",
+        "function": "2-Hydroxyisoflavanone dehydratase; dehydrates trihydroxyisoflavanone to produce daidzein"
       },
       {
         "gene_name": "CYP81E1 (I2'H)",
         "source_organism": "Glycyrrhiza echinata",
         "uniprot_id": "P93147",
-        "ec_number": "EC 1.14.14.90",
-        "function": "Isoflavone 2'-hydroxylase; hydroxylates daidzein at 2' position (499 aa, CYP450)"
+        "ec_number": "1.14.14.90",
+        "function": "Isoflavone 2'-hydroxylase; hydroxylates daidzein to 2'-hydroxydaidzein. CYP450 requiring CPR"
       },
       {
         "gene_name": "IFR",
-        "source_organism": "Medicago sativa",
-        "uniprot_id": "P52575",
-        "ec_number": "EC 1.3.1.45",
-        "function": "Isoflavone reductase; reduces 2'-hydroxydaidzein to dihydrodaidzein (318 aa, Km=14.2 uM, PDB:2GAS)"
+        "source_organism": "Glycine max",
+        "uniprot_id": "I1LHU6",
+        "ec_number": "1.3.1.45",
+        "function": "Isoflavone reductase; NADPH-dependent reduction of 2'-hydroxydaidzein to (3R)-vestitone"
       },
       {
-        "gene_name": "PTS1",
-        "source_organism": "Glycyrrhiza echinata",
-        "uniprot_id": "A0A1V1FH01",
-        "ec_number": "EC 4.2.1.139",
-        "function": "Pterocarpan synthase; dirigent protein catalyzing cyclization to form the isoflavan scaffold (188 aa, PDB:6OOC)"
+        "gene_name": "G4DT",
+        "source_organism": "Glycine max",
+        "uniprot_id": "B9A1Q4",
+        "ec_number": "2.5.1.36",
+        "function": "Glycinol 4-dimethylallyltransferase; prenylates the pterocarpan/isoflavan intermediate using DMAPP to install the dimethylallyl group needed for glabridin"
+      },
+      {
+        "gene_name": "ATR2 (CPR)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SUM3",
+        "ec_number": "1.6.2.4",
+        "function": "NADPH-cytochrome P450 reductase; essential electron transfer partner for all three CYP450 enzymes (C4H, IFS/CYP93C2, I2'H/CYP81E1)"
       }
     ],
     "knockouts": [
       {
-        "gene_name": "PDC1",
-        "yeast_systematic_id": "YLR044C",
-        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
-        "rationale": "Major pyruvate decarboxylase; knockout (with PDC5, PDC6, ARO10) eliminates ethanol fermentation, redirecting carbon flux toward biomass and product"
-      },
-      {
-        "gene_name": "PDC5",
-        "yeast_systematic_id": "YLR134W",
-        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
-        "rationale": "PDC5 isozyme; must be knocked out with PDC1 to fully disable pyruvate decarboxylase due to OR-logic GPR"
-      },
-      {
-        "gene_name": "PDC6",
-        "yeast_systematic_id": "YGR087C",
-        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
-        "rationale": "PDC6 isozyme; required for complete PYRDC inactivation"
-      },
-      {
         "gene_name": "ARO10",
         "yeast_systematic_id": "YDR380W",
-        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase) and PYRDC",
-        "rationale": "Broad-specificity decarboxylase for aromatic 2-oxo acids; knockout prevents Ehrlich pathway degradation of phenylpyruvate and completes PYRDC inactivation"
+        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
+        "rationale": "Blocks Ehrlich pathway degradation of phenylpyruvate to phenylacetaldehyde, redirecting flux toward L-phenylalanine synthesis for the heterologous pathway"
       }
     ],
     "overexpressions": [
       {
+        "gene_name": "ARO4",
+        "yeast_systematic_id": "YBR249C",
+        "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
+        "rationale": "Rate-limiting entry point into the shikimate pathway; feedback-resistant mutant ARO4-K229L eliminates tyrosine inhibition, boosting phenylalanine precursor supply"
+      },
+      {
+        "gene_name": "ARO7",
+        "yeast_systematic_id": "YPR060C",
+        "reaction_boosted": "CHORM (chorismate mutase)",
+        "rationale": "Directs chorismate toward prephenate and the phenylalanine branch; feedback-resistant mutant ARO7-G141S removes feedback inhibition by tyrosine"
+      },
+      {
         "gene_name": "ZWF1",
         "yeast_systematic_id": "YNL241C",
         "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
-        "rationale": "First committed step of oxidative pentose phosphate pathway; overexpression increases NADPH supply; pathway requires 6 NADPH per glabridin molecule"
-      },
-      {
-        "gene_name": "GND2",
-        "yeast_systematic_id": "YGR256W",
-        "reaction_boosted": "GND (6-phosphogluconate dehydrogenase)",
-        "rationale": "Second NADPH-generating step in oxidative PPP; overexpression with ZWF1 maximizes NADPH regeneration capacity"
+        "rationale": "Major NADPH-producing reaction; pathway requires 6 NADPH per glabridin molecule. Overexpression increases cytoplasmic NADPH supply via the pentose phosphate pathway"
       }
     ]
   },
+  "protein_engineering_notes": {
+    "expression_risks": [
+      "IFS/CYP93C2 (Q9SXS3): 1 transmembrane helix (aa 2-22) anchors to ER membrane; 59.4 kDa; instability index 45.1 (borderline unstable). Heme-dependent CYP450 requiring co-expression with CPR.",
+      "CYP81E1/I2'H (P93147): Membrane-associated CYP450 (57.2 kDa); heme-dependent. No annotated TM helices but localized to membrane. Requires CPR co-expression.",
+      "C4H/CYP73A5 (P92994): ER membrane-anchored CYP450 requiring CPR. Well-characterized in yeast heterologous expression.",
+      "G4DT (B9A1Q4): 9 transmembrane helices (highly hydrophobic, GRAVY +0.308); 46.0 kDa; native localization to chloroplast membrane. Major expression risk in yeast: may need N-terminal signal removal and ER targeting. Consider truncation of chloroplast transit peptide region.",
+      "ATR2/CPR (Q9SUM3): 1 TM helix (aa 52-72); 78.9 kDa; ER membrane-anchored. Well-characterized for yeast expression. Requires FAD and FMN cofactors."
+    ],
+    "recommended_mutations": [
+      "ARO4-K229L: Feedback-resistant DAHP synthase; removes allosteric inhibition by L-tyrosine, increasing flux into the shikimate pathway (well-established in yeast metabolic engineering)",
+      "ARO7-G141S: Feedback-resistant chorismate mutase; removes allosteric inhibition by L-tyrosine, directing more flux toward prephenate/phenylalanine",
+      "IFS/CYP93C2: S310 and K375 are critical for aryl migration activity. AVOID mutations at these positions (S310A/T and K375A/T cause loss of isoflavanone synthase activity). R104 is essential (R104A = total loss).",
+      "ACC1-S659A/S1157A: Phosphorylation-resistant acetyl-CoA carboxylase; prevents Snf1-mediated inactivation, maintaining malonyl-CoA supply under glucose-limited conditions"
+    ],
+    "coexpression_requirements": [
+      "ATR2 (CPR) MUST be co-expressed with all three CYP450 enzymes (C4H, IFS/CYP93C2, CYP81E1/I2'H). ATR2 from A. thaliana (Q9SUM3) is the recommended reductase partner, validated for coupling with CYP73A5.",
+      "CHS7 and CHR must be co-expressed simultaneously to produce isoliquiritigenin (6'-deoxychalcone). CHS alone produces naringenin chalcone, not the desired isoliquiritigenin.",
+      "Consider INO2/INO4 overexpression or ERG9 downregulation for ER membrane expansion if CYP450 competition for ER space limits activity."
+    ],
+    "notes": "The pathway contains 3 CYP450 enzymes (C4H, IFS, I2'H) all competing for ER membrane space and CPR electron transfer. This is a major bottleneck. Recommendations: (1) Use multi-copy CPR integration (2:1 CPR:CYP ratio recommended). (2) Consider ERG9 promoter replacement with HXT1p (glucose-repressed) to reduce sterol synthesis and free ER membrane. (3) G4DT has 9 TM helices and is natively chloroplast-localized; re-targeting to ER using an ER signal anchor or testing as a truncated soluble variant is critical. (4) The DMAPP prenyl donor is supplied via the native mevalonate pathway; consider tHMG1 (truncated HMG-CoA reductase) overexpression to boost IPP/DMAPP supply. (5) Heme supply may become limiting with 3 CYP450s; consider HEM3 overexpression."
+  },
   "fba_results": {
-    "baseline_max_flux": 0.666667,
-    "optimized_max_flux": 0.666142,
-    "biomass_at_optimum": 0.028239,
-    "strategy_description": "10-step heterologous pathway from L-phenylalanine to glabridin was added to iMM904 (11 reactions including exchange). Baseline theoretical max was 0.667 mmol/gDW/h. Overexpression of ZWF1 (G6PDH2r) and GND2 (GND) at min_flux=1.5 maintained near-theoretical-max production (0.666 mmol/gDW/h) at 10% biomass constraint. PDC quadruple knockout (PDC1/5/6 + ARO10) disabled ethanol fermentation and Ehrlich pathway but reduced max product flux to 0.452 due to redox imbalance; recommended as optional for fed-batch conditions. Production envelope shows classic growth-production tradeoff with full production at low growth rates."
+    "baseline_max_flux": 0.634615,
+    "optimized_max_flux": 0.568168,
+    "biomass_at_optimum": 0.024317,
+    "strategy_description": "Heterologous 11-step pathway from L-phenylalanine to glabridin added to iMM904. Baseline theoretical maximum flux is 0.635 mmol/gDW/h (no biomass constraint) or 0.574 mmol/gDW/h (10% min biomass). Optimized strategy: ARO10 knockout (blocks Ehrlich pathway phenylpyruvate degradation) + ARO4 overexpression (min flux 0.5, boosts shikimate entry) + ARO7 overexpression (min flux 0.3, boosts chorismate-to-prephenate) + ZWF1 overexpression (min flux 2.0, boosts NADPH supply via pentose phosphate pathway). Optimized flux: 0.568 mmol/gDW/h at 10% biomass (0.024 gDW/h). The pathway is primarily limited by NADPH (6 mol/mol product), malonyl-CoA (3 mol/mol), DMAPP (1 mol/mol), and O2 supply (3 mol/mol)."
   }
 }

@@ -9,43 +9,55 @@
         "product": "trans-Cinnamate",
         "enzyme_ec": "EC 4.3.1.24",
         "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+        "kegg_reaction": "R00697",
+        "kegg_orthology": "K10775",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
-        "cofactors_produced": ["NH4+"]
+        "cofactors_produced": ["NH4+"],
+        "reaction_equation": "L-Phenylalanine --> trans-Cinnamate + NH4+"
       },
       {
         "step_number": 2,
         "substrate": "trans-Cinnamate",
         "product": "4-Coumarate",
         "enzyme_ec": "EC 1.14.14.91",
-        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H / CYP73A5)",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H, CYP73A5)",
+        "kegg_reaction": "R02253",
+        "kegg_orthology": "K00487",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH", "O2"],
-        "cofactors_produced": []
+        "cofactors_produced": ["NADP+"],
+        "reaction_equation": "trans-Cinnamate + NADPH + O2 + H+ --> 4-Coumarate + NADP+ + H2O"
       },
       {
         "step_number": 3,
         "substrate": "4-Coumarate",
         "product": "p-Coumaroyl-CoA",
         "enzyme_ec": "EC 6.2.1.12",
-        "enzyme_name": "4-Coumarate--CoA ligase (4CL1)",
+        "enzyme_name": "4-coumarate--CoA ligase (4CL1)",
+        "kegg_reaction": "R01616",
+        "kegg_orthology": "K01904",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["ATP", "CoA"],
-        "cofactors_produced": []
+        "cofactors_produced": ["AMP", "PPi"],
+        "reaction_equation": "4-Coumarate + ATP + CoA --> p-Coumaroyl-CoA + AMP + PPi"
       },
       {
         "step_number": 4,
-        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+        "substrate": "p-Coumaroyl-CoA",
         "product": "Naringenin chalcone",
         "enzyme_ec": "EC 2.3.1.74",
-        "enzyme_name": "Chalcone synthase (CHS / TT4)",
+        "enzyme_name": "Chalcone synthase (CHS)",
+        "kegg_reaction": "R01613",
+        "kegg_orthology": "K00660",
         "source_organism": "Arabidopsis thaliana",
         "native_or_heterologous": "heterologous",
-        "cofactors_consumed": [],
-        "cofactors_produced": ["4 CoA", "3 CO2"]
+        "cofactors_consumed": ["3 Malonyl-CoA"],
+        "cofactors_produced": ["4 CoA", "3 CO2"],
+        "reaction_equation": "p-Coumaroyl-CoA + 3 Malonyl-CoA + 3 H+ --> Naringenin chalcone + 4 CoA + 3 CO2"
       },
       {
         "step_number": 5,
@@ -53,43 +65,55 @@
         "product": "Naringenin",
         "enzyme_ec": "EC 5.5.1.6",
         "enzyme_name": "Chalcone--flavanone isomerase (CHI)",
+        "kegg_reaction": "R02446",
+        "kegg_orthology": "K01859",
         "source_organism": "Medicago sativa",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
-        "cofactors_produced": []
+        "cofactors_produced": [],
+        "reaction_equation": "Naringenin chalcone --> Naringenin"
       },
       {
         "step_number": 6,
         "substrate": "Naringenin",
         "product": "2-Hydroxy-2,3-dihydrogenistein",
         "enzyme_ec": "EC 1.14.14.87",
-        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS / CYP93C1v2)",
+        "enzyme_name": "2-hydroxyisoflavanone synthase (IFS2, CYP93C1v2)",
+        "kegg_reaction": "R07778",
+        "kegg_orthology": "K13257",
         "source_organism": "Glycine max",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["NADPH", "O2"],
-        "cofactors_produced": []
+        "cofactors_produced": ["NADP+"],
+        "reaction_equation": "Naringenin + NADPH + O2 + H+ --> 2-Hydroxy-2,3-dihydrogenistein + NADP+ + H2O"
       },
       {
         "step_number": 7,
         "substrate": "2-Hydroxy-2,3-dihydrogenistein",
         "product": "Genistein",
         "enzyme_ec": "EC 4.2.1.105",
-        "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDH)",
+        "enzyme_name": "2-hydroxyisoflavanone dehydratase (HIDH)",
+        "kegg_reaction": "R06793",
+        "kegg_orthology": "K13258",
         "source_organism": "Glycine max",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": [],
-        "cofactors_produced": []
+        "cofactors_produced": [],
+        "reaction_equation": "2-Hydroxy-2,3-dihydrogenistein --> Genistein + H2O"
       },
       {
         "step_number": 8,
-        "substrate": "Genistein + S-Adenosyl-L-methionine",
-        "product": "Biochanin A + S-Adenosyl-L-homocysteine",
+        "substrate": "Genistein",
+        "product": "Biochanin A",
         "enzyme_ec": "EC 2.1.1.46",
         "enzyme_name": "Isoflavone 4'-O-methyltransferase (HI4'OMT)",
+        "kegg_reaction": "R02931",
+        "kegg_orthology": "K13259",
         "source_organism": "Medicago truncatula",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["SAM"],
-        "cofactors_produced": ["SAH"]
+        "cofactors_produced": ["SAH"],
+        "reaction_equation": "Genistein + S-Adenosyl-L-methionine --> Biochanin A + S-Adenosyl-L-homocysteine"
       }
     ],
     "total_cofactors": {
@@ -97,6 +121,9 @@
       "NADH": 0,
       "ATP": -1,
       "O2": -2,
+      "SAM": -1,
+      "Malonyl-CoA": -3,
+      "CoA": -1,
       "FAD": 0
     }
   },
@@ -107,85 +134,437 @@
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "P45724",
         "ec_number": "EC 4.3.1.24",
-        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate"
+        "function": "Phenylalanine ammonia-lyase; deaminates L-phenylalanine to trans-cinnamate + NH4+",
+        "molecular_weight_kDa": 77.9,
+        "length_aa": 717,
+        "subunit": "Homotetramer",
+        "km_uM": "64.0 for L-phenylalanine",
+        "vmax_umol_sec_mg": 10.5,
+        "pdb_structures": [],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "known_mutations": [],
+        "expression_notes": "Soluble cytoplasmic protein. High Vmax (10.5 umol/sec/mg). Km=64 uM suitable for yeast intracellular Phe levels. GRAVY -0.171 (hydrophilic), instability index 33.5 (stable). No cofactor requirements."
       },
       {
         "gene_name": "CYP73A5 (C4H)",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "P92994",
         "ec_number": "EC 1.14.14.91",
-        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (CYP450)"
-      },
-      {
-        "gene_name": "ATR1 (CPR)",
-        "source_organism": "Arabidopsis thaliana",
-        "uniprot_id": "Q9SB48",
-        "ec_number": "EC 1.6.2.4",
-        "function": "NADPH--cytochrome P450 reductase; provides electrons to CYP450 enzymes C4H and IFS"
+        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (CYP450 enzyme)",
+        "molecular_weight_kDa": 57.8,
+        "length_aa": 505,
+        "subunit": "Monomer (ER membrane-anchored)",
+        "km_uM": "Not reported in UniProt",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": [],
+        "transmembrane": true,
+        "transmembrane_details": "1 TM helix, residues 3-23 (N-terminal ER anchor)",
+        "signal_peptide": false,
+        "subcellular_location": "Endoplasmic reticulum membrane",
+        "cofactor": "Heme",
+        "known_mutations": [
+          {"mutation": "G99E", "effect": "ref3-3; reduces lignin deposition, dwarf phenotype"},
+          {"mutation": "R249K", "effect": "ref3-2; reduces lignin deposition"},
+          {"mutation": "A306T", "effect": "ref3-1; reduces lignin deposition"}
+        ],
+        "expression_notes": "CYP450 enzyme requiring co-expression with NADPH-cytochrome P450 reductase (ATR1/CPR). ER membrane-anchored via N-terminal TM helix. Requires heme cofactor. Instability index 42.8 (borderline unstable). STRING interactions: strong association with PAL1/PAL2/CHS/4CL1 (scores >0.99). AlphaFold model available (AF-P92994-F1). Consider N-terminal truncation and replacement with yeast ER signal if expression is poor."
       },
       {
         "gene_name": "4CL1",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "Q42524",
         "ec_number": "EC 6.2.1.12",
-        "function": "4-coumarate--CoA ligase; activates coumarate to coumaroyl-CoA"
+        "function": "4-coumarate--CoA ligase; activates coumarate to coumaroyl-CoA",
+        "molecular_weight_kDa": 61.1,
+        "length_aa": 561,
+        "subunit": "Unknown",
+        "km_uM": "38.0 for 4-coumarate; 6320 for cinnamate",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": ["3TSY"],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "cofactor": "Mg2+",
+        "known_mutations": [],
+        "expression_notes": "Soluble protein. Requires Mg2+ cofactor (abundant in yeast). Highly specific for 4-coumarate (Km=38 uM) over cinnamate (Km=6320 uM). Crystal structure available (PDB: 3TSY) for rational design. Instability index 49.2 (potentially unstable); consider codon optimization."
       },
       {
-        "gene_name": "TT4 (CHS)",
+        "gene_name": "CHS (TT4)",
         "source_organism": "Arabidopsis thaliana",
         "uniprot_id": "P13114",
         "ec_number": "EC 2.3.1.74",
-        "function": "Chalcone synthase; condenses coumaroyl-CoA with 3 malonyl-CoA to naringenin chalcone"
+        "function": "Chalcone synthase; condenses coumaroyl-CoA with 3 malonyl-CoA to naringenin chalcone",
+        "molecular_weight_kDa": 43.1,
+        "length_aa": 395,
+        "subunit": "Homodimer",
+        "km_uM": "Not reported in UniProt",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": ["6DXB", "6DXD", "6DXE"],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "known_mutations": [
+          {"mutation": "H309Y", "effect": "In JK196 (loss of function)"}
+        ],
+        "expression_notes": "Soluble cytoplasmic protein. Multiple crystal structures available. Consumes 3 malonyl-CoA per reaction - malonyl-CoA supply is the likely bottleneck for CHS flux. Active site Cys169 critical for catalysis."
       },
       {
         "gene_name": "CHI1",
         "source_organism": "Medicago sativa",
         "uniprot_id": "P28012",
         "ec_number": "EC 5.5.1.6",
-        "function": "Chalcone--flavanone isomerase; cyclizes naringenin chalcone to naringenin"
+        "function": "Chalcone--flavanone isomerase; cyclizes naringenin chalcone to (2S)-naringenin",
+        "molecular_weight_kDa": 23.8,
+        "length_aa": 222,
+        "subunit": "Monomer",
+        "km_uM": "112.0 for naringenin chalcone; 8.4 for 4,2',4'-trihydroxychalcone",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": ["1EYP", "1EYQ", "1FM7", "1FM8", "1JEP", "1JX0", "1JX1", "6CJN", "6CJO"],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "known_mutations": [
+          {"mutation": "T48A", "effect": "Strongly reduced reaction rate"},
+          {"mutation": "T48S", "effect": "Reduced reaction rate"},
+          {"mutation": "Y106F", "effect": "Strongly reduced reaction rate"},
+          {"mutation": "N113A", "effect": "Reduced reaction rate"},
+          {"mutation": "T190A", "effect": "Reduced reaction rate"}
+        ],
+        "expression_notes": "Small, soluble, stable protein (instability index 34.2). Legume-origin (Medicago) chosen for compatibility with downstream isoflavonoid enzymes. 9 PDB structures available. Low expression risk. Selected from alfalfa because it can also process 6'-deoxychalcone to liquiritigenin, providing flexibility."
       },
       {
         "gene_name": "IFS2 (CYP93C1v2)",
         "source_organism": "Glycine max",
         "uniprot_id": "Q9SWR5",
         "ec_number": "EC 1.14.14.87",
-        "function": "2-hydroxyisoflavanone synthase; converts naringenin to 2-hydroxy-2,3-dihydrogenistein (CYP450)"
+        "function": "2-hydroxyisoflavanone synthase (isoflavone synthase); converts naringenin to 2-hydroxy-2,3-dihydrogenistein via aryl migration",
+        "molecular_weight_kDa": 58.9,
+        "length_aa": 521,
+        "subunit": "Monomer (ER membrane-anchored)",
+        "km_uM": "Not reported in UniProt",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": [],
+        "transmembrane": true,
+        "transmembrane_details": "1 TM helix, residues 2-23 (N-terminal ER anchor)",
+        "signal_peptide": false,
+        "subcellular_location": "Endoplasmic reticulum membrane; Microsome membrane",
+        "cofactor": "Heme",
+        "known_mutations": [],
+        "expression_notes": "CYP450 enzyme (CYP93C family) requiring co-expression with CPR. ER membrane-anchored via N-terminal TM helix. Requires heme cofactor. This is the KEY bottleneck enzyme as it catalyzes the unique aryl migration reaction (B-ring migration from C2 to C3 position) defining isoflavonoids. STRING interactions: strong association with HIDH (score 0.978), CHI1A (0.939), CHS8 (0.869). AlphaFold model available (AF-Q9SWR5-F1). Consider multi-copy integration due to expected low activity. Instability index 42.2 (borderline)."
       },
       {
         "gene_name": "HIDH",
         "source_organism": "Glycine max",
         "uniprot_id": "Q5NUF3",
         "ec_number": "EC 4.2.1.105",
-        "function": "2-hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein"
+        "function": "2-hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein",
+        "molecular_weight_kDa": 35.1,
+        "length_aa": 319,
+        "subunit": "Unknown",
+        "km_uM": "170.0 for 2,5,7,4'-tetrahydroxyisoflavanone; 114.0 for 2,7,4'-trihydroxyisoflavanone",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": [],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "known_mutations": [
+          {"mutation": "G78A", "effect": "Reduction of both dehydratase and carboxylesterase activities"},
+          {"mutation": "G79A", "effect": "Reduction of both dehydratase and carboxylesterase activities"},
+          {"mutation": "T164A", "effect": "Reduction of both dehydratase and carboxylesterase activities"},
+          {"mutation": "D263N", "effect": "Complete loss of both dehydratase and carboxylesterase activities"},
+          {"mutation": "H295A", "effect": "Complete loss of both dehydratase and carboxylesterase activities"}
+        ],
+        "expression_notes": "Soluble protein from soybean. Alpha/beta hydrolase fold. Active site triad: T164 (proton acceptor), D263, H295 (proton donor/acceptor). Co-express with IFS2 from same organism for metabolon compatibility. STRING analysis shows HIDH is the top interaction partner of IFS2 (score 0.978), suggesting physical association. Note: the 2-hydroxyisoflavanone intermediate is unstable and can spontaneously dehydrate, but HIDH greatly accelerates and improves stereospecificity."
       },
       {
         "gene_name": "HI4'OMT",
         "source_organism": "Medicago truncatula",
         "uniprot_id": "Q29U70",
         "ec_number": "EC 2.1.1.46",
-        "function": "Isoflavone 4'-O-methyltransferase; methylates genistein to biochanin A using SAM"
+        "function": "Isoflavone 4'-O-methyltransferase; methylates genistein at 4'-OH to produce biochanin A using SAM as methyl donor",
+        "molecular_weight_kDa": 40.8,
+        "length_aa": 364,
+        "subunit": "Homodimer",
+        "km_uM": "73.3 for 2,7,4'-trihydroxyisoflavanone; 62.1 for 6a-hydroxymaackiain; 99.8 for SAM",
+        "vmax_nmol_min_mg": "4.0 (for trihydroxyisoflavanone), 17.9 (for hydroxymaackiain), 23.9 (for hydroxymaackiain at optimal)",
+        "pdb_structures": ["1ZG3", "1ZGA", "1ZGJ", "1ZHF"],
+        "transmembrane": false,
+        "signal_peptide": false,
+        "subcellular_location": "Cytoplasm",
+        "known_mutations": [],
+        "expression_notes": "Soluble SAM-dependent O-methyltransferase. Homodimer. 4 crystal structures available for rational design. GRAVY -0.235 (hydrophilic), instability index 36.3 (stable). Note: this enzyme has dual functionality - can methylate both 2-hydroxyisoflavanone (EC 2.1.1.212) and genistein (EC 2.1.1.46). If co-expressed with IFS and without HIDH, it could act on the 2-hydroxyisoflavanone intermediate directly, but HIDH is still recommended for complete pathway."
+      },
+      {
+        "gene_name": "ATR1 (CPR1)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SB48",
+        "ec_number": "EC 1.6.2.4",
+        "function": "NADPH--cytochrome P450 reductase; provides electrons from NADPH to both CYP450 enzymes (C4H and IFS2)",
+        "molecular_weight_kDa": 76.8,
+        "length_aa": 692,
+        "subunit": "Monomer (ER membrane-anchored)",
+        "km_uM": "Not reported",
+        "vmax_umol_sec_mg": null,
+        "pdb_structures": [],
+        "transmembrane": true,
+        "transmembrane_details": "1 TM helix, residues 27-47 (ER anchor)",
+        "signal_peptide": false,
+        "subcellular_location": "Endoplasmic reticulum membrane",
+        "cofactors": ["FAD", "FMN"],
+        "known_mutations": [],
+        "expression_notes": "Essential co-expression partner for both CYP450 enzymes (C4H and IFS2). ER membrane-anchored. Requires FAD and FMN cofactors. Must be expressed at sufficient level to support electron transfer to both CYP450s. Consider 2:1 CYP450:CPR ratio for optimal electron coupling. Instability index 47.4 (potentially unstable); strong promoter and codon optimization recommended."
+      }
+    ],
+    "alternative_enzyme_candidates": [
+      {
+        "gene_name": "CYP93C2",
+        "source_organism": "Glycyrrhiza echinata (Licorice)",
+        "uniprot_id": "Q9SXS3",
+        "ec_number": "EC 1.14.14.87",
+        "length_aa": 523,
+        "notes": "Alternative IFS from licorice. First characterized IFS enzyme. May have different substrate specificity profile."
+      },
+      {
+        "gene_name": "CYP73A1",
+        "source_organism": "Helianthus tuberosus (Jerusalem artichoke)",
+        "uniprot_id": "Q04468",
+        "ec_number": "EC 1.14.14.91",
+        "length_aa": 505,
+        "notes": "Alternative C4H. Well-characterized CYP73 family member."
+      },
+      {
+        "gene_name": "GeHI4'OMT",
+        "source_organism": "Glycyrrhiza echinata (Licorice)",
+        "uniprot_id": "Q84KK6",
+        "ec_number": "EC 2.1.1.46",
+        "length_aa": 367,
+        "notes": "Alternative IOMT from licorice. Same dual EC activity (2.1.1.212 and 2.1.1.46)."
+      },
+      {
+        "gene_name": "CHS2",
+        "source_organism": "Medicago sativa (Alfalfa)",
+        "uniprot_id": "P30074",
+        "ec_number": "EC 2.3.1.74",
+        "length_aa": 389,
+        "notes": "Alternative CHS from alfalfa. Legume-origin may provide better metabolon compatibility with CHI/IFS."
       }
     ],
     "knockouts": [],
     "overexpressions": [
       {
+        "gene_name": "ZWF1",
+        "yeast_systematic_id": "YNL241C",
+        "reaction_boosted": "G6PDH2r (glucose 6-phosphate dehydrogenase)",
+        "baseline_flux": 0.8016,
+        "forced_min_flux": 2.0,
+        "rationale": "Increases cytoplasmic NADPH supply. Pathway requires 2 NADPH per biochanin A (C4H and IFS steps). G6PDH2r is the primary NADPH source via pentose phosphate pathway."
+      },
+      {
         "gene_name": "ARO4",
         "yeast_systematic_id": "YBR249C",
-        "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
-        "rationale": "Increase carbon flux into shikimate pathway toward phenylalanine; feedback-resistant ARO4 mutant (K229L) recommended"
+        "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthetase)",
+        "baseline_flux": 0.0761,
+        "forced_min_flux": 0.5,
+        "rationale": "Entry point to shikimate pathway. Increases flux from PEP + E4P to aromatic amino acids. Native ARO4 is feedback-inhibited by Tyr; use feedback-resistant ARO4-K229L mutant for constitutive high flux."
       },
       {
         "gene_name": "ARO7",
         "yeast_systematic_id": "YPR060C",
-        "reaction_boosted": "CHORM (Chorismate mutase)",
-        "rationale": "Increase flux from chorismate to prephenate toward phenylalanine; feedback-resistant ARO7 mutant (T226I) recommended"
+        "reaction_boosted": "CHORM (chorismate mutase)",
+        "baseline_flux": 0.0385,
+        "forced_min_flux": 0.5,
+        "rationale": "Channels chorismate toward prephenate (Phe/Tyr branch) rather than Trp branch. Native ARO7 is feedback-inhibited by Tyr; use feedback-resistant ARO7-T226I mutant."
       }
-    ]
+    ],
+    "additional_engineering_recommendations": [
+      {
+        "type": "feedback_resistant_mutant",
+        "gene": "ARO4",
+        "mutation": "K229L",
+        "rationale": "Removes feedback inhibition by L-tyrosine, increasing shikimate pathway flux 3-5 fold"
+      },
+      {
+        "type": "feedback_resistant_mutant",
+        "gene": "ARO7",
+        "mutation": "T226I",
+        "rationale": "Removes feedback inhibition by L-tyrosine on chorismate mutase"
+      },
+      {
+        "type": "ACC1_mutant",
+        "gene": "ACC1",
+        "mutation": "S659A/S1157A",
+        "rationale": "Removes Snf1 kinase-mediated phosphorylation of acetyl-CoA carboxylase, increasing malonyl-CoA supply for CHS reaction (3 malonyl-CoA per product molecule)"
+      },
+      {
+        "type": "CPR_coexpression",
+        "gene": "ATR1 (CPR)",
+        "rationale": "Essential electron donor for both CYP450 enzymes (C4H and IFS2). Must be co-expressed at ER membrane."
+      },
+      {
+        "type": "ER_membrane_expansion",
+        "gene": "INO2 overexpression",
+        "rationale": "Two ER membrane-bound CYP450 enzymes (C4H, IFS2) plus CPR compete for ER space. INO2 overexpression expands ER membrane area, reducing competition."
+      },
+      {
+        "type": "heme_supply",
+        "gene": "HEM3 overexpression",
+        "rationale": "Both CYP450 enzymes (C4H, IFS2) require heme as cofactor. Native heme supply may be insufficient for two heterologous CYP450s. HEM3 (porphobilinogen deaminase) overexpression increases heme precursor flux."
+      }
+    ],
+    "native_transport": {
+      "gene_name": "None (no native transporter)",
+      "notes": "Biochanin A is not a native yeast metabolite and no specific transporter exists. The hydrophobic isoflavone (logP ~2.9) may passively diffuse across membranes. For active export, consider heterologous expression of a plant ABC transporter or the yeast PDR family multidrug resistance pumps (e.g., PDR5/SNQ2). Exchange reaction added in FBA model for simulation purposes."
+    }
   },
   "fba_results": {
-    "baseline_max_flux": 0.714323,
-    "optimized_max_flux": 0.722062,
-    "biomass_at_optimum": 0.025822,
-    "strategy_description": "8-gene heterologous pathway (PAL, C4H, 4CL, CHS, CHI, IFS, HID, IOMT) plus CPR for CYP450 electron transfer from L-phenylalanine to biochanin A. Overexpression of feedback-resistant ARO4 (DAHP synthase) and ARO7 (chorismate mutase) to boost shikimate pathway flux. At 10% minimum biomass, optimized flux = 0.722 mmol/gDW/h vs baseline 0.714 (+1.1%). Theoretical max at zero growth = 0.789 mmol/gDW/h."
-  }
+    "baseline_max_flux": 0.789474,
+    "baseline_max_flux_10pct_biomass": 0.714323,
+    "optimized_max_flux": 0.652974,
+    "biomass_at_optimum": 0.024273,
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "8-step heterologous pathway only (no host modifications)",
+        "biomass": 0.028787,
+        "product_flux": 0.714323,
+        "vs_baseline": "reference",
+        "notes": "Theoretical ceiling at 10% biomass constraint. Maximum without biomass constraint = 0.789 mmol/gDW/h."
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO ARO9/ARO8 + OE ZWF1 + OE ACC1",
+        "biomass": "infeasible",
+        "product_flux": "infeasible",
+        "vs_baseline": "N/A",
+        "notes": "Infeasible: ACC1 overexpression via gene-level OE forces min flux on all 13 FAS reactions (AND-logic GPR), creating impossible flux demands. ACC1 should be overexpressed via promoter replacement in vivo, not modeled as gene-level OE."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "OE ZWF1 (min flux 2.0)",
+        "biomass": 0.027072,
+        "product_flux": 0.645557,
+        "vs_baseline": "-9.6% vs baseline",
+        "notes": "ZWF1 overexpression alone slightly reduces product flux because it forces carbon through pentose phosphate pathway. The NADPH supply is not limiting at baseline."
+      },
+      {
+        "round": "Round 3 (Best)",
+        "strategy": "OE ZWF1 (min 2.0) + OE ARO4 (min 0.5) + OE ARO7 (min 0.5)",
+        "biomass": 0.024273,
+        "product_flux": 0.652974,
+        "vs_baseline": "-8.6% vs baseline",
+        "notes": "ARO4/ARO7 overexpression pushes more flux through shikimate pathway toward phenylalanine. The OE slightly improves flux vs Round 2 (+1.1%). Stopped: diminishing returns. Note: the feedback-resistant ARO4-K229L and ARO7-T226I mutants recommended above cannot be modeled in FBA (which does not capture enzyme regulation) but are critical in vivo."
+      }
+    ],
+    "production_envelope": [
+      {"biomass_min": 0.000000, "max_product_flux": 0.717277},
+      {"biomass_min": 0.024273, "max_product_flux": 0.652974},
+      {"biomass_min": 0.048545, "max_product_flux": 0.588670},
+      {"biomass_min": 0.072818, "max_product_flux": 0.524366},
+      {"biomass_min": 0.097091, "max_product_flux": 0.456634},
+      {"biomass_min": 0.121364, "max_product_flux": 0.380541},
+      {"biomass_min": 0.145636, "max_product_flux": 0.304447},
+      {"biomass_min": 0.169909, "max_product_flux": 0.228354},
+      {"biomass_min": 0.194182, "max_product_flux": 0.152261},
+      {"biomass_min": 0.218454, "max_product_flux": 0.076168},
+      {"biomass_min": 0.242727, "max_product_flux": 0.000000}
+    ],
+    "strategy_description": "Express 8 heterologous enzymes (PAL2, C4H, 4CL1, CHS, CHI1, IFS2, HIDH, HI4'OMT) plus CPR (ATR1) for a total of 9 heterologous genes. The pathway converts L-phenylalanine through cinnamate, coumarate, coumaroyl-CoA, naringenin chalcone, naringenin, 2-hydroxydihydrogenistein, and genistein to biochanin A. Overexpress ZWF1 (NADPH supply), ARO4-K229L (feedback-resistant DAHP synthase), and ARO7-T226I (feedback-resistant chorismate mutase) to increase phenylalanine precursor flux. Introduce ACC1-S659A/S1157A mutation to boost malonyl-CoA supply. Co-express ATR1 (CPR) for CYP450 electron supply. Consider ER membrane expansion (INO2 OE) and heme supply enhancement (HEM3 OE) for the two membrane-bound CYP450 enzymes. With best FBA strategy (10% biomass constraint), achieves 0.653 mmol/gDW/h biochanin A production. Production envelope shows approximately linear tradeoff between growth and production."
+  },
+  "protein_analysis": {
+    "cyp450_analysis": {
+      "c4h_P92994": {
+        "type": "CYP73A5 (CYP450 family)",
+        "transmembrane": "1 TM helix (aa 3-23), N-terminal ER anchor",
+        "cofactor": "Heme (axial binding at Cys447)",
+        "substrate_binding": ["Asp213 (cinnamate)", "Ala306 (cinnamate)"],
+        "electron_donor": "ATR1 (CPR, Q9SB48) - NADPH-hemoprotein reductase",
+        "known_loss_of_function_mutations": ["G99E", "R249K", "A306T"],
+        "instability_index": 42.8,
+        "alphafold_model": "AF-P92994-F1-model_v6",
+        "expression_risk": "MEDIUM - membrane-bound CYP450, requires CPR co-expression and heme supply. N-terminal TM helix should be retained for ER targeting. Consider codon optimization for yeast."
+      },
+      "ifs2_Q9SWR5": {
+        "type": "CYP93C1v2 (CYP450 family)",
+        "transmembrane": "1 TM helix (aa 2-23), N-terminal ER anchor",
+        "cofactor": "Heme (axial binding at Cys449)",
+        "substrate_binding": ["Heme at residue 449"],
+        "electron_donor": "ATR1 (CPR, Q9SB48) - NADPH-hemoprotein reductase",
+        "known_mutations": [],
+        "instability_index": 42.2,
+        "alphafold_model": "AF-Q9SWR5-F1-model_v6",
+        "interaction_partners_STRING": {
+          "HIDH": {"score": 0.978, "notes": "Top interaction partner, suggesting physical association/metabolon formation"},
+          "CHI1A": {"score": 0.939, "notes": "Chalcone isomerase, upstream pathway step"},
+          "CHS8": {"score": 0.869, "notes": "Chalcone synthase"}
+        },
+        "expression_risk": "HIGH - KEY bottleneck enzyme. Only 3 reviewed IFS entries in UniProt. Catalyzes unique aryl migration reaction. No experimental structure available. Consider multi-copy genomic integration (3-5 copies). The strong HIDH interaction (0.978) suggests co-localization may be beneficial - consider fusion protein or operon-like expression."
+      },
+      "cpr_requirement": {
+        "note": "Two CYP450 enzymes (C4H, IFS2) compete for CPR electron supply. ATR1 (Q9SB48, 692 aa, 76.8 kDa) is ER membrane-anchored and requires FAD + FMN cofactors. Express CPR at 2-3x level relative to each CYP450 to avoid electron transfer bottleneck.",
+        "er_membrane_expansion": "With 3 ER membrane proteins (C4H + IFS2 + CPR), ER membrane expansion is recommended via INO2 overexpression to prevent membrane crowding.",
+        "heme_supply": "Both CYP450s require heme prosthetic group. Overexpress HEM3 (porphobilinogen deaminase) and/or supplement 5-aminolevulinic acid (5-ALA) in medium."
+      }
+    },
+    "soluble_enzyme_analysis": {
+      "pal2_P45724": {
+        "risk": "LOW",
+        "instability_index": 33.5,
+        "notes": "Large homotetramer (4x 77.9 kDa) but well-expressed in heterologous systems. No cofactors needed. High Vmax = 10.5 umol/sec/mg."
+      },
+      "4cl1_Q42524": {
+        "risk": "LOW-MEDIUM",
+        "instability_index": 49.2,
+        "notes": "Somewhat unstable (II=49.2). Requires Mg2+ (abundant). PDB available (3TSY). Km=38 uM for coumarate is favorable."
+      },
+      "chs_P13114": {
+        "risk": "LOW",
+        "instability_index": 43.5,
+        "notes": "Well-characterized. Multiple PDB structures. Malonyl-CoA supply is the bottleneck, not enzyme activity."
+      },
+      "chi1_P28012": {
+        "risk": "VERY LOW",
+        "instability_index": 34.2,
+        "notes": "Small (23.8 kDa), stable, 9 PDB structures. Fast non-rate-limiting step."
+      },
+      "hidh_Q5NUF3": {
+        "risk": "LOW",
+        "instability_index": 45.1,
+        "notes": "Alpha/beta hydrolase fold. Well-characterized active site. Consider co-expression at high level to capture unstable 2-hydroxyisoflavanone intermediate."
+      },
+      "hi4omt_Q29U70": {
+        "risk": "VERY LOW",
+        "instability_index": 36.3,
+        "notes": "Stable homodimer. 4 crystal structures available. SAM-dependent - SAM supply (METAT reaction) may need boosting via SAM2 (YDR502C) overexpression."
+      }
+    },
+    "rate_limiting_step_prediction": "IFS2 (CYP93C1v2) is predicted to be the rate-limiting step based on: (1) CYP450 enzymes typically have low turnover numbers (kcat < 1/s), (2) requires electron transfer from CPR, (3) ER membrane-bound limiting surface area, (4) no kinetic data available suggesting the enzyme is difficult to characterize, (5) only 3 reviewed IFS entries in UniProt across all organisms."
+  },
+  "recommended_conditions": {
+    "carbon_source": "Glucose (EX_glc__D_e)",
+    "oxygen_level": "Aerobic (default, O2 lb=-1000); required for both CYP450-catalyzed hydroxylation steps (C4H and IFS)",
+    "special_notes": [
+      "Aerobic conditions are ESSENTIAL: C4H and IFS both require molecular oxygen as co-substrate",
+      "Consider phenylalanine feeding to supplement endogenous Phe supply and bypass shikimate pathway limitations",
+      "5-aminolevulinic acid (5-ALA) supplementation may boost heme biosynthesis for CYP450 cofactor supply",
+      "Galactose-inducible promoters (GAL1/10) recommended for CYP450 genes to allow two-phase fermentation: growth phase (glucose) then production phase (galactose)",
+      "Multi-copy integration of IFS2 (3-5 copies) recommended due to predicted rate-limiting CYP450 activity",
+      "ACC1-S659A/S1157A mutation critical for malonyl-CoA supply in vivo (cannot be modeled in FBA)",
+      "ARO4-K229L and ARO7-T226I feedback-resistant mutants critical for Phe supply in vivo (cannot be modeled in FBA)"
+    ]
+  },
+  "known_limitations": [
+    "FBA provides flux values (mmol/gDW/h) not absolute titers (g/L); actual productivity depends on biomass density and fermentation conditions",
+    "CYP450 enzyme activity, electron transfer efficiency from CPR, and ER membrane capacity cannot be quantitatively predicted",
+    "Feedback inhibition of ARO4 and ARO7 by Tyr/Phe is not captured in FBA; feedback-resistant mutants are essential in vivo",
+    "ACC1 phospho-regulation by Snf1 kinase is not modeled; ACC1-S659A/S1157A mutation is essential for malonyl-CoA supply in vivo",
+    "Product toxicity of biochanin A to yeast cells is unknown; isoflavones may inhibit growth at high concentrations",
+    "Metabolon formation between CHS/CHI/IFS (suggested by STRING interactions) is not modeled but may significantly affect in vivo flux",
+    "ER membrane surface area limitation for multiple CYP450 + CPR proteins is not captured in stoichiometric models",
+    "Heme supply adequacy for two heterologous CYP450s cannot be predicted quantitatively",
+    "The 2-hydroxyisoflavanone intermediate is chemically unstable and may spontaneously dehydrate; HIDH accelerates this but side products may form",
+    "Actual protein expression levels, codon optimization effects, and in vivo solubility cannot be predicted by FBA",
+    "Adaptive laboratory evolution (ALE) outcomes for improved growth with pathway burden are unpredictable"
+  ]
 }

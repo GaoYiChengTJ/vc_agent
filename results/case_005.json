@@ -5,44 +5,55 @@
     "steps": [
       {
         "step_number": 1,
-        "substrate": "L-Tyrosine",
-        "product": "3-(4-Hydroxyphenyl)pyruvate",
-        "enzyme_ec": "EC 2.6.1.57",
+        "substrate": "L-Tyrosine + 2-Oxoglutarate",
+        "product": "4-Hydroxyphenylpyruvate + L-Glutamate",
+        "enzyme_ec": "2.6.1.57",
         "enzyme_name": "Aromatic amino acid aminotransferase (ARO8/ARO9)",
         "source_organism": "Saccharomyces cerevisiae",
         "native_or_heterologous": "native",
-        "cofactors_consumed": ["2-Oxoglutarate"],
-        "cofactors_produced": ["L-Glutamate"]
+        "cofactors_consumed": [],
+        "cofactors_produced": []
       },
       {
         "step_number": 2,
-        "substrate": "3-(4-Hydroxyphenyl)pyruvate",
-        "product": "4-Hydroxyphenylacetaldehyde",
-        "enzyme_ec": "EC 4.1.1.80",
-        "enzyme_name": "4-Hydroxyphenylpyruvate decarboxylase (ARO10)",
+        "substrate": "4-Hydroxyphenylpyruvate",
+        "product": "4-Hydroxyphenylacetaldehyde + CO2",
+        "enzyme_ec": "4.1.1.80",
+        "enzyme_name": "Transaminated amino acid decarboxylase (ARO10)",
         "source_organism": "Saccharomyces cerevisiae",
         "native_or_heterologous": "native",
         "cofactors_consumed": [],
-        "cofactors_produced": ["CO2"]
+        "cofactors_produced": []
       },
       {
         "step_number": 3,
-        "substrate": "4-Hydroxyphenylacetaldehyde",
-        "product": "Tyrosol",
-        "enzyme_ec": "EC 1.1.1.90",
-        "enzyme_name": "Aryl-alcohol dehydrogenase (ADH6)",
+        "substrate": "4-Hydroxyphenylacetaldehyde + NADH + H+",
+        "product": "Tyrosol + NAD+",
+        "enzyme_ec": "1.1.1.90",
+        "enzyme_name": "Aryl-alcohol dehydrogenase (ADH/AAD)",
         "source_organism": "Saccharomyces cerevisiae",
         "native_or_heterologous": "native",
         "cofactors_consumed": ["NADH"],
-        "cofactors_produced": ["NAD+"]
+        "cofactors_produced": []
       },
       {
         "step_number": 4,
-        "substrate": "Tyrosol + UDP-glucose",
-        "product": "Salidroside + UDP",
-        "enzyme_ec": "EC 2.4.1.-",
-        "enzyme_name": "UDP-glucosyltransferase UGT73B6",
-        "source_organism": "Rhodiola sachalinensis",
+        "substrate": "Tyrosol + O2 + NADH + H+",
+        "product": "Hydroxytyrosol + NAD+ + H2O",
+        "enzyme_ec": "1.14.14.9",
+        "enzyme_name": "4-Hydroxyphenylacetate 3-monooxygenase (HpaB oxygenase + HpaC reductase)",
+        "source_organism": "Escherichia coli",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 5,
+        "substrate": "Hydroxytyrosol + UDP-glucose",
+        "product": "Salidroside + UDP + H+",
+        "enzyme_ec": "2.4.1.-",
+        "enzyme_name": "UDP-glycosyltransferase 85A1 (UGT85A1-DHG variant or UGT73B6)",
+        "source_organism": "Arabidopsis thaliana / Rhodiola sachalinensis",
         "native_or_heterologous": "heterologous",
         "cofactors_consumed": ["UDP-glucose"],
         "cofactors_produced": ["UDP"]
@@ -50,61 +61,155 @@
     ],
     "total_cofactors": {
       "NADPH": 0,
-      "NADH": -1,
+      "NADH": -2,
       "ATP": 0,
-      "O2": 0,
+      "O2": -1,
       "FAD": 0
     }
   },
   "engineering": {
     "heterologous_genes": [
       {
-        "gene_name": "UGT73B6",
+        "gene_name": "HpaB",
+        "source_organism": "Escherichia coli",
+        "uniprot_id": "Q57160",
+        "ec_number": "1.14.14.9",
+        "function": "Oxygenase component of 4-hydroxyphenylacetate 3-monooxygenase; hydroxylates tyrosol to hydroxytyrosol using FADH2 supplied by HpaC. Broad substrate specificity including tyrosol, phenol, and cinnamic acid derivatives. PDB structures 6QYH and 6QYI available."
+      },
+      {
+        "gene_name": "HpaC",
+        "source_organism": "Escherichia coli",
+        "uniprot_id": "Q57501",
+        "ec_number": "1.5.1.36",
+        "function": "Reductase component of 4-hydroxyphenylacetate 3-monooxygenase; reduces free flavins (FMN, FAD) using NADH, supplying FADH2 to HpaB for the hydroxylation reaction. Essential co-expression partner for HpaB (STRING interaction score 0.988)."
+      },
+      {
+        "gene_name": "UGT85A1-DHG (G114D/F217H/C128G)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SK82",
+        "ec_number": "2.4.1.-",
+        "function": "Engineered UDP-glycosyltransferase 85A1 with 23.6-fold improved catalytic efficiency via iterative saturation mutagenesis (G114D/F217H/C128G). Glucosylates hydroxytyrosol to produce salidroside. Enabled 2.70 g/L salidroside in yeast shake-flask cultures."
+      },
+      {
+        "gene_name": "UGT73B6 (alternative)",
         "source_organism": "Rhodiola sachalinensis",
         "uniprot_id": "Q6QDB6",
-        "ec_number": "EC 2.4.1.-",
-        "function": "UDP-glucosyltransferase that glycosylates tyrosol to produce salidroside using UDP-glucose as sugar donor"
+        "ec_number": "2.4.1.-",
+        "function": "Native salidroside UDP-glucosyltransferase from Rhodiola; glycosylates tyrosol/hydroxytyrosol to salidroside. Active site residues at positions 20 (proton acceptor) and 123 (charge relay). Alternative to engineered UGT85A1-DHG."
       }
     ],
     "knockouts": [
       {
-        "gene_name": "TYRNFT (YDR403W)",
-        "yeast_systematic_id": "YDR403W",
-        "reaction_blocked": "TYRNFT (L-tyrosine N-formyltransferase)",
-        "rationale": "Blocks diversion of L-tyrosine to N-formyl-L-tyrosine, preserving tyrosine pool for salidroside biosynthesis"
-      },
-      {
-        "gene_name": "GSY2 (YLR258W)",
-        "yeast_systematic_id": "YLR258W",
-        "reaction_blocked": "GLCS2 (Glycogen synthase, UDPGlc)",
-        "rationale": "Reduces UDP-glucose consumption by glycogen synthesis, increasing UDP-glucose availability for the UGT73B6 glucosylation step"
+        "gene_name": "ARO10 (partial attenuation recommended, not full KO)",
+        "yeast_systematic_id": "YDR380W",
+        "reaction_blocked": "PPYRDC / 4MOPDC / 3MOPDC (2-oxoacid decarboxylase for Phe, Leu, Ile Ehrlich pathway)",
+        "rationale": "ARO10 decarboxylates multiple 2-oxo acids including phenylpyruvate (Km 0.14 mM) and 4-hydroxyphenylpyruvate (Km 0.09 mM). Attenuation via weak promoter reduces competition for 4HPP from other Ehrlich pathway substrates. Full KO would eliminate the desired 4HPP decarboxylation, so retain native ARO10 activity for the tyrosol branch while suppressing Phe branch via PDC promoter engineering."
       }
     ],
     "overexpressions": [
       {
-        "gene_name": "ARO4",
+        "gene_name": "ARO4 (K229L feedback-resistant mutant)",
         "yeast_systematic_id": "YBR249C",
         "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
-        "rationale": "First committed step of the shikimate pathway; overexpression with feedback-resistant mutant (ARO4-K229L) increases carbon flux toward aromatic amino acid biosynthesis"
+        "rationale": "Rate-limiting entry point into the shikimate pathway. Wild-type ARO4 is allosterically inhibited by L-tyrosine (the immediate precursor consumed by our pathway). K229L mutation removes tyrosine feedback inhibition, increasing flux through the shikimate pathway. FBA showed 0.2% improvement in product flux (1.829 vs 1.825 mmol/gDW/h) at 10% biomass."
       },
       {
         "gene_name": "TYR1",
         "yeast_systematic_id": "YBR166C",
-        "reaction_boosted": "PPND2 (Prephenate dehydrogenase, NADP)",
-        "rationale": "Converts prephenate to 4-hydroxyphenylpyruvate; overexpression directs more prephenate toward tyrosine branch instead of phenylalanine branch"
+        "reaction_boosted": "PPND2 (prephenate dehydrogenase, NADP-dependent)",
+        "rationale": "Converts prephenate to 4-hydroxyphenylpyruvate (the tyrosine branch point). Overexpression diverts more prephenate away from the phenylalanine branch (PPNDH, baseline flux 0.0385) toward the tyrosine/tyrosol pathway. Baseline flux only 0.0294 mmol/gDW/h."
+      },
+      {
+        "gene_name": "ARO7 (G141S feedback-resistant mutant)",
+        "yeast_systematic_id": "YPR060C",
+        "reaction_boosted": "CHORM (chorismate mutase)",
+        "rationale": "Converts chorismate to prephenate; competes with ANS (anthranilate synthase, tryptophan branch, flux 0.0082). Feedback-resistant ARO7-G141S removes tyrosine/phenylalanine inhibition, increasing prephenate supply."
+      },
+      {
+        "gene_name": "ARO10",
+        "yeast_systematic_id": "YDR380W",
+        "reaction_boosted": "4-Hydroxyphenylpyruvate decarboxylation",
+        "rationale": "High-activity native decarboxylase with favorable Km for 4-hydroxyphenylpyruvate (0.09 mM) and Vmax 201 umol/min/mg. Overexpression ensures rapid conversion of 4HPP to 4-hydroxyphenylacetaldehyde, the committed step toward tyrosol."
       },
       {
         "gene_name": "UGP1",
         "yeast_systematic_id": "YKL035W",
-        "reaction_boosted": "GALUi (UTP-glucose-1-phosphate uridylyltransferase)",
-        "rationale": "Increases UDP-glucose supply for the glucosylation step catalyzed by UGT73B6"
+        "reaction_boosted": "GALUi (UTP-glucose-1-phosphate uridylyltransferase; UDP-glucose synthesis)",
+        "rationale": "UDP-glucose is consumed by the glucosylation step (UGTSAL) and competes with major cell wall biosynthesis reactions (13GS flux=0.327, GLCS2 flux=0.149, TRE6PS flux=0.007). Overexpression of UGP1 increases UDP-glucose supply to support salidroside glucosylation."
       }
     ]
   },
+  "protein_engineering_notes": {
+    "expression_risks": [
+      "HpaB (Q57160): 58.8 kDa soluble protein. No transmembrane domains, no signal peptide. Instability index 45.4 (borderline unstable). GRAVY -0.365 (hydrophilic). Requires co-expression with HpaC reductase for catalytic activity.",
+      "HpaC (Q57501): 18.5 kDa soluble homodimer. No transmembrane domains. Instability index 25.9 (very stable). Small protein, minimal expression risk. GRAVY +0.155 (mildly hydrophobic).",
+      "UGT85A1-DHG (Q9SK82): 55.0 kDa soluble protein. No transmembrane domains. Instability index 42.5 (borderline). No signal peptide or transit peptide. AlphaFold model available (no experimental PDB structure).",
+      "UGT73B6 (Q6QDB6): 53.9 kDa soluble protein. No transmembrane domains. Instability index 43.3 (borderline). Active site well-annotated: His20 (proton acceptor), Asp123 (charge relay). 10 UDP-glucose binding residues identified. AlphaFold model available."
+    ],
+    "recommended_mutations": [
+      "ARO4-K229L: Feedback-resistant DAHP synthase; removes allosteric inhibition by L-tyrosine, increasing flux into the shikimate pathway. Well-established in yeast tyrosol/hydroxytyrosol engineering.",
+      "ARO7-G141S: Feedback-resistant chorismate mutase; removes allosteric inhibition by tyrosine/phenylalanine, directing more chorismate flux toward prephenate.",
+      "UGT85A1-DHG (G114D/F217H/C128G): Engineered by iterative saturation mutagenesis with 23.6-fold increase in catalytic efficiency for tyrosol/hydroxytyrosol glucosylation. Reported 2.70 g/L salidroside and 1.63 g/L hydroxysalidroside in shake-flask yeast cultures (Ma et al., J Agric Food Chem 2026).",
+      "ACC1-S659A/S1157A: Not directly required for salidroside pathway but may benefit UDP-glucose supply indirectly by preventing Snf1-mediated metabolic regulation."
+    ],
+    "coexpression_requirements": [
+      "HpaB (Q57160) MUST be co-expressed with HpaC (Q57501). STRING interaction score 0.988. HpaC provides FADH2 to HpaB via free diffusion. Without HpaC, HpaB has no hydroxylation activity. Consider operon-style co-expression or bidirectional promoter.",
+      "Consider truncated sucrose synthase (tGuSUS1) co-expression to enhance UDP-glucose supply from sucrose, as demonstrated by Sun et al. (Appl Environ Microbiol 2025) achieving 18.9 g/L salidroside in fed-batch.",
+      "No CYP450 enzymes in this pathway - no need for CPR co-expression, ER membrane expansion, or VHb/heme supply overexpression."
+    ],
+    "notes": "This pathway is relatively simple compared to flavonoid biosynthesis: only 2 heterologous enzymes needed (HpaB/HpaC + UGT), all soluble, no CYP450 membrane proteins. Key advantages: (1) All heterologous enzymes are soluble cytoplasmic proteins with no membrane insertion requirements. (2) No heme-dependent enzymes. (3) NADH is the reducing cofactor (abundant in yeast cytoplasm) rather than NADPH. (4) The pathway requires only 1 O2 per product molecule. Main bottleneck is likely UDP-glucose competition with cell wall biosynthesis (flux 0.327 for 1,3-beta-glucan + 0.149 for glycogen = 0.476 total vs 0.483 production). Literature reports: 571.8 mg/L tyrosol, 677.6 mg/L hydroxytyrosol, 18.9 g/L salidroside in optimized fed-batch fermentation."
+  },
   "fba_results": {
-    "baseline_max_flux": 2.537445,
-    "optimized_max_flux": 2.293257,
-    "biomass_at_optimum": 0.028267,
-    "strategy_description": "Heterologous pathway (4 steps: TYRTAr, HPPDC, TYROH_ADH, UGT_SAL) added to iMM904 model. Baseline theoretical max is 2.537 mmol/gDW/h at zero growth. With 10% biomass constraint (min growth = 0.0283 h-1), max salidroside flux = 2.293 mmol/gDW/h. Engineering strategy: knockout TYRNFT (YDR403W) to eliminate tyrosine diversion, knockout GSY2 (YLR258W) to free UDP-glucose, overexpress ARO4 (YBR249C) for shikimate flux, overexpress TYR1 (YBR166C) for tyrosine branch, overexpress UGP1 (YKL035W) for UDP-glucose supply. Production envelope shows linear tradeoff between growth and production (2.537 at 0% biomass to 0 at 100% biomass)."
+    "baseline_max_flux": 2.0,
+    "optimized_max_flux": 1.829,
+    "biomass_at_optimum": 0.028274,
+    "strategy_description": "Heterologous 5-step pathway from L-tyrosine to salidroside via the Ehrlich pathway (tyrosol) and hydroxytyrosol intermediate added to iMM904. Baseline theoretical maximum flux is 2.000 mmol/gDW/h (no biomass constraint) and 1.825 mmol/gDW/h (10% min biomass). Optimized strategy with ARO4 (YBR249C) overexpression (min flux 0.15, boosts shikimate entry) + TYR1 (YBR166C) overexpression (min flux 0.05, boosts prephenate to 4HPP): 1.829 mmol/gDW/h at 10% biomass (0.028 gDW/h). Production envelope shows linear tradeoff between growth and salidroside: from 2.000 (0% biomass) to 0.000 (100% biomass at 0.283 gDW/h). The pathway is primarily limited by glucose uptake rate (10 mmol/gDW/h), UDP-glucose supply (competing with cell wall biosynthesis consuming 0.476 mmol/gDW/h), and NADH (2 mol required per mol product). Cofactor balance: 2 NADH + 1 O2 + 1 UDP-glucose consumed per salidroside molecule.",
+    "production_envelope": [
+      {"biomass_fraction": 0.0, "biomass_flux": 0.000, "max_product_flux": 2.000},
+      {"biomass_fraction": 0.1, "biomass_flux": 0.028, "max_product_flux": 1.829},
+      {"biomass_fraction": 0.2, "biomass_flux": 0.057, "max_product_flux": 1.630},
+      {"biomass_fraction": 0.3, "biomass_flux": 0.085, "max_product_flux": 1.430},
+      {"biomass_fraction": 0.4, "biomass_flux": 0.113, "max_product_flux": 1.231},
+      {"biomass_fraction": 0.5, "biomass_flux": 0.141, "max_product_flux": 1.032},
+      {"biomass_fraction": 0.6, "biomass_flux": 0.170, "max_product_flux": 0.833},
+      {"biomass_fraction": 0.7, "biomass_flux": 0.198, "max_product_flux": 0.634},
+      {"biomass_fraction": 0.8, "biomass_flux": 0.226, "max_product_flux": 0.434},
+      {"biomass_fraction": 0.9, "biomass_flux": 0.254, "max_product_flux": 0.235},
+      {"biomass_fraction": 1.0, "biomass_flux": 0.283, "max_product_flux": 0.000}
+    ],
+    "optimization_rounds": [
+      {
+        "round": "Baseline",
+        "strategy": "Pathway only (no host modifications)",
+        "biomass_flux": 0.028787,
+        "product_flux": 1.825,
+        "vs_baseline": "reference",
+        "notes": "Theoretical ceiling at 0% biomass = 2.000"
+      },
+      {
+        "round": "Round 1",
+        "strategy": "KO PHA2 (YNL316C) + KO GSY1/2 (YFR015C/YLR258W)",
+        "biomass_flux": 0.0,
+        "product_flux": 2.0,
+        "vs_baseline": "lethal - PHA2 KO blocks phenylalanine biosynthesis; GSY KO blocks glycogen for biomass",
+        "notes": "Both KOs are lethal in iMM904. Maximum production reached but no growth possible."
+      },
+      {
+        "round": "Round 2",
+        "strategy": "KO PDC1+PDC5+PDC6 (all pyruvate decarboxylases) + OE ZWF1 (min flux 1.0)",
+        "biomass_flux": 0.028659,
+        "product_flux": 1.675,
+        "vs_baseline": "-8.2%",
+        "notes": "Forced ZWF1 overexpression too aggressive; PDC triple KO reduces acetaldehyde/acetyl-CoA supply, constraining growth and product."
+      },
+      {
+        "round": "Round 3 (Final)",
+        "strategy": "OE ARO4 (min flux 0.15) + OE TYR1 (min flux 0.05)",
+        "biomass_flux": 0.028274,
+        "product_flux": 1.829,
+        "vs_baseline": "+0.2%",
+        "notes": "Mild improvement. Near baseline optimum since glucose uptake is the true bottleneck. Best feasible strategy. Stopped: <5% improvement."
+      }
+    ]
   }
 }
