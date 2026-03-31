@@ -1,0 +1,191 @@
+{
+  "case_id": "case_007",
+  "product": "Biochanin A",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "L-Phenylalanine",
+        "product": "trans-Cinnamate",
+        "enzyme_ec": "EC 4.3.1.24",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": ["NH4+"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "trans-Cinnamate",
+        "product": "4-Coumarate",
+        "enzyme_ec": "EC 1.14.14.91",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H / CYP73A5)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 3,
+        "substrate": "4-Coumarate",
+        "product": "p-Coumaroyl-CoA",
+        "enzyme_ec": "EC 6.2.1.12",
+        "enzyme_name": "4-Coumarate--CoA ligase (4CL1)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["ATP", "CoA"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 4,
+        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+        "product": "Naringenin chalcone",
+        "enzyme_ec": "EC 2.3.1.74",
+        "enzyme_name": "Chalcone synthase (CHS / TT4)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": ["4 CoA", "3 CO2"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Naringenin chalcone",
+        "product": "Naringenin",
+        "enzyme_ec": "EC 5.5.1.6",
+        "enzyme_name": "Chalcone--flavanone isomerase (CHI)",
+        "source_organism": "Medicago sativa",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 6,
+        "substrate": "Naringenin",
+        "product": "2-Hydroxy-2,3-dihydrogenistein",
+        "enzyme_ec": "EC 1.14.14.87",
+        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS / CYP93C1v2)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 7,
+        "substrate": "2-Hydroxy-2,3-dihydrogenistein",
+        "product": "Genistein",
+        "enzyme_ec": "EC 4.2.1.105",
+        "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDH)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 8,
+        "substrate": "Genistein + S-Adenosyl-L-methionine",
+        "product": "Biochanin A + S-Adenosyl-L-homocysteine",
+        "enzyme_ec": "EC 2.1.1.46",
+        "enzyme_name": "Isoflavone 4'-O-methyltransferase (HI4'OMT)",
+        "source_organism": "Medicago truncatula",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["SAM"],
+        "cofactors_produced": ["SAH"]
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": -2,
+      "NADH": 0,
+      "ATP": -1,
+      "O2": -2,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "PAL2",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P45724",
+        "ec_number": "EC 4.3.1.24",
+        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate"
+      },
+      {
+        "gene_name": "CYP73A5 (C4H)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P92994",
+        "ec_number": "EC 1.14.14.91",
+        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (CYP450)"
+      },
+      {
+        "gene_name": "ATR1 (CPR)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SB48",
+        "ec_number": "EC 1.6.2.4",
+        "function": "NADPH--cytochrome P450 reductase; provides electrons to CYP450 enzymes C4H and IFS"
+      },
+      {
+        "gene_name": "4CL1",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q42524",
+        "ec_number": "EC 6.2.1.12",
+        "function": "4-coumarate--CoA ligase; activates coumarate to coumaroyl-CoA"
+      },
+      {
+        "gene_name": "TT4 (CHS)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P13114",
+        "ec_number": "EC 2.3.1.74",
+        "function": "Chalcone synthase; condenses coumaroyl-CoA with 3 malonyl-CoA to naringenin chalcone"
+      },
+      {
+        "gene_name": "CHI1",
+        "source_organism": "Medicago sativa",
+        "uniprot_id": "P28012",
+        "ec_number": "EC 5.5.1.6",
+        "function": "Chalcone--flavanone isomerase; cyclizes naringenin chalcone to naringenin"
+      },
+      {
+        "gene_name": "IFS2 (CYP93C1v2)",
+        "source_organism": "Glycine max",
+        "uniprot_id": "Q9SWR5",
+        "ec_number": "EC 1.14.14.87",
+        "function": "2-hydroxyisoflavanone synthase; converts naringenin to 2-hydroxy-2,3-dihydrogenistein (CYP450)"
+      },
+      {
+        "gene_name": "HIDH",
+        "source_organism": "Glycine max",
+        "uniprot_id": "Q5NUF3",
+        "ec_number": "EC 4.2.1.105",
+        "function": "2-hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein"
+      },
+      {
+        "gene_name": "HI4'OMT",
+        "source_organism": "Medicago truncatula",
+        "uniprot_id": "Q29U70",
+        "ec_number": "EC 2.1.1.46",
+        "function": "Isoflavone 4'-O-methyltransferase; methylates genistein to biochanin A using SAM"
+      }
+    ],
+    "knockouts": [],
+    "overexpressions": [
+      {
+        "gene_name": "ARO4",
+        "yeast_systematic_id": "YBR249C",
+        "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
+        "rationale": "Increase carbon flux into shikimate pathway toward phenylalanine; feedback-resistant ARO4 mutant (K229L) recommended"
+      },
+      {
+        "gene_name": "ARO7",
+        "yeast_systematic_id": "YPR060C",
+        "reaction_boosted": "CHORM (Chorismate mutase)",
+        "rationale": "Increase flux from chorismate to prephenate toward phenylalanine; feedback-resistant ARO7 mutant (T226I) recommended"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 0.714323,
+    "optimized_max_flux": 0.722062,
+    "biomass_at_optimum": 0.025822,
+    "strategy_description": "8-gene heterologous pathway (PAL, C4H, 4CL, CHS, CHI, IFS, HID, IOMT) plus CPR for CYP450 electron transfer from L-phenylalanine to biochanin A. Overexpression of feedback-resistant ARO4 (DAHP synthase) and ARO7 (chorismate mutase) to boost shikimate pathway flux. At 10% minimum biomass, optimized flux = 0.722 mmol/gDW/h vs baseline 0.714 (+1.1%). Theoretical max at zero growth = 0.789 mmol/gDW/h."
+  }
+}

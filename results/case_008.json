@@ -1,0 +1,192 @@
+{
+  "case_id": "case_008",
+  "product": "Lacto-N-neotetraose (LNnT)",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "Fructose-6-phosphate + L-Glutamine",
+        "product": "D-Glucosamine-6-phosphate + L-Glutamate",
+        "enzyme_ec": "EC 2.6.1.16",
+        "enzyme_name": "Glutamine--fructose-6-phosphate transaminase (GFA1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 2,
+        "substrate": "D-Glucosamine-6-phosphate + Acetyl-CoA",
+        "product": "N-Acetyl-D-glucosamine-6-phosphate + CoA",
+        "enzyme_ec": "EC 2.3.1.4",
+        "enzyme_name": "Glucosamine-phosphate N-acetyltransferase (GNA1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["Acetyl-CoA"],
+        "cofactors_produced": ["CoA"]
+      },
+      {
+        "step_number": 3,
+        "substrate": "N-Acetyl-D-glucosamine-6-phosphate",
+        "product": "N-Acetyl-D-glucosamine-1-phosphate",
+        "enzyme_ec": "EC 5.4.2.3",
+        "enzyme_name": "Phosphoacetylglucosamine mutase (AGM1/PCM1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 4,
+        "substrate": "N-Acetyl-D-glucosamine-1-phosphate + UTP",
+        "product": "UDP-GlcNAc + PPi",
+        "enzyme_ec": "EC 2.7.7.23",
+        "enzyme_name": "UDP-N-acetylglucosamine diphosphorylase (QRI1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["UTP"],
+        "cofactors_produced": ["PPi"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Glucose-1-phosphate + UTP",
+        "product": "UDP-glucose + PPi",
+        "enzyme_ec": "EC 2.7.7.9",
+        "enzyme_name": "UTP--glucose-1-phosphate uridylyltransferase (UGP1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["UTP"],
+        "cofactors_produced": ["PPi"]
+      },
+      {
+        "step_number": 6,
+        "substrate": "UDP-glucose",
+        "product": "UDP-galactose",
+        "enzyme_ec": "EC 5.1.3.2",
+        "enzyme_name": "UDP-glucose 4-epimerase (GAL10)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 7,
+        "substrate": "UDP-galactose + D-Glucose",
+        "product": "Lactose + UDP",
+        "enzyme_ec": "EC 2.4.1.22",
+        "enzyme_name": "Beta-1,4-galactosyltransferase 1 (B4GALT1)",
+        "source_organism": "Homo sapiens",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 8,
+        "substrate": "Lactose + UDP-GlcNAc",
+        "product": "Lacto-N-triose II (LNT-3) + UDP",
+        "enzyme_ec": "EC 2.4.1.149",
+        "enzyme_name": "Beta-1,3-N-acetylglucosaminyltransferase (LgtA)",
+        "source_organism": "Neisseria meningitidis",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 9,
+        "substrate": "Lacto-N-triose II + UDP-galactose",
+        "product": "Lacto-N-neotetraose (LNnT) + UDP",
+        "enzyme_ec": "EC 2.4.1.90",
+        "enzyme_name": "Beta-1,4-galactosyltransferase (LgtB)",
+        "source_organism": "Neisseria meningitidis",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": 0,
+      "NADH": 0,
+      "ATP": 0,
+      "O2": 0,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "lgtA",
+        "source_organism": "Neisseria meningitidis",
+        "uniprot_id": "Q8KHG4",
+        "ec_number": "EC 2.4.1.149",
+        "function": "Beta-1,3-N-acetylglucosaminyltransferase; transfers GlcNAc from UDP-GlcNAc to lactose forming lacto-N-triose II (GlcNAc-beta1,3-Gal-beta1,4-Glc)"
+      },
+      {
+        "gene_name": "lgtB",
+        "source_organism": "Neisseria meningitidis",
+        "uniprot_id": "Q51116",
+        "ec_number": "EC 2.4.1.90",
+        "function": "Beta-1,4-galactosyltransferase; transfers Gal from UDP-Gal to lacto-N-triose II forming LNnT (Gal-beta1,4-GlcNAc-beta1,3-Gal-beta1,4-Glc)"
+      },
+      {
+        "gene_name": "B4GALT1",
+        "source_organism": "Homo sapiens",
+        "uniprot_id": "P15291",
+        "ec_number": "EC 2.4.1.22",
+        "function": "Beta-1,4-galactosyltransferase 1; catalyzes lactose synthesis from UDP-galactose and glucose; requires Mn2+ cofactor; PDB structures available (2AE7, 2AEC, etc.)"
+      },
+      {
+        "gene_name": "LAC12",
+        "source_organism": "Kluyveromyces lactis",
+        "uniprot_id": "P07921",
+        "ec_number": "N/A",
+        "function": "Lactose permease (587 aa); mediates lactose transport via proton symport; used to facilitate LNnT export or as alternative lactose import route"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "GLG1",
+        "yeast_systematic_id": "YKR058W",
+        "reaction_blocked": "GLCS2 (glycogen synthase, UDP-Glc -> glycogen) and GLYGS (glycogen/starch synthase)",
+        "rationale": "Eliminates glycogen synthesis that consumes UDP-glucose (baseline flux 0.149 mmol/gDW/h), redirecting UDP-Glc toward UDP-Gal via GAL10 for LNnT biosynthesis"
+      },
+      {
+        "gene_name": "HUT1",
+        "yeast_systematic_id": "YPL244C",
+        "reaction_blocked": "UDPGALt2g (UDP-galactose transport from cytoplasm to Golgi)",
+        "rationale": "Prevents loss of cytoplasmic UDP-galactose to the Golgi apparatus, retaining the precursor for the cytoplasmic LNnT pathway which requires 2 UDP-Gal per molecule"
+      },
+      {
+        "gene_name": "EHT1",
+        "yeast_systematic_id": "YLR189C",
+        "reaction_blocked": "ERGSTGLCT (UDP-glucose:ergosterol glucosyltransferase)",
+        "rationale": "Eliminates ergosterol glucosylation that competes for UDP-glucose, further increasing UDP-Glc availability for conversion to UDP-Gal"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "GAL10",
+        "yeast_systematic_id": "YBR019C",
+        "reaction_boosted": "UDPG4E (UDP-glucose 4-epimerase; UDP-Glc <=> UDP-Gal)",
+        "rationale": "Enhances conversion of UDP-glucose to UDP-galactose; two molecules of UDP-Gal are consumed per LNnT (lactose synthesis + final galactosylation); forced min flux = 0.5"
+      },
+      {
+        "gene_name": "GFA1",
+        "yeast_systematic_id": "YMR085W",
+        "reaction_boosted": "GF6PTA (glutamine--fructose-6-phosphate transaminase; F6P + Gln -> GlcN-6P + Glu)",
+        "rationale": "Rate-limiting entry point for UDP-GlcNAc biosynthesis from fructose-6-phosphate; overexpression increases hexosamine pathway flux for UDP-GlcNAc supply; forced min flux = 0.3"
+      },
+      {
+        "gene_name": "UGP1",
+        "yeast_systematic_id": "YKL035W",
+        "reaction_boosted": "GALUi (UTP--glucose-1-phosphate uridylyltransferase; G1P + UTP -> UDP-Glc + PPi)",
+        "rationale": "Increases UDP-glucose supply from glucose-1-phosphate, feeding the GAL10 epimerase for enhanced UDP-Gal production; forced min flux = 0.5"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 1.391304,
+    "optimized_max_flux": 1.279171,
+    "biomass_at_optimum": 0.023674,
+    "strategy_description": "Heterologous pathway adds 3 glycosyltransferase reactions (LACS: UDP-Gal + Glc -> Lactose; LGTA: Lactose + UDP-GlcNAc -> LNT-3; LGTB: LNT-3 + UDP-Gal -> LNnT) plus an export reaction. The theoretical ceiling (no growth) is 1.391 mmol/gDW/h on 10 mmol/gDW/h glucose. With 10% minimum biomass constraint and optimized knockouts (GLG1, HUT1, YLR189C) plus overexpressions (GAL10 min=0.5, GFA1 min=0.3, UGP1 min=0.5), the optimized max flux is 1.279 mmol/gDW/h at biomass=0.0237. The production envelope shows a linear tradeoff: at full wild-type growth (0.237), residual LNnT flux is 0.250 mmol/gDW/h. Key metabolic bottleneck is UDP-Gal supply (consumed 2x per LNnT) from the limited UDP-Glc pool. TPS1 and GLG1+GLG2 double knockouts are lethal in the iMM904 model and were avoided."
+  }
+}

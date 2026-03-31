@@ -1,0 +1,110 @@
+{
+  "case_id": "case_005",
+  "product": "Salidroside",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "L-Tyrosine",
+        "product": "3-(4-Hydroxyphenyl)pyruvate",
+        "enzyme_ec": "EC 2.6.1.57",
+        "enzyme_name": "Aromatic amino acid aminotransferase (ARO8/ARO9)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["2-Oxoglutarate"],
+        "cofactors_produced": ["L-Glutamate"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "3-(4-Hydroxyphenyl)pyruvate",
+        "product": "4-Hydroxyphenylacetaldehyde",
+        "enzyme_ec": "EC 4.1.1.80",
+        "enzyme_name": "4-Hydroxyphenylpyruvate decarboxylase (ARO10)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": [],
+        "cofactors_produced": ["CO2"]
+      },
+      {
+        "step_number": 3,
+        "substrate": "4-Hydroxyphenylacetaldehyde",
+        "product": "Tyrosol",
+        "enzyme_ec": "EC 1.1.1.90",
+        "enzyme_name": "Aryl-alcohol dehydrogenase (ADH6)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["NADH"],
+        "cofactors_produced": ["NAD+"]
+      },
+      {
+        "step_number": 4,
+        "substrate": "Tyrosol + UDP-glucose",
+        "product": "Salidroside + UDP",
+        "enzyme_ec": "EC 2.4.1.-",
+        "enzyme_name": "UDP-glucosyltransferase UGT73B6",
+        "source_organism": "Rhodiola sachalinensis",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["UDP-glucose"],
+        "cofactors_produced": ["UDP"]
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": 0,
+      "NADH": -1,
+      "ATP": 0,
+      "O2": 0,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "UGT73B6",
+        "source_organism": "Rhodiola sachalinensis",
+        "uniprot_id": "Q6QDB6",
+        "ec_number": "EC 2.4.1.-",
+        "function": "UDP-glucosyltransferase that glycosylates tyrosol to produce salidroside using UDP-glucose as sugar donor"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "TYRNFT (YDR403W)",
+        "yeast_systematic_id": "YDR403W",
+        "reaction_blocked": "TYRNFT (L-tyrosine N-formyltransferase)",
+        "rationale": "Blocks diversion of L-tyrosine to N-formyl-L-tyrosine, preserving tyrosine pool for salidroside biosynthesis"
+      },
+      {
+        "gene_name": "GSY2 (YLR258W)",
+        "yeast_systematic_id": "YLR258W",
+        "reaction_blocked": "GLCS2 (Glycogen synthase, UDPGlc)",
+        "rationale": "Reduces UDP-glucose consumption by glycogen synthesis, increasing UDP-glucose availability for the UGT73B6 glucosylation step"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "ARO4",
+        "yeast_systematic_id": "YBR249C",
+        "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
+        "rationale": "First committed step of the shikimate pathway; overexpression with feedback-resistant mutant (ARO4-K229L) increases carbon flux toward aromatic amino acid biosynthesis"
+      },
+      {
+        "gene_name": "TYR1",
+        "yeast_systematic_id": "YBR166C",
+        "reaction_boosted": "PPND2 (Prephenate dehydrogenase, NADP)",
+        "rationale": "Converts prephenate to 4-hydroxyphenylpyruvate; overexpression directs more prephenate toward tyrosine branch instead of phenylalanine branch"
+      },
+      {
+        "gene_name": "UGP1",
+        "yeast_systematic_id": "YKL035W",
+        "reaction_boosted": "GALUi (UTP-glucose-1-phosphate uridylyltransferase)",
+        "rationale": "Increases UDP-glucose supply for the glucosylation step catalyzed by UGT73B6"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 2.537445,
+    "optimized_max_flux": 2.293257,
+    "biomass_at_optimum": 0.028267,
+    "strategy_description": "Heterologous pathway (4 steps: TYRTAr, HPPDC, TYROH_ADH, UGT_SAL) added to iMM904 model. Baseline theoretical max is 2.537 mmol/gDW/h at zero growth. With 10% biomass constraint (min growth = 0.0283 h-1), max salidroside flux = 2.293 mmol/gDW/h. Engineering strategy: knockout TYRNFT (YDR403W) to eliminate tyrosine diversion, knockout GSY2 (YLR258W) to free UDP-glucose, overexpress ARO4 (YBR249C) for shikimate flux, overexpress TYR1 (YBR166C) for tyrosine branch, overexpress UGP1 (YKL035W) for UDP-glucose supply. Production envelope shows linear tradeoff between growth and production (2.537 at 0% biomass to 0 at 100% biomass)."
+  }
+}

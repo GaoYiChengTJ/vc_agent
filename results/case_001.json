@@ -1,0 +1,252 @@
+{
+  "case_id": "case_001",
+  "product": "Glabridin",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "L-Phenylalanine",
+        "product": "trans-Cinnamate",
+        "enzyme_ec": "EC 4.3.1.24",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL1)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": ["NH4+"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "trans-Cinnamate",
+        "product": "4-Coumarate",
+        "enzyme_ec": "EC 1.14.14.91",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H/CYP73A5)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 3,
+        "substrate": "4-Coumarate",
+        "product": "p-Coumaroyl-CoA",
+        "enzyme_ec": "EC 6.2.1.12",
+        "enzyme_name": "4-Coumarate-CoA ligase (4CL1)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["ATP", "CoA"],
+        "cofactors_produced": ["AMP", "PPi"]
+      },
+      {
+        "step_number": 4,
+        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+        "product": "Isoliquiritigenin",
+        "enzyme_ec": "EC 2.3.1.170",
+        "enzyme_name": "6'-Deoxychalcone synthase (CHS+CHR)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": ["4 CoA", "3 CO2"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Isoliquiritigenin",
+        "product": "Liquiritigenin",
+        "enzyme_ec": "EC 5.5.1.6",
+        "enzyme_name": "Chalcone isomerase (CHI1)",
+        "source_organism": "Medicago sativa",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 6,
+        "substrate": "Liquiritigenin",
+        "product": "2,7,4'-Trihydroxyisoflavanone",
+        "enzyme_ec": "EC 1.14.14.87",
+        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS/CYP93C2)",
+        "source_organism": "Glycyrrhiza echinata",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 7,
+        "substrate": "2,7,4'-Trihydroxyisoflavanone",
+        "product": "Daidzein",
+        "enzyme_ec": "EC 4.2.1.105",
+        "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDM)",
+        "source_organism": "Glycyrrhiza echinata",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 8,
+        "substrate": "Daidzein",
+        "product": "2'-Hydroxydaidzein",
+        "enzyme_ec": "EC 1.14.14.90",
+        "enzyme_name": "Isoflavone 2'-hydroxylase (I2'H/CYP81E1)",
+        "source_organism": "Glycyrrhiza echinata",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 9,
+        "substrate": "2'-Hydroxydaidzein",
+        "product": "2'-Hydroxydihydrodaidzein",
+        "enzyme_ec": "EC 1.3.1.45",
+        "enzyme_name": "Isoflavone reductase (IFR)",
+        "source_organism": "Medicago sativa",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 10,
+        "substrate": "2'-Hydroxydihydrodaidzein",
+        "product": "Glabridin",
+        "enzyme_ec": "EC 1.1.1.348 / EC 4.2.1.139",
+        "enzyme_name": "Vestitone reductase (VR) + Pterocarpan synthase (PTS1)",
+        "source_organism": "Glycyrrhiza echinata",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": []
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": -6,
+      "NADH": 0,
+      "ATP": -1,
+      "O2": -3,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "PAL1",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P35510",
+        "ec_number": "EC 4.3.1.24",
+        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate (725 aa, Km=68 uM)"
+      },
+      {
+        "gene_name": "CYP73A5 (C4H)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P92994",
+        "ec_number": "EC 1.14.14.91",
+        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (505 aa, CYP450)"
+      },
+      {
+        "gene_name": "ATR2 (CPR)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SUM3",
+        "ec_number": "EC 1.6.2.4",
+        "function": "NADPH-cytochrome P450 reductase; electron donor for C4H, IFS, and I2'H CYP450s (711 aa, PDB:5GXU)"
+      },
+      {
+        "gene_name": "4CL1",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q42524",
+        "ec_number": "EC 6.2.1.12",
+        "function": "4-Coumarate-CoA ligase; activates coumarate with CoA to form p-coumaroyl-CoA (561 aa)"
+      },
+      {
+        "gene_name": "CHS+CHR (6'-deoxychalcone synthase)",
+        "source_organism": "Glycine max",
+        "uniprot_id": "P26690",
+        "ec_number": "EC 2.3.1.170",
+        "function": "NAD(P)H-dependent 6'-deoxychalcone synthase; produces isoliquiritigenin from coumaroyl-CoA + malonyl-CoA (315 aa)"
+      },
+      {
+        "gene_name": "CHI1",
+        "source_organism": "Medicago sativa",
+        "uniprot_id": "P28012",
+        "ec_number": "EC 5.5.1.6",
+        "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin (222 aa)"
+      },
+      {
+        "gene_name": "CYP93C2 (IFS)",
+        "source_organism": "Glycyrrhiza echinata",
+        "uniprot_id": "Q9SXS3",
+        "ec_number": "EC 1.14.14.87",
+        "function": "2-Hydroxyisoflavanone synthase; converts liquiritigenin to trihydroxyisoflavanone with aryl migration (523 aa, Km=8 uM, CYP450)"
+      },
+      {
+        "gene_name": "HIDM",
+        "source_organism": "Glycyrrhiza echinata",
+        "uniprot_id": "Q5NUF4",
+        "ec_number": "EC 4.2.1.105",
+        "function": "2-Hydroxyisoflavanone dehydratase; dehydrates trihydroxyisoflavanone to daidzein (328 aa, Km=210 uM)"
+      },
+      {
+        "gene_name": "CYP81E1 (I2'H)",
+        "source_organism": "Glycyrrhiza echinata",
+        "uniprot_id": "P93147",
+        "ec_number": "EC 1.14.14.90",
+        "function": "Isoflavone 2'-hydroxylase; hydroxylates daidzein at 2' position (499 aa, CYP450)"
+      },
+      {
+        "gene_name": "IFR",
+        "source_organism": "Medicago sativa",
+        "uniprot_id": "P52575",
+        "ec_number": "EC 1.3.1.45",
+        "function": "Isoflavone reductase; reduces 2'-hydroxydaidzein to dihydrodaidzein (318 aa, Km=14.2 uM, PDB:2GAS)"
+      },
+      {
+        "gene_name": "PTS1",
+        "source_organism": "Glycyrrhiza echinata",
+        "uniprot_id": "A0A1V1FH01",
+        "ec_number": "EC 4.2.1.139",
+        "function": "Pterocarpan synthase; dirigent protein catalyzing cyclization to form the isoflavan scaffold (188 aa, PDB:6OOC)"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "PDC1",
+        "yeast_systematic_id": "YLR044C",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+        "rationale": "Major pyruvate decarboxylase; knockout (with PDC5, PDC6, ARO10) eliminates ethanol fermentation, redirecting carbon flux toward biomass and product"
+      },
+      {
+        "gene_name": "PDC5",
+        "yeast_systematic_id": "YLR134W",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+        "rationale": "PDC5 isozyme; must be knocked out with PDC1 to fully disable pyruvate decarboxylase due to OR-logic GPR"
+      },
+      {
+        "gene_name": "PDC6",
+        "yeast_systematic_id": "YGR087C",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+        "rationale": "PDC6 isozyme; required for complete PYRDC inactivation"
+      },
+      {
+        "gene_name": "ARO10",
+        "yeast_systematic_id": "YDR380W",
+        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase) and PYRDC",
+        "rationale": "Broad-specificity decarboxylase for aromatic 2-oxo acids; knockout prevents Ehrlich pathway degradation of phenylpyruvate and completes PYRDC inactivation"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "ZWF1",
+        "yeast_systematic_id": "YNL241C",
+        "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+        "rationale": "First committed step of oxidative pentose phosphate pathway; overexpression increases NADPH supply; pathway requires 6 NADPH per glabridin molecule"
+      },
+      {
+        "gene_name": "GND2",
+        "yeast_systematic_id": "YGR256W",
+        "reaction_boosted": "GND (6-phosphogluconate dehydrogenase)",
+        "rationale": "Second NADPH-generating step in oxidative PPP; overexpression with ZWF1 maximizes NADPH regeneration capacity"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 0.666667,
+    "optimized_max_flux": 0.666142,
+    "biomass_at_optimum": 0.028239,
+    "strategy_description": "10-step heterologous pathway from L-phenylalanine to glabridin was added to iMM904 (11 reactions including exchange). Baseline theoretical max was 0.667 mmol/gDW/h. Overexpression of ZWF1 (G6PDH2r) and GND2 (GND) at min_flux=1.5 maintained near-theoretical-max production (0.666 mmol/gDW/h) at 10% biomass constraint. PDC quadruple knockout (PDC1/5/6 + ARO10) disabled ethanol fermentation and Ehrlich pathway but reduced max product flux to 0.452 due to redox imbalance; recommended as optional for fed-batch conditions. Production envelope shows classic growth-production tradeoff with full production at low growth rates."
+  }
+}

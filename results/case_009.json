@@ -1,0 +1,223 @@
+{
+  "case_id": "case_009",
+  "product": "3'-Hydroxygenistein",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "L-Phenylalanine",
+        "product": "trans-Cinnamate",
+        "enzyme_ec": "EC 4.3.1.24",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": [
+          "NH3"
+        ]
+      },
+      {
+        "step_number": 2,
+        "substrate": "trans-Cinnamate",
+        "product": "4-Coumarate",
+        "enzyme_ec": "EC 1.14.14.91",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H/CYP73A5)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [
+          "NADPH",
+          "O2"
+        ],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 3,
+        "substrate": "4-Coumarate",
+        "product": "p-Coumaroyl-CoA",
+        "enzyme_ec": "EC 6.2.1.12",
+        "enzyme_name": "4-Coumarate-CoA ligase (4CL1)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [
+          "ATP",
+          "CoA"
+        ],
+        "cofactors_produced": [
+          "AMP",
+          "PPi"
+        ]
+      },
+      {
+        "step_number": 4,
+        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+        "product": "Naringenin chalcone",
+        "enzyme_ec": "EC 2.3.1.74",
+        "enzyme_name": "Chalcone synthase (CHS/TT4)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": [
+          "4 CoA",
+          "3 CO2"
+        ]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Naringenin chalcone",
+        "product": "Naringenin",
+        "enzyme_ec": "EC 5.5.1.6",
+        "enzyme_name": "Chalcone isomerase (CHI1)",
+        "source_organism": "Medicago sativa",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 6,
+        "substrate": "Naringenin",
+        "product": "2-Hydroxy-2,3-dihydrogenistein",
+        "enzyme_ec": "EC 1.14.14.87",
+        "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS/CYP93C1v2)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [
+          "NADPH",
+          "O2"
+        ],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 7,
+        "substrate": "2-Hydroxy-2,3-dihydrogenistein",
+        "product": "Genistein",
+        "enzyme_ec": "EC 4.2.1.105",
+        "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDH)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 8,
+        "substrate": "Genistein",
+        "product": "3'-Hydroxygenistein (Orobol)",
+        "enzyme_ec": "EC 1.14.14.88",
+        "enzyme_name": "Isoflavone 3'-hydroxylase (CYP57B3)",
+        "source_organism": "Aspergillus oryzae",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [
+          "NADPH",
+          "O2"
+        ],
+        "cofactors_produced": []
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": -3,
+      "NADH": 0,
+      "ATP": -1,
+      "O2": -3,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "PAL1",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P35510",
+        "ec_number": "EC 4.3.1.24",
+        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate + NH3; first committed step of phenylpropanoid pathway"
+      },
+      {
+        "gene_name": "CYP73A5 (C4H)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P92994",
+        "ec_number": "EC 1.14.14.91",
+        "function": "Trans-cinnamate 4-monooxygenase; hydroxylates trans-cinnamate to p-coumarate; CYP450 requiring heme and CPR"
+      },
+      {
+        "gene_name": "4CL1",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q42524",
+        "ec_number": "EC 6.2.1.12",
+        "function": "4-Coumarate-CoA ligase; activates p-coumarate to p-coumaroyl-CoA using ATP; Km=38 uM for 4-coumarate"
+      },
+      {
+        "gene_name": "TT4 (CHS)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P13114",
+        "ec_number": "EC 2.3.1.74",
+        "function": "Chalcone synthase; condenses p-coumaroyl-CoA with 3 malonyl-CoA to form naringenin chalcone"
+      },
+      {
+        "gene_name": "CHI1",
+        "source_organism": "Medicago sativa",
+        "uniprot_id": "P28012",
+        "ec_number": "EC 5.5.1.6",
+        "function": "Chalcone isomerase; cyclizes naringenin chalcone to (2S)-naringenin; well-characterized with crystal structures (PDB: 1EYP)"
+      },
+      {
+        "gene_name": "IFS2 (CYP93C1v2)",
+        "source_organism": "Glycine max",
+        "uniprot_id": "Q9SWR5",
+        "ec_number": "EC 1.14.14.87",
+        "function": "2-Hydroxyisoflavanone synthase; CYP450 that catalyzes aryl migration converting naringenin to 2-hydroxy-2,3-dihydrogenistein"
+      },
+      {
+        "gene_name": "HIDH",
+        "source_organism": "Glycine max",
+        "uniprot_id": "Q5NUF3",
+        "ec_number": "EC 4.2.1.105",
+        "function": "2-Hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein; Km=170 uM"
+      },
+      {
+        "gene_name": "CYP57B3",
+        "source_organism": "Aspergillus oryzae",
+        "uniprot_id": "D4QC19",
+        "ec_number": "EC 1.14.14.88",
+        "function": "Isoflavone 3'-hydroxylase; CYP450 that hydroxylates genistein at the 3' position to produce 3'-hydroxygenistein (orobol); fungal origin compatible with yeast expression"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "ARO10",
+        "yeast_systematic_id": "YDR380W",
+        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
+        "rationale": "Blocks degradation of phenylpyruvate (Ehrlich pathway), increasing flux toward phenylalanine biosynthesis via PHETA1 reverse reaction; OR-logic requires combined KO with PDC genes for full effect"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "ARO7",
+        "yeast_systematic_id": "YPR060C",
+        "reaction_boosted": "CHORM (chorismate mutase)",
+        "rationale": "Increases flux from chorismate to prephenate, boosting phenylalanine precursor supply; feedback-resistant mutant ARO7(T226I) preferred"
+      },
+      {
+        "gene_name": "ZWF1",
+        "yeast_systematic_id": "YNL241C",
+        "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+        "rationale": "Entry point of pentose phosphate pathway producing NADPH; pathway requires 3 NADPH per product molecule for C4H, IFS, and CYP57B3 reactions"
+      },
+      {
+        "gene_name": "ACS2",
+        "yeast_systematic_id": "YLR153C",
+        "reaction_boosted": "ACS (acetyl-CoA synthetase)",
+        "rationale": "Increases cytoplasmic acetyl-CoA supply which feeds into malonyl-CoA via ACC1; CHS requires 3 malonyl-CoA per naringenin chalcone"
+      },
+      {
+        "gene_name": "ACC1",
+        "yeast_systematic_id": "YNR016C",
+        "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
+        "rationale": "Converts acetyl-CoA to malonyl-CoA; overexpression of ACC1(S659A/S1157A) phosphorylation-resistant mutant increases malonyl-CoA pool"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 0.666667,
+    "optimized_max_flux": 0.666187,
+    "biomass_at_optimum": 0.025822,
+    "strategy_description": "Heterologous 8-step pathway from L-phenylalanine to 3'-hydroxygenistein via phenylpropanoid, flavonoid, isoflavonoid biosynthesis, and 3'-hydroxylation. Eight plant/fungal enzymes are required (PAL, C4H, 4CL, CHS from A. thaliana; CHI from M. sativa; IFS, HIDH from G. max; CYP57B3 from A. oryzae). Three CYP450 steps (C4H, IFS, CYP57B3) utilize the native yeast NADPH-cytochrome P450 reductase NCP1 (YHR042W). Engineering strategy includes ARO10 knockout to block phenylpyruvate degradation, and overexpression of ARO7 (feedback-resistant mutant), ZWF1, ACS2, and ACC1 to boost precursor and cofactor supply. FBA theoretical maximum flux is 0.667 mmol/gDW/h at zero growth and 0.666 at 10% minimum biomass. Production envelope shows linear growth-production tradeoff. Aerobic conditions required for three O2-dependent CYP450 reactions."
+  }
+}

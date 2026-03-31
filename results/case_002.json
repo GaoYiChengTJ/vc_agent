@@ -1,0 +1,149 @@
+{
+  "case_id": "case_002",
+  "product": "Pregnenolone",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "Zymosterol",
+        "product": "5alpha-Cholest-8-en-3beta-ol",
+        "enzyme_ec": "EC 1.3.1.72",
+        "enzyme_name": "Delta(24)-sterol reductase (DHCR24)",
+        "source_organism": "Homo sapiens",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": ["NADP+"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "5alpha-Cholest-8-en-3beta-ol",
+        "product": "Lathosterol",
+        "enzyme_ec": "EC 5.3.3.5",
+        "enzyme_name": "Cholestenol delta-isomerase (EBP)",
+        "source_organism": "Homo sapiens",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 3,
+        "substrate": "Lathosterol",
+        "product": "7-Dehydrocholesterol",
+        "enzyme_ec": "EC 1.14.19.20",
+        "enzyme_name": "Delta7-sterol 5-desaturase (SC5D)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": ["NADP+"]
+      },
+      {
+        "step_number": 4,
+        "substrate": "7-Dehydrocholesterol",
+        "product": "Cholesterol",
+        "enzyme_ec": "EC 1.3.1.21",
+        "enzyme_name": "7-dehydrocholesterol reductase (DHCR7)",
+        "source_organism": "Homo sapiens",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": ["NADP+"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Cholesterol",
+        "product": "Pregnenolone",
+        "enzyme_ec": "EC 1.14.15.6",
+        "enzyme_name": "Cholesterol side-chain cleavage enzyme (CYP11A1)",
+        "source_organism": "Bos taurus",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "NADPH", "NADPH", "O2", "O2", "O2"],
+        "cofactors_produced": ["NADP+", "NADP+", "NADP+"]
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": -6,
+      "NADH": 0,
+      "ATP": 0,
+      "O2": -4,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "DHCR24",
+        "source_organism": "Homo sapiens",
+        "uniprot_id": "Q15392",
+        "ec_number": "EC 1.3.1.72",
+        "function": "Delta(24)-sterol reductase; converts zymosterol to 5alpha-cholest-8-en-3beta-ol using NADPH. Redirects flux from ergosterol to cholesterol pathway."
+      },
+      {
+        "gene_name": "DHCR7",
+        "source_organism": "Homo sapiens",
+        "uniprot_id": "Q9UBM7",
+        "ec_number": "EC 1.3.1.21",
+        "function": "7-dehydrocholesterol reductase; converts 7-dehydrocholesterol to cholesterol using NADPH. Final step of cholesterol biosynthesis."
+      },
+      {
+        "gene_name": "CYP11A1",
+        "source_organism": "Bos taurus",
+        "uniprot_id": "P00189",
+        "ec_number": "EC 1.14.15.6",
+        "function": "Cholesterol side-chain cleavage enzyme (P450scc); converts cholesterol to pregnenolone via three sequential oxidations. Requires adrenodoxin (FDX1) and adrenodoxin reductase (FDXR) as electron transfer partners. PDB: 3MZS."
+      },
+      {
+        "gene_name": "FDX1",
+        "source_organism": "Bos taurus",
+        "uniprot_id": "P00257",
+        "ec_number": "",
+        "function": "Adrenodoxin (ferredoxin-1); 2Fe-2S iron-sulfur protein that shuttles electrons from FDXR to CYP11A1 for cholesterol side-chain cleavage. 186 aa."
+      },
+      {
+        "gene_name": "FDXR",
+        "source_organism": "Bos taurus",
+        "uniprot_id": "P08165",
+        "ec_number": "EC 1.18.1.6",
+        "function": "NADPH:adrenodoxin oxidoreductase; FAD-containing flavoprotein that transfers electrons from NADPH to adrenodoxin (FDX1) for mitochondrial P450 systems. PDB: 1CJC."
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "ERG6",
+        "yeast_systematic_id": "YML008C",
+        "reaction_blocked": "SAM24MT (zymosterol -> fecosterol)",
+        "rationale": "Block the native ergosterol branch at zymosterol to redirect flux toward cholesterol via the heterologous DHCR24. ERG6 KO eliminates zymosterol methylation to fecosterol, the first committed step of the ergosterol-specific pathway. Cholesterol can partially substitute for ergosterol in yeast membranes."
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "tHMG1",
+        "yeast_systematic_id": "YML075C",
+        "reaction_boosted": "HMGCOAR (HMG-CoA -> mevalonate)",
+        "rationale": "Truncated HMG-CoA reductase (catalytic domain only) is feedback-resistant and increases mevalonate pathway flux, the rate-limiting step in sterol biosynthesis."
+      },
+      {
+        "gene_name": "ERG9",
+        "yeast_systematic_id": "YHR190W",
+        "reaction_boosted": "SQLS (2 FPP -> squalene)",
+        "rationale": "Overexpress squalene synthase to increase carbon flux from FPP into the sterol pathway and away from competing isoprenoid branches."
+      },
+      {
+        "gene_name": "ERG20",
+        "yeast_systematic_id": "YJL167W",
+        "reaction_boosted": "GRTT/DMATT (IPP+DMAPP -> GPP -> FPP)",
+        "rationale": "Overexpress farnesyl diphosphate synthase to increase FPP supply for squalene/sterol biosynthesis."
+      },
+      {
+        "gene_name": "ZWF1",
+        "yeast_systematic_id": "YNL241C",
+        "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+        "rationale": "Overexpress the pentose phosphate pathway entry enzyme to increase NADPH supply. The pathway from zymosterol to pregnenolone consumes 6 NADPH per molecule."
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 0.142857,
+    "optimized_max_flux": 0.142751,
+    "biomass_at_optimum": 0.026593,
+    "strategy_description": "Heterologous pathway (DHCR24, EBP, DHCR7, CYP11A1/FDX1/FDXR) inserted from zymosterol to pregnenolone with exchange reaction. Overexpress ERG9 (squalene synthase, min_flux=0.05), ZWF1 (G6PDH, min_flux=1.0), ERG20 (FPP synthase), and tHMG1 (feedback-resistant HMG-CoA reductase). ERG6 knockout recommended to redirect zymosterol from ergosterol to cholesterol pathway. At 10% min biomass fraction, max pregnenolone flux = 0.1428 mmol/gDW/h (99.9% of theoretical max 0.1429). Production envelope shows favorable growth-production tradeoff with >0.14 flux maintained up to 40% max biomass."
+  }
+}

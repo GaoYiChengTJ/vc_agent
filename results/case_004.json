@@ -1,0 +1,169 @@
+{
+  "case_id": "case_004",
+  "product": "Liquiritigenin",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "L-Phenylalanine",
+        "product": "trans-Cinnamate",
+        "enzyme_ec": "EC 4.3.1.24",
+        "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": ["NH3"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "trans-Cinnamate",
+        "product": "4-Coumarate",
+        "enzyme_ec": "EC 1.14.14.91",
+        "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH", "O2"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 3,
+        "substrate": "4-Coumarate",
+        "product": "p-Coumaroyl-CoA",
+        "enzyme_ec": "EC 6.2.1.12",
+        "enzyme_name": "4-Coumarate--CoA ligase (4CL)",
+        "source_organism": "Arabidopsis thaliana",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["ATP", "CoA"],
+        "cofactors_produced": ["AMP", "PPi"]
+      },
+      {
+        "step_number": 4,
+        "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+        "product": "Isoliquiritigenin",
+        "enzyme_ec": "EC 2.3.1.170",
+        "enzyme_name": "6'-Deoxychalcone synthase (CHS + CHR)",
+        "source_organism": "Glycine max",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADPH"],
+        "cofactors_produced": ["4 CoA", "3 CO2"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Isoliquiritigenin",
+        "product": "Liquiritigenin",
+        "enzyme_ec": "EC 5.5.1.6",
+        "enzyme_name": "Chalcone isomerase (CHI)",
+        "source_organism": "Medicago sativa",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": [],
+        "cofactors_produced": []
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": -2,
+      "NADH": 0,
+      "ATP": -1,
+      "O2": -1,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "PAL2",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P45724",
+        "ec_number": "EC 4.3.1.24",
+        "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate + NH3; first committed step of phenylpropanoid pathway"
+      },
+      {
+        "gene_name": "CYP73A5 (C4H)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "P92994",
+        "ec_number": "EC 1.14.14.91",
+        "function": "Trans-cinnamate 4-monooxygenase (cytochrome P450 73); hydroxylates trans-cinnamate to 4-coumarate using NADPH and O2"
+      },
+      {
+        "gene_name": "ATR1 (CPR)",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9SB48",
+        "ec_number": "EC 1.6.2.4",
+        "function": "NADPH-cytochrome P450 reductase; required electron transfer partner for CYP73A5 (C4H); uses FAD and FMN cofactors"
+      },
+      {
+        "gene_name": "4CL2",
+        "source_organism": "Arabidopsis thaliana",
+        "uniprot_id": "Q9S725",
+        "ec_number": "EC 6.2.1.12",
+        "function": "4-Coumarate--CoA ligase; activates 4-coumarate to p-coumaroyl-CoA using ATP and CoA; Km=252 uM for 4-coumarate"
+      },
+      {
+        "gene_name": "CHS1",
+        "source_organism": "Glycine max",
+        "uniprot_id": "P24826",
+        "ec_number": "EC 2.3.1.74",
+        "function": "Chalcone synthase; condenses p-coumaroyl-CoA with 3 malonyl-CoA; works with CHR to produce isoliquiritigenin instead of naringenin chalcone"
+      },
+      {
+        "gene_name": "CHR (6'-deoxychalcone synthase)",
+        "source_organism": "Glycine max",
+        "uniprot_id": "P26690",
+        "ec_number": "EC 2.3.1.170",
+        "function": "Chalcone reductase; co-acts with CHS to reduce 6'-position during chalcone formation, producing isoliquiritigenin (the deoxychalcone) using NADPH"
+      },
+      {
+        "gene_name": "CHI1",
+        "source_organism": "Medicago sativa",
+        "uniprot_id": "P28012",
+        "ec_number": "EC 5.5.1.6",
+        "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin; Km=15.7 uM for 6'-deoxychalcone; has crystal structures (PDB: 1EYP, 1EYQ)"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "ARO10",
+        "yeast_systematic_id": "YDR380W",
+        "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
+        "rationale": "Blocks degradation of phenylpyruvate (from phenylalanine catabolism) to phenylacetaldehyde, preserving phenylalanine precursor pool for the heterologous pathway"
+      },
+      {
+        "gene_name": "PDC5",
+        "yeast_systematic_id": "YLR134W",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase, partial)",
+        "rationale": "Partial reduction of pyruvate decarboxylase activity to reduce ethanol overflow and redirect carbon flux toward acetyl-CoA and malonyl-CoA for the pathway"
+      },
+      {
+        "gene_name": "PDC6",
+        "yeast_systematic_id": "YGR087C",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase, partial)",
+        "rationale": "Further reduction of pyruvate decarboxylase activity; combined with PDC5 KO, leaves PDC1 for essential ethanol production while freeing carbon"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "ARO7",
+        "yeast_systematic_id": "YPR060C",
+        "reaction_boosted": "CHORM (chorismate mutase)",
+        "rationale": "Increases flux from chorismate to prephenate, boosting the precursor supply for phenylalanine biosynthesis which feeds the heterologous pathway"
+      },
+      {
+        "gene_name": "ARO4",
+        "yeast_systematic_id": "YBR249C",
+        "reaction_boosted": "DDPA (DAHP synthase)",
+        "rationale": "First committed step of shikimate pathway; overexpression of feedback-resistant ARO4(K229L) increases carbon flux into aromatic amino acid biosynthesis"
+      },
+      {
+        "gene_name": "ACC1",
+        "yeast_systematic_id": "YNR016C",
+        "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
+        "rationale": "Increases malonyl-CoA supply for the CHS/CHR reaction which requires 3 malonyl-CoA per product molecule; overexpression of feedback-resistant ACC1(S659A,S1157A) recommended"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 1.074919,
+    "optimized_max_flux": 0.975755,
+    "biomass_at_optimum": 0.02788,
+    "strategy_description": "Heterologous 5-step pathway (PAL, C4H/CPR, 4CL, CHS+CHR, CHI) from L-phenylalanine to liquiritigenin added to iMM904. Theoretical max flux = 1.075 mmol/gDW/h at 0% biomass, 0.976 mmol/gDW/h at 10% biomass with KO of ARO10/PDC5/PDC6 and OE of ARO7. Production envelope shows linear tradeoff. Key bottlenecks: malonyl-CoA supply (3 mol/product), NADPH (2 mol/product), phenylalanine availability. Supplementary: feedback-resistant ARO4(K229L) and ACC1(S659A,S1157A) mutants recommended."
+  }
+}

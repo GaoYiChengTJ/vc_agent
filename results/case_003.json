@@ -1,0 +1,157 @@
+{
+  "case_id": "case_003",
+  "product": "Short- and medium-chain fatty acids (C8, C10, C12)",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "Acetyl-CoA",
+        "product": "Malonyl-CoA",
+        "enzyme_ec": "EC 6.4.1.2",
+        "enzyme_name": "Acetyl-CoA carboxylase (ACC1)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["ATP", "HCO3-"],
+        "cofactors_produced": ["ADP", "Pi"]
+      },
+      {
+        "step_number": 2,
+        "substrate": "Acetyl-CoA + 3 Malonyl-CoA",
+        "product": "Octanoyl-CoA (C8-CoA)",
+        "enzyme_ec": "EC 2.3.1.86",
+        "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["6 NADPH"],
+        "cofactors_produced": ["6 NADP+", "3 CO2", "3 CoA"]
+      },
+      {
+        "step_number": 3,
+        "substrate": "Octanoyl-CoA (C8-CoA) + Malonyl-CoA",
+        "product": "Decanoyl-CoA (C10-CoA)",
+        "enzyme_ec": "EC 2.3.1.86",
+        "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["2 NADPH"],
+        "cofactors_produced": ["2 NADP+", "CO2", "CoA"]
+      },
+      {
+        "step_number": 4,
+        "substrate": "Decanoyl-CoA (C10-CoA) + Malonyl-CoA",
+        "product": "Dodecanoyl-CoA (C12-CoA)",
+        "enzyme_ec": "EC 2.3.1.86",
+        "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+        "source_organism": "Saccharomyces cerevisiae",
+        "native_or_heterologous": "native",
+        "cofactors_consumed": ["2 NADPH"],
+        "cofactors_produced": ["2 NADP+", "CO2", "CoA"]
+      },
+      {
+        "step_number": 5,
+        "substrate": "Octanoyl-ACP / Decanoyl-ACP / Dodecanoyl-ACP",
+        "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + ACP",
+        "enzyme_ec": "EC 3.1.2.21",
+        "enzyme_name": "Medium-chain acyl-ACP thioesterase (CvFatB1)",
+        "source_organism": "Cuphea viscosissima",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["H2O"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 6,
+        "substrate": "Octanoyl-ACP / Decanoyl-ACP / Dodecanoyl-ACP",
+        "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + ACP",
+        "enzyme_ec": "EC 3.1.2.21",
+        "enzyme_name": "Lauroyl-ACP thioesterase (UcFatB1)",
+        "source_organism": "Umbellularia californica",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["H2O"],
+        "cofactors_produced": []
+      },
+      {
+        "step_number": 7,
+        "substrate": "Octanoyl-CoA / Decanoyl-CoA / Dodecanoyl-CoA",
+        "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + CoA",
+        "enzyme_ec": "EC 3.1.2.14",
+        "enzyme_name": "Thioesterase I (TesA')",
+        "source_organism": "Escherichia coli K12",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["H2O"],
+        "cofactors_produced": []
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": -14,
+      "NADH": 0,
+      "ATP": -4,
+      "O2": 0,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "CvFATB1",
+        "source_organism": "Cuphea viscosissima",
+        "uniprot_id": "G3ESU9",
+        "ec_number": "EC 3.1.2.21",
+        "function": "Medium-chain acyl-ACP thioesterase with C8>C10 substrate preference; cleaves octanoyl-ACP and decanoyl-ACP to release free C8 and C10 fatty acids from the FAS elongation cycle"
+      },
+      {
+        "gene_name": "UcFATB1",
+        "source_organism": "Umbellularia californica",
+        "uniprot_id": "Q41635",
+        "ec_number": "EC 3.1.2.21",
+        "function": "Lauroyl-ACP thioesterase with C12>C14 preference (Km 1.9 uM for C12-ACP); cleaves dodecanoyl-ACP to release free C12 fatty acid; has PDB structure 5X04"
+      },
+      {
+        "gene_name": "tesA (truncated, tesA')",
+        "source_organism": "Escherichia coli K12",
+        "uniprot_id": "P0ADA1",
+        "ec_number": "EC 3.1.2.14",
+        "function": "Cytoplasmic thioesterase I (leaderless variant); hydrolyzes acyl-CoA thioesters C10-C18 with broad specificity; Km 11.5 uM for decanoyl-CoA; multiple PDB structures available"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "POX1",
+        "yeast_systematic_id": "YGL205W",
+        "reaction_blocked": "FAO80p, FAO141p, FAO161p, FAO181p, FAO182p, FAO240p, ACOAO4-9p (all peroxisomal beta-oxidation, 20 reactions disabled)",
+        "rationale": "POX1 encodes the sole acyl-CoA oxidase in yeast peroxisomes; knockout abolishes all peroxisomal beta-oxidation, preventing degradation of C8, C10, and C12 fatty acids back to acetyl-CoA"
+      },
+      {
+        "gene_name": "ELO1",
+        "yeast_systematic_id": "YJL196C",
+        "reaction_blocked": "FAS141, FAS161, FAS181 (unsaturated fatty acid elongation/desaturation)",
+        "rationale": "ELO1 elongates C12 to C14:1, C14 to C16:1, C16 to C18:1 unsaturated fatty acids; knockout prevents carbon diversion from the SMCFA pool into unsaturated long-chain fatty acids"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "ACC1",
+        "yeast_systematic_id": "YNR016C",
+        "reaction_boosted": "ACCOAC (acetyl-CoA + ATP + HCO3- --> malonyl-CoA + ADP + Pi)",
+        "rationale": "ACC1 catalyzes the rate-limiting step of fatty acid biosynthesis converting acetyl-CoA to malonyl-CoA; overexpression increases malonyl-CoA supply, the primary C2-donor for FA chain elongation; baseline flux 0.1145"
+      },
+      {
+        "gene_name": "ZWF1",
+        "yeast_systematic_id": "YNL241C",
+        "reaction_boosted": "G6PDH2r (glucose-6-phosphate + NADP+ --> 6-phosphogluconolactone + NADPH)",
+        "rationale": "ZWF1 encodes glucose-6-phosphate dehydrogenase, the entry point of the pentose phosphate pathway and the major cytoplasmic NADPH source; overexpression increases NADPH availability for FA biosynthesis (14 NADPH needed per C12 molecule)"
+      },
+      {
+        "gene_name": "ACS1",
+        "yeast_systematic_id": "YLR153C",
+        "reaction_boosted": "ACS (acetate + ATP + CoA --> acetyl-CoA + AMP + PPi)",
+        "rationale": "ACS catalyzes cytoplasmic acetyl-CoA production from acetate; overexpression increases the cytoplasmic acetyl-CoA pool, the starter unit for FA synthesis; baseline flux 0.1471"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 1.829545,
+    "optimized_max_flux": 1.652065,
+    "biomass_at_optimum": 0.028787,
+    "strategy_description": "Baseline theoretical max for octanoate (C8): 1.83 mmol/gDW/h at 0% biomass. With 10% biomass constraint: 1.65 mmol/gDW/h. Knockouts of POX1 (beta-oxidation, 20 rxns disabled) and ELO1 (unsaturated FA elongation, 3 rxns disabled) prevent product degradation and carbon diversion. Decanoate (C10) max: 1.44 (0% biomass), 1.30 (10% biomass). Dodecanoate (C12) max: 1.18 (0% biomass), 1.07 (10% biomass). Production envelope shows linear growth-production tradeoff. Key bottleneck is the ethanol pathway (PYRDC flux ~19.5, ALCD2ir ~12.6) competing for pyruvate-derived acetyl-CoA. Heterologous medium-chain thioesterases (CvFatB1 from C. viscosissima, UcFatB1 from U. californica, TesA' from E. coli) are essential to intercept FAS intermediates at C8/C10/C12 chain lengths rather than allowing full elongation to C16/C18."
+  }
+}

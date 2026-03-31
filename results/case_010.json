@@ -1,0 +1,101 @@
+{
+  "case_id": "case_010",
+  "product": "L-Lactic acid",
+  "pathway": {
+    "steps": [
+      {
+        "step_number": 1,
+        "substrate": "Pyruvate",
+        "product": "L-Lactate",
+        "enzyme_ec": "EC 1.1.1.27",
+        "enzyme_name": "L-lactate dehydrogenase",
+        "source_organism": "Lacticaseibacillus casei",
+        "native_or_heterologous": "heterologous",
+        "cofactors_consumed": ["NADH"],
+        "cofactors_produced": ["NAD+"]
+      }
+    ],
+    "total_cofactors": {
+      "NADPH": 0,
+      "NADH": -1,
+      "ATP": 0,
+      "O2": 0,
+      "FAD": 0
+    }
+  },
+  "engineering": {
+    "heterologous_genes": [
+      {
+        "gene_name": "ldh",
+        "source_organism": "Lacticaseibacillus casei",
+        "uniprot_id": "P00343",
+        "ec_number": "EC 1.1.1.27",
+        "function": "L-lactate dehydrogenase; converts pyruvate + NADH to L-lactate + NAD+"
+      }
+    ],
+    "knockouts": [
+      {
+        "gene_name": "PDC1",
+        "yeast_systematic_id": "YLR044C",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+        "rationale": "Major pyruvate decarboxylase; blocks ethanol pathway to redirect pyruvate flux toward lactate (WT flux 15.95)"
+      },
+      {
+        "gene_name": "PDC5",
+        "yeast_systematic_id": "YLR134W",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+        "rationale": "Isozyme of PDC1; must knock out all three PDC genes due to OR-logic GPR to fully disable PYRDC"
+      },
+      {
+        "gene_name": "PDC6",
+        "yeast_systematic_id": "YGR087C",
+        "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+        "rationale": "Third pyruvate decarboxylase isozyme; required for complete PYRDC elimination"
+      },
+      {
+        "gene_name": "ADH1",
+        "yeast_systematic_id": "YOL086C",
+        "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
+        "rationale": "Major alcohol dehydrogenase; blocks acetaldehyde to ethanol conversion (WT flux 15.82)"
+      },
+      {
+        "gene_name": "ADH3",
+        "yeast_systematic_id": "YGL256W",
+        "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
+        "rationale": "Alcohol dehydrogenase isozyme; OR-logic GPR requires multi-gene knockout"
+      },
+      {
+        "gene_name": "ADH5",
+        "yeast_systematic_id": "YBR145W",
+        "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
+        "rationale": "Alcohol dehydrogenase isozyme; completes elimination of ethanol production"
+      },
+      {
+        "gene_name": "CYB2",
+        "yeast_systematic_id": "YML054C",
+        "reaction_blocked": "L_LACD2cm (L-lactate cytochrome c oxidoreductase)",
+        "rationale": "Degrades L-lactate back to pyruvate; knockout prevents product degradation"
+      },
+      {
+        "gene_name": "GPD1",
+        "yeast_systematic_id": "YDL022W",
+        "reaction_blocked": "G3PD1ir (glycerol-3-phosphate dehydrogenase)",
+        "rationale": "Blocks glycerol pathway to redirect NADH toward LDH reaction (WT flux 0.007)"
+      }
+    ],
+    "overexpressions": [
+      {
+        "gene_name": "PYK1 (CDC19)",
+        "yeast_systematic_id": "YAL038W",
+        "reaction_boosted": "PYK (pyruvate kinase)",
+        "rationale": "Increase pyruvate supply from PEP; ensures high substrate availability for LDH"
+      }
+    ]
+  },
+  "fba_results": {
+    "baseline_max_flux": 20.0,
+    "optimized_max_flux": 19.648346,
+    "biomass_at_optimum": 0.028691,
+    "strategy_description": "Express heterologous L-LDH from L. casei (P00343). Knock out all three pyruvate decarboxylase genes (PDC1/PDC5/PDC6), three alcohol dehydrogenase genes (ADH1/ADH3/ADH5), CYB2 (lactate degradation), and GPD1 (glycerol pathway). This eliminates ethanol and glycerol as competing pathways, prevents L-lactate degradation, and redirects nearly all glycolytic flux through LDH. With 10% minimum biomass constraint, achieves 19.65 mmol/gDW/h lactate production (98.2% of theoretical maximum 20.0). Production envelope shows linear tradeoff: at full biomass (0.287) production is 15.83; at zero biomass production reaches 20.0."
+  }
+}

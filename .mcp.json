@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "synbio": {
+      "command": "python3",
+      "args": ["mcp_server.py"],
+      "cwd": "/SPXvePFS/share-users/ycgao/test/vc_agent"
+    }
+  }
+}

@@ -1,0 +1,1863 @@
+{
+  "description": "Combined results from /design skill pipeline on 10 yeast synbio benchmark cases",
+  "run_date": "2026-03-31",
+  "model": "iMM904 (S. cerevisiae)",
+  "total_cases": 10,
+  "cases": [
+    {
+      "case_id": "case_001",
+      "product": "Glabridin",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "L-Phenylalanine",
+            "product": "trans-Cinnamate",
+            "enzyme_ec": "EC 4.3.1.24",
+            "enzyme_name": "Phenylalanine ammonia-lyase (PAL1)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "NH4+"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "trans-Cinnamate",
+            "product": "4-Coumarate",
+            "enzyme_ec": "EC 1.14.14.91",
+            "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H/CYP73A5)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 3,
+            "substrate": "4-Coumarate",
+            "product": "p-Coumaroyl-CoA",
+            "enzyme_ec": "EC 6.2.1.12",
+            "enzyme_name": "4-Coumarate-CoA ligase (4CL1)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "ATP",
+              "CoA"
+            ],
+            "cofactors_produced": [
+              "AMP",
+              "PPi"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+            "product": "Isoliquiritigenin",
+            "enzyme_ec": "EC 2.3.1.170",
+            "enzyme_name": "6'-Deoxychalcone synthase (CHS+CHR)",
+            "source_organism": "Glycine max",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH"
+            ],
+            "cofactors_produced": [
+              "4 CoA",
+              "3 CO2"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Isoliquiritigenin",
+            "product": "Liquiritigenin",
+            "enzyme_ec": "EC 5.5.1.6",
+            "enzyme_name": "Chalcone isomerase (CHI1)",
+            "source_organism": "Medicago sativa",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 6,
+            "substrate": "Liquiritigenin",
+            "product": "2,7,4'-Trihydroxyisoflavanone",
+            "enzyme_ec": "EC 1.14.14.87",
+            "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS/CYP93C2)",
+            "source_organism": "Glycyrrhiza echinata",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 7,
+            "substrate": "2,7,4'-Trihydroxyisoflavanone",
+            "product": "Daidzein",
+            "enzyme_ec": "EC 4.2.1.105",
+            "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDM)",
+            "source_organism": "Glycyrrhiza echinata",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 8,
+            "substrate": "Daidzein",
+            "product": "2'-Hydroxydaidzein",
+            "enzyme_ec": "EC 1.14.14.90",
+            "enzyme_name": "Isoflavone 2'-hydroxylase (I2'H/CYP81E1)",
+            "source_organism": "Glycyrrhiza echinata",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 9,
+            "substrate": "2'-Hydroxydaidzein",
+            "product": "2'-Hydroxydihydrodaidzein",
+            "enzyme_ec": "EC 1.3.1.45",
+            "enzyme_name": "Isoflavone reductase (IFR)",
+            "source_organism": "Medicago sativa",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 10,
+            "substrate": "2'-Hydroxydihydrodaidzein",
+            "product": "Glabridin",
+            "enzyme_ec": "EC 1.1.1.348 / EC 4.2.1.139",
+            "enzyme_name": "Vestitone reductase (VR) + Pterocarpan synthase (PTS1)",
+            "source_organism": "Glycyrrhiza echinata",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH"
+            ],
+            "cofactors_produced": []
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": -6,
+          "NADH": 0,
+          "ATP": -1,
+          "O2": -3,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "PAL1",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P35510",
+            "ec_number": "EC 4.3.1.24",
+            "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate (725 aa, Km=68 uM)"
+          },
+          {
+            "gene_name": "CYP73A5 (C4H)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P92994",
+            "ec_number": "EC 1.14.14.91",
+            "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (505 aa, CYP450)"
+          },
+          {
+            "gene_name": "ATR2 (CPR)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q9SUM3",
+            "ec_number": "EC 1.6.2.4",
+            "function": "NADPH-cytochrome P450 reductase; electron donor for C4H, IFS, and I2'H CYP450s (711 aa, PDB:5GXU)"
+          },
+          {
+            "gene_name": "4CL1",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q42524",
+            "ec_number": "EC 6.2.1.12",
+            "function": "4-Coumarate-CoA ligase; activates coumarate with CoA to form p-coumaroyl-CoA (561 aa)"
+          },
+          {
+            "gene_name": "CHS+CHR (6'-deoxychalcone synthase)",
+            "source_organism": "Glycine max",
+            "uniprot_id": "P26690",
+            "ec_number": "EC 2.3.1.170",
+            "function": "NAD(P)H-dependent 6'-deoxychalcone synthase; produces isoliquiritigenin from coumaroyl-CoA + malonyl-CoA (315 aa)"
+          },
+          {
+            "gene_name": "CHI1",
+            "source_organism": "Medicago sativa",
+            "uniprot_id": "P28012",
+            "ec_number": "EC 5.5.1.6",
+            "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin (222 aa)"
+          },
+          {
+            "gene_name": "CYP93C2 (IFS)",
+            "source_organism": "Glycyrrhiza echinata",
+            "uniprot_id": "Q9SXS3",
+            "ec_number": "EC 1.14.14.87",
+            "function": "2-Hydroxyisoflavanone synthase; converts liquiritigenin to trihydroxyisoflavanone with aryl migration (523 aa, Km=8 uM, CYP450)"
+          },
+          {
+            "gene_name": "HIDM",
+            "source_organism": "Glycyrrhiza echinata",
+            "uniprot_id": "Q5NUF4",
+            "ec_number": "EC 4.2.1.105",
+            "function": "2-Hydroxyisoflavanone dehydratase; dehydrates trihydroxyisoflavanone to daidzein (328 aa, Km=210 uM)"
+          },
+          {
+            "gene_name": "CYP81E1 (I2'H)",
+            "source_organism": "Glycyrrhiza echinata",
+            "uniprot_id": "P93147",
+            "ec_number": "EC 1.14.14.90",
+            "function": "Isoflavone 2'-hydroxylase; hydroxylates daidzein at 2' position (499 aa, CYP450)"
+          },
+          {
+            "gene_name": "IFR",
+            "source_organism": "Medicago sativa",
+            "uniprot_id": "P52575",
+            "ec_number": "EC 1.3.1.45",
+            "function": "Isoflavone reductase; reduces 2'-hydroxydaidzein to dihydrodaidzein (318 aa, Km=14.2 uM, PDB:2GAS)"
+          },
+          {
+            "gene_name": "PTS1",
+            "source_organism": "Glycyrrhiza echinata",
+            "uniprot_id": "A0A1V1FH01",
+            "ec_number": "EC 4.2.1.139",
+            "function": "Pterocarpan synthase; dirigent protein catalyzing cyclization to form the isoflavan scaffold (188 aa, PDB:6OOC)"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "PDC1",
+            "yeast_systematic_id": "YLR044C",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+            "rationale": "Major pyruvate decarboxylase; knockout (with PDC5, PDC6, ARO10) eliminates ethanol fermentation, redirecting carbon flux toward biomass and product"
+          },
+          {
+            "gene_name": "PDC5",
+            "yeast_systematic_id": "YLR134W",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+            "rationale": "PDC5 isozyme; must be knocked out with PDC1 to fully disable pyruvate decarboxylase due to OR-logic GPR"
+          },
+          {
+            "gene_name": "PDC6",
+            "yeast_systematic_id": "YGR087C",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+            "rationale": "PDC6 isozyme; required for complete PYRDC inactivation"
+          },
+          {
+            "gene_name": "ARO10",
+            "yeast_systematic_id": "YDR380W",
+            "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase) and PYRDC",
+            "rationale": "Broad-specificity decarboxylase for aromatic 2-oxo acids; knockout prevents Ehrlich pathway degradation of phenylpyruvate and completes PYRDC inactivation"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "ZWF1",
+            "yeast_systematic_id": "YNL241C",
+            "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+            "rationale": "First committed step of oxidative pentose phosphate pathway; overexpression increases NADPH supply; pathway requires 6 NADPH per glabridin molecule"
+          },
+          {
+            "gene_name": "GND2",
+            "yeast_systematic_id": "YGR256W",
+            "reaction_boosted": "GND (6-phosphogluconate dehydrogenase)",
+            "rationale": "Second NADPH-generating step in oxidative PPP; overexpression with ZWF1 maximizes NADPH regeneration capacity"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 0.666667,
+        "optimized_max_flux": 0.666142,
+        "biomass_at_optimum": 0.028239,
+        "strategy_description": "10-step heterologous pathway from L-phenylalanine to glabridin was added to iMM904 (11 reactions including exchange). Baseline theoretical max was 0.667 mmol/gDW/h. Overexpression of ZWF1 (G6PDH2r) and GND2 (GND) at min_flux=1.5 maintained near-theoretical-max production (0.666 mmol/gDW/h) at 10% biomass constraint. PDC quadruple knockout (PDC1/5/6 + ARO10) disabled ethanol fermentation and Ehrlich pathway but reduced max product flux to 0.452 due to redox imbalance; recommended as optional for fed-batch conditions. Production envelope shows classic growth-production tradeoff with full production at low growth rates."
+      }
+    },
+    {
+      "case_id": "case_002",
+      "product": "Pregnenolone",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "Zymosterol",
+            "product": "5alpha-Cholest-8-en-3beta-ol",
+            "enzyme_ec": "EC 1.3.1.72",
+            "enzyme_name": "Delta(24)-sterol reductase (DHCR24)",
+            "source_organism": "Homo sapiens",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH"
+            ],
+            "cofactors_produced": [
+              "NADP+"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "5alpha-Cholest-8-en-3beta-ol",
+            "product": "Lathosterol",
+            "enzyme_ec": "EC 5.3.3.5",
+            "enzyme_name": "Cholestenol delta-isomerase (EBP)",
+            "source_organism": "Homo sapiens",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 3,
+            "substrate": "Lathosterol",
+            "product": "7-Dehydrocholesterol",
+            "enzyme_ec": "EC 1.14.19.20",
+            "enzyme_name": "Delta7-sterol 5-desaturase (SC5D)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": [
+              "NADP+"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "7-Dehydrocholesterol",
+            "product": "Cholesterol",
+            "enzyme_ec": "EC 1.3.1.21",
+            "enzyme_name": "7-dehydrocholesterol reductase (DHCR7)",
+            "source_organism": "Homo sapiens",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH"
+            ],
+            "cofactors_produced": [
+              "NADP+"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Cholesterol",
+            "product": "Pregnenolone",
+            "enzyme_ec": "EC 1.14.15.6",
+            "enzyme_name": "Cholesterol side-chain cleavage enzyme (CYP11A1)",
+            "source_organism": "Bos taurus",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "NADPH",
+              "NADPH",
+              "O2",
+              "O2",
+              "O2"
+            ],
+            "cofactors_produced": [
+              "NADP+",
+              "NADP+",
+              "NADP+"
+            ]
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": -6,
+          "NADH": 0,
+          "ATP": 0,
+          "O2": -4,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "DHCR24",
+            "source_organism": "Homo sapiens",
+            "uniprot_id": "Q15392",
+            "ec_number": "EC 1.3.1.72",
+            "function": "Delta(24)-sterol reductase; converts zymosterol to 5alpha-cholest-8-en-3beta-ol using NADPH. Redirects flux from ergosterol to cholesterol pathway."
+          },
+          {
+            "gene_name": "DHCR7",
+            "source_organism": "Homo sapiens",
+            "uniprot_id": "Q9UBM7",
+            "ec_number": "EC 1.3.1.21",
+            "function": "7-dehydrocholesterol reductase; converts 7-dehydrocholesterol to cholesterol using NADPH. Final step of cholesterol biosynthesis."
+          },
+          {
+            "gene_name": "CYP11A1",
+            "source_organism": "Bos taurus",
+            "uniprot_id": "P00189",
+            "ec_number": "EC 1.14.15.6",
+            "function": "Cholesterol side-chain cleavage enzyme (P450scc); converts cholesterol to pregnenolone via three sequential oxidations. Requires adrenodoxin (FDX1) and adrenodoxin reductase (FDXR) as electron transfer partners. PDB: 3MZS."
+          },
+          {
+            "gene_name": "FDX1",
+            "source_organism": "Bos taurus",
+            "uniprot_id": "P00257",
+            "ec_number": "",
+            "function": "Adrenodoxin (ferredoxin-1); 2Fe-2S iron-sulfur protein that shuttles electrons from FDXR to CYP11A1 for cholesterol side-chain cleavage. 186 aa."
+          },
+          {
+            "gene_name": "FDXR",
+            "source_organism": "Bos taurus",
+            "uniprot_id": "P08165",
+            "ec_number": "EC 1.18.1.6",
+            "function": "NADPH:adrenodoxin oxidoreductase; FAD-containing flavoprotein that transfers electrons from NADPH to adrenodoxin (FDX1) for mitochondrial P450 systems. PDB: 1CJC."
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "ERG6",
+            "yeast_systematic_id": "YML008C",
+            "reaction_blocked": "SAM24MT (zymosterol -> fecosterol)",
+            "rationale": "Block the native ergosterol branch at zymosterol to redirect flux toward cholesterol via the heterologous DHCR24. ERG6 KO eliminates zymosterol methylation to fecosterol, the first committed step of the ergosterol-specific pathway. Cholesterol can partially substitute for ergosterol in yeast membranes."
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "tHMG1",
+            "yeast_systematic_id": "YML075C",
+            "reaction_boosted": "HMGCOAR (HMG-CoA -> mevalonate)",
+            "rationale": "Truncated HMG-CoA reductase (catalytic domain only) is feedback-resistant and increases mevalonate pathway flux, the rate-limiting step in sterol biosynthesis."
+          },
+          {
+            "gene_name": "ERG9",
+            "yeast_systematic_id": "YHR190W",
+            "reaction_boosted": "SQLS (2 FPP -> squalene)",
+            "rationale": "Overexpress squalene synthase to increase carbon flux from FPP into the sterol pathway and away from competing isoprenoid branches."
+          },
+          {
+            "gene_name": "ERG20",
+            "yeast_systematic_id": "YJL167W",
+            "reaction_boosted": "GRTT/DMATT (IPP+DMAPP -> GPP -> FPP)",
+            "rationale": "Overexpress farnesyl diphosphate synthase to increase FPP supply for squalene/sterol biosynthesis."
+          },
+          {
+            "gene_name": "ZWF1",
+            "yeast_systematic_id": "YNL241C",
+            "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+            "rationale": "Overexpress the pentose phosphate pathway entry enzyme to increase NADPH supply. The pathway from zymosterol to pregnenolone consumes 6 NADPH per molecule."
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 0.142857,
+        "optimized_max_flux": 0.142751,
+        "biomass_at_optimum": 0.026593,
+        "strategy_description": "Heterologous pathway (DHCR24, EBP, DHCR7, CYP11A1/FDX1/FDXR) inserted from zymosterol to pregnenolone with exchange reaction. Overexpress ERG9 (squalene synthase, min_flux=0.05), ZWF1 (G6PDH, min_flux=1.0), ERG20 (FPP synthase), and tHMG1 (feedback-resistant HMG-CoA reductase). ERG6 knockout recommended to redirect zymosterol from ergosterol to cholesterol pathway. At 10% min biomass fraction, max pregnenolone flux = 0.1428 mmol/gDW/h (99.9% of theoretical max 0.1429). Production envelope shows favorable growth-production tradeoff with >0.14 flux maintained up to 40% max biomass."
+      }
+    },
+    {
+      "case_id": "case_003",
+      "product": "Short- and medium-chain fatty acids (C8, C10, C12)",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "Acetyl-CoA",
+            "product": "Malonyl-CoA",
+            "enzyme_ec": "EC 6.4.1.2",
+            "enzyme_name": "Acetyl-CoA carboxylase (ACC1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "ATP",
+              "HCO3-"
+            ],
+            "cofactors_produced": [
+              "ADP",
+              "Pi"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "Acetyl-CoA + 3 Malonyl-CoA",
+            "product": "Octanoyl-CoA (C8-CoA)",
+            "enzyme_ec": "EC 2.3.1.86",
+            "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "6 NADPH"
+            ],
+            "cofactors_produced": [
+              "6 NADP+",
+              "3 CO2",
+              "3 CoA"
+            ]
+          },
+          {
+            "step_number": 3,
+            "substrate": "Octanoyl-CoA (C8-CoA) + Malonyl-CoA",
+            "product": "Decanoyl-CoA (C10-CoA)",
+            "enzyme_ec": "EC 2.3.1.86",
+            "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "2 NADPH"
+            ],
+            "cofactors_produced": [
+              "2 NADP+",
+              "CO2",
+              "CoA"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "Decanoyl-CoA (C10-CoA) + Malonyl-CoA",
+            "product": "Dodecanoyl-CoA (C12-CoA)",
+            "enzyme_ec": "EC 2.3.1.86",
+            "enzyme_name": "Fatty acid synthase (FAS1/FAS2)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "2 NADPH"
+            ],
+            "cofactors_produced": [
+              "2 NADP+",
+              "CO2",
+              "CoA"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Octanoyl-ACP / Decanoyl-ACP / Dodecanoyl-ACP",
+            "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + ACP",
+            "enzyme_ec": "EC 3.1.2.21",
+            "enzyme_name": "Medium-chain acyl-ACP thioesterase (CvFatB1)",
+            "source_organism": "Cuphea viscosissima",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "H2O"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 6,
+            "substrate": "Octanoyl-ACP / Decanoyl-ACP / Dodecanoyl-ACP",
+            "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + ACP",
+            "enzyme_ec": "EC 3.1.2.21",
+            "enzyme_name": "Lauroyl-ACP thioesterase (UcFatB1)",
+            "source_organism": "Umbellularia californica",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "H2O"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 7,
+            "substrate": "Octanoyl-CoA / Decanoyl-CoA / Dodecanoyl-CoA",
+            "product": "Octanoate (C8) / Decanoate (C10) / Dodecanoate (C12) + CoA",
+            "enzyme_ec": "EC 3.1.2.14",
+            "enzyme_name": "Thioesterase I (TesA')",
+            "source_organism": "Escherichia coli K12",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "H2O"
+            ],
+            "cofactors_produced": []
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": -14,
+          "NADH": 0,
+          "ATP": -4,
+          "O2": 0,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "CvFATB1",
+            "source_organism": "Cuphea viscosissima",
+            "uniprot_id": "G3ESU9",
+            "ec_number": "EC 3.1.2.21",
+            "function": "Medium-chain acyl-ACP thioesterase with C8>C10 substrate preference; cleaves octanoyl-ACP and decanoyl-ACP to release free C8 and C10 fatty acids from the FAS elongation cycle"
+          },
+          {
+            "gene_name": "UcFATB1",
+            "source_organism": "Umbellularia californica",
+            "uniprot_id": "Q41635",
+            "ec_number": "EC 3.1.2.21",
+            "function": "Lauroyl-ACP thioesterase with C12>C14 preference (Km 1.9 uM for C12-ACP); cleaves dodecanoyl-ACP to release free C12 fatty acid; has PDB structure 5X04"
+          },
+          {
+            "gene_name": "tesA (truncated, tesA')",
+            "source_organism": "Escherichia coli K12",
+            "uniprot_id": "P0ADA1",
+            "ec_number": "EC 3.1.2.14",
+            "function": "Cytoplasmic thioesterase I (leaderless variant); hydrolyzes acyl-CoA thioesters C10-C18 with broad specificity; Km 11.5 uM for decanoyl-CoA; multiple PDB structures available"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "POX1",
+            "yeast_systematic_id": "YGL205W",
+            "reaction_blocked": "FAO80p, FAO141p, FAO161p, FAO181p, FAO182p, FAO240p, ACOAO4-9p (all peroxisomal beta-oxidation, 20 reactions disabled)",
+            "rationale": "POX1 encodes the sole acyl-CoA oxidase in yeast peroxisomes; knockout abolishes all peroxisomal beta-oxidation, preventing degradation of C8, C10, and C12 fatty acids back to acetyl-CoA"
+          },
+          {
+            "gene_name": "ELO1",
+            "yeast_systematic_id": "YJL196C",
+            "reaction_blocked": "FAS141, FAS161, FAS181 (unsaturated fatty acid elongation/desaturation)",
+            "rationale": "ELO1 elongates C12 to C14:1, C14 to C16:1, C16 to C18:1 unsaturated fatty acids; knockout prevents carbon diversion from the SMCFA pool into unsaturated long-chain fatty acids"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "ACC1",
+            "yeast_systematic_id": "YNR016C",
+            "reaction_boosted": "ACCOAC (acetyl-CoA + ATP + HCO3- --> malonyl-CoA + ADP + Pi)",
+            "rationale": "ACC1 catalyzes the rate-limiting step of fatty acid biosynthesis converting acetyl-CoA to malonyl-CoA; overexpression increases malonyl-CoA supply, the primary C2-donor for FA chain elongation; baseline flux 0.1145"
+          },
+          {
+            "gene_name": "ZWF1",
+            "yeast_systematic_id": "YNL241C",
+            "reaction_boosted": "G6PDH2r (glucose-6-phosphate + NADP+ --> 6-phosphogluconolactone + NADPH)",
+            "rationale": "ZWF1 encodes glucose-6-phosphate dehydrogenase, the entry point of the pentose phosphate pathway and the major cytoplasmic NADPH source; overexpression increases NADPH availability for FA biosynthesis (14 NADPH needed per C12 molecule)"
+          },
+          {
+            "gene_name": "ACS1",
+            "yeast_systematic_id": "YLR153C",
+            "reaction_boosted": "ACS (acetate + ATP + CoA --> acetyl-CoA + AMP + PPi)",
+            "rationale": "ACS catalyzes cytoplasmic acetyl-CoA production from acetate; overexpression increases the cytoplasmic acetyl-CoA pool, the starter unit for FA synthesis; baseline flux 0.1471"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 1.829545,
+        "optimized_max_flux": 1.652065,
+        "biomass_at_optimum": 0.028787,
+        "strategy_description": "Baseline theoretical max for octanoate (C8): 1.83 mmol/gDW/h at 0% biomass. With 10% biomass constraint: 1.65 mmol/gDW/h. Knockouts of POX1 (beta-oxidation, 20 rxns disabled) and ELO1 (unsaturated FA elongation, 3 rxns disabled) prevent product degradation and carbon diversion. Decanoate (C10) max: 1.44 (0% biomass), 1.30 (10% biomass). Dodecanoate (C12) max: 1.18 (0% biomass), 1.07 (10% biomass). Production envelope shows linear growth-production tradeoff. Key bottleneck is the ethanol pathway (PYRDC flux ~19.5, ALCD2ir ~12.6) competing for pyruvate-derived acetyl-CoA. Heterologous medium-chain thioesterases (CvFatB1 from C. viscosissima, UcFatB1 from U. californica, TesA' from E. coli) are essential to intercept FAS intermediates at C8/C10/C12 chain lengths rather than allowing full elongation to C16/C18."
+      }
+    },
+    {
+      "case_id": "case_004",
+      "product": "Liquiritigenin",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "L-Phenylalanine",
+            "product": "trans-Cinnamate",
+            "enzyme_ec": "EC 4.3.1.24",
+            "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "NH3"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "trans-Cinnamate",
+            "product": "4-Coumarate",
+            "enzyme_ec": "EC 1.14.14.91",
+            "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 3,
+            "substrate": "4-Coumarate",
+            "product": "p-Coumaroyl-CoA",
+            "enzyme_ec": "EC 6.2.1.12",
+            "enzyme_name": "4-Coumarate--CoA ligase (4CL)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "ATP",
+              "CoA"
+            ],
+            "cofactors_produced": [
+              "AMP",
+              "PPi"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+            "product": "Isoliquiritigenin",
+            "enzyme_ec": "EC 2.3.1.170",
+            "enzyme_name": "6'-Deoxychalcone synthase (CHS + CHR)",
+            "source_organism": "Glycine max",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH"
+            ],
+            "cofactors_produced": [
+              "4 CoA",
+              "3 CO2"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Isoliquiritigenin",
+            "product": "Liquiritigenin",
+            "enzyme_ec": "EC 5.5.1.6",
+            "enzyme_name": "Chalcone isomerase (CHI)",
+            "source_organism": "Medicago sativa",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": -2,
+          "NADH": 0,
+          "ATP": -1,
+          "O2": -1,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "PAL2",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P45724",
+            "ec_number": "EC 4.3.1.24",
+            "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate + NH3; first committed step of phenylpropanoid pathway"
+          },
+          {
+            "gene_name": "CYP73A5 (C4H)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P92994",
+            "ec_number": "EC 1.14.14.91",
+            "function": "Trans-cinnamate 4-monooxygenase (cytochrome P450 73); hydroxylates trans-cinnamate to 4-coumarate using NADPH and O2"
+          },
+          {
+            "gene_name": "ATR1 (CPR)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q9SB48",
+            "ec_number": "EC 1.6.2.4",
+            "function": "NADPH-cytochrome P450 reductase; required electron transfer partner for CYP73A5 (C4H); uses FAD and FMN cofactors"
+          },
+          {
+            "gene_name": "4CL2",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q9S725",
+            "ec_number": "EC 6.2.1.12",
+            "function": "4-Coumarate--CoA ligase; activates 4-coumarate to p-coumaroyl-CoA using ATP and CoA; Km=252 uM for 4-coumarate"
+          },
+          {
+            "gene_name": "CHS1",
+            "source_organism": "Glycine max",
+            "uniprot_id": "P24826",
+            "ec_number": "EC 2.3.1.74",
+            "function": "Chalcone synthase; condenses p-coumaroyl-CoA with 3 malonyl-CoA; works with CHR to produce isoliquiritigenin instead of naringenin chalcone"
+          },
+          {
+            "gene_name": "CHR (6'-deoxychalcone synthase)",
+            "source_organism": "Glycine max",
+            "uniprot_id": "P26690",
+            "ec_number": "EC 2.3.1.170",
+            "function": "Chalcone reductase; co-acts with CHS to reduce 6'-position during chalcone formation, producing isoliquiritigenin (the deoxychalcone) using NADPH"
+          },
+          {
+            "gene_name": "CHI1",
+            "source_organism": "Medicago sativa",
+            "uniprot_id": "P28012",
+            "ec_number": "EC 5.5.1.6",
+            "function": "Chalcone isomerase; cyclizes isoliquiritigenin to liquiritigenin; Km=15.7 uM for 6'-deoxychalcone; has crystal structures (PDB: 1EYP, 1EYQ)"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "ARO10",
+            "yeast_systematic_id": "YDR380W",
+            "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
+            "rationale": "Blocks degradation of phenylpyruvate (from phenylalanine catabolism) to phenylacetaldehyde, preserving phenylalanine precursor pool for the heterologous pathway"
+          },
+          {
+            "gene_name": "PDC5",
+            "yeast_systematic_id": "YLR134W",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase, partial)",
+            "rationale": "Partial reduction of pyruvate decarboxylase activity to reduce ethanol overflow and redirect carbon flux toward acetyl-CoA and malonyl-CoA for the pathway"
+          },
+          {
+            "gene_name": "PDC6",
+            "yeast_systematic_id": "YGR087C",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase, partial)",
+            "rationale": "Further reduction of pyruvate decarboxylase activity; combined with PDC5 KO, leaves PDC1 for essential ethanol production while freeing carbon"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "ARO7",
+            "yeast_systematic_id": "YPR060C",
+            "reaction_boosted": "CHORM (chorismate mutase)",
+            "rationale": "Increases flux from chorismate to prephenate, boosting the precursor supply for phenylalanine biosynthesis which feeds the heterologous pathway"
+          },
+          {
+            "gene_name": "ARO4",
+            "yeast_systematic_id": "YBR249C",
+            "reaction_boosted": "DDPA (DAHP synthase)",
+            "rationale": "First committed step of shikimate pathway; overexpression of feedback-resistant ARO4(K229L) increases carbon flux into aromatic amino acid biosynthesis"
+          },
+          {
+            "gene_name": "ACC1",
+            "yeast_systematic_id": "YNR016C",
+            "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
+            "rationale": "Increases malonyl-CoA supply for the CHS/CHR reaction which requires 3 malonyl-CoA per product molecule; overexpression of feedback-resistant ACC1(S659A,S1157A) recommended"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 1.074919,
+        "optimized_max_flux": 0.975755,
+        "biomass_at_optimum": 0.02788,
+        "strategy_description": "Heterologous 5-step pathway (PAL, C4H/CPR, 4CL, CHS+CHR, CHI) from L-phenylalanine to liquiritigenin added to iMM904. Theoretical max flux = 1.075 mmol/gDW/h at 0% biomass, 0.976 mmol/gDW/h at 10% biomass with KO of ARO10/PDC5/PDC6 and OE of ARO7. Production envelope shows linear tradeoff. Key bottlenecks: malonyl-CoA supply (3 mol/product), NADPH (2 mol/product), phenylalanine availability. Supplementary: feedback-resistant ARO4(K229L) and ACC1(S659A,S1157A) mutants recommended."
+      }
+    },
+    {
+      "case_id": "case_005",
+      "product": "Salidroside",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "L-Tyrosine",
+            "product": "3-(4-Hydroxyphenyl)pyruvate",
+            "enzyme_ec": "EC 2.6.1.57",
+            "enzyme_name": "Aromatic amino acid aminotransferase (ARO8/ARO9)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "2-Oxoglutarate"
+            ],
+            "cofactors_produced": [
+              "L-Glutamate"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "3-(4-Hydroxyphenyl)pyruvate",
+            "product": "4-Hydroxyphenylacetaldehyde",
+            "enzyme_ec": "EC 4.1.1.80",
+            "enzyme_name": "4-Hydroxyphenylpyruvate decarboxylase (ARO10)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "CO2"
+            ]
+          },
+          {
+            "step_number": 3,
+            "substrate": "4-Hydroxyphenylacetaldehyde",
+            "product": "Tyrosol",
+            "enzyme_ec": "EC 1.1.1.90",
+            "enzyme_name": "Aryl-alcohol dehydrogenase (ADH6)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "NADH"
+            ],
+            "cofactors_produced": [
+              "NAD+"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "Tyrosol + UDP-glucose",
+            "product": "Salidroside + UDP",
+            "enzyme_ec": "EC 2.4.1.-",
+            "enzyme_name": "UDP-glucosyltransferase UGT73B6",
+            "source_organism": "Rhodiola sachalinensis",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "UDP-glucose"
+            ],
+            "cofactors_produced": [
+              "UDP"
+            ]
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": 0,
+          "NADH": -1,
+          "ATP": 0,
+          "O2": 0,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "UGT73B6",
+            "source_organism": "Rhodiola sachalinensis",
+            "uniprot_id": "Q6QDB6",
+            "ec_number": "EC 2.4.1.-",
+            "function": "UDP-glucosyltransferase that glycosylates tyrosol to produce salidroside using UDP-glucose as sugar donor"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "TYRNFT (YDR403W)",
+            "yeast_systematic_id": "YDR403W",
+            "reaction_blocked": "TYRNFT (L-tyrosine N-formyltransferase)",
+            "rationale": "Blocks diversion of L-tyrosine to N-formyl-L-tyrosine, preserving tyrosine pool for salidroside biosynthesis"
+          },
+          {
+            "gene_name": "GSY2 (YLR258W)",
+            "yeast_systematic_id": "YLR258W",
+            "reaction_blocked": "GLCS2 (Glycogen synthase, UDPGlc)",
+            "rationale": "Reduces UDP-glucose consumption by glycogen synthesis, increasing UDP-glucose availability for the UGT73B6 glucosylation step"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "ARO4",
+            "yeast_systematic_id": "YBR249C",
+            "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
+            "rationale": "First committed step of the shikimate pathway; overexpression with feedback-resistant mutant (ARO4-K229L) increases carbon flux toward aromatic amino acid biosynthesis"
+          },
+          {
+            "gene_name": "TYR1",
+            "yeast_systematic_id": "YBR166C",
+            "reaction_boosted": "PPND2 (Prephenate dehydrogenase, NADP)",
+            "rationale": "Converts prephenate to 4-hydroxyphenylpyruvate; overexpression directs more prephenate toward tyrosine branch instead of phenylalanine branch"
+          },
+          {
+            "gene_name": "UGP1",
+            "yeast_systematic_id": "YKL035W",
+            "reaction_boosted": "GALUi (UTP-glucose-1-phosphate uridylyltransferase)",
+            "rationale": "Increases UDP-glucose supply for the glucosylation step catalyzed by UGT73B6"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 2.537445,
+        "optimized_max_flux": 2.293257,
+        "biomass_at_optimum": 0.028267,
+        "strategy_description": "Heterologous pathway (4 steps: TYRTAr, HPPDC, TYROH_ADH, UGT_SAL) added to iMM904 model. Baseline theoretical max is 2.537 mmol/gDW/h at zero growth. With 10% biomass constraint (min growth = 0.0283 h-1), max salidroside flux = 2.293 mmol/gDW/h. Engineering strategy: knockout TYRNFT (YDR403W) to eliminate tyrosine diversion, knockout GSY2 (YLR258W) to free UDP-glucose, overexpress ARO4 (YBR249C) for shikimate flux, overexpress TYR1 (YBR166C) for tyrosine branch, overexpress UGP1 (YKL035W) for UDP-glucose supply. Production envelope shows linear tradeoff between growth and production (2.537 at 0% biomass to 0 at 100% biomass)."
+      }
+    },
+    {
+      "case_id": "case_006",
+      "product": "Heme",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "Succinyl-CoA + Glycine",
+            "product": "5-Aminolevulinate",
+            "enzyme_ec": "EC 2.3.1.37",
+            "enzyme_name": "5-aminolevulinate synthase (HEM1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "Pyridoxal 5'-phosphate"
+            ],
+            "cofactors_produced": [
+              "CoA",
+              "CO2"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "2 5-Aminolevulinate",
+            "product": "Porphobilinogen",
+            "enzyme_ec": "EC 4.2.1.24",
+            "enzyme_name": "Porphobilinogen synthase (HEM2)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "2 H2O"
+            ]
+          },
+          {
+            "step_number": 3,
+            "substrate": "4 Porphobilinogen + H2O",
+            "product": "Hydroxymethylbilane",
+            "enzyme_ec": "EC 2.5.1.61",
+            "enzyme_name": "Hydroxymethylbilane synthase (HEM3)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "4 NH4"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "Hydroxymethylbilane",
+            "product": "Uroporphyrinogen III",
+            "enzyme_ec": "EC 4.2.1.75",
+            "enzyme_name": "Uroporphyrinogen-III synthase (HEM4)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "H2O"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Uroporphyrinogen III",
+            "product": "Coproporphyrinogen III",
+            "enzyme_ec": "EC 4.1.1.37",
+            "enzyme_name": "Uroporphyrinogen decarboxylase (HEM12)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "4 CO2"
+            ]
+          },
+          {
+            "step_number": 6,
+            "substrate": "Coproporphyrinogen III + O2",
+            "product": "Protoporphyrinogen IX",
+            "enzyme_ec": "EC 1.3.3.3",
+            "enzyme_name": "Coproporphyrinogen III oxidase (HEM13)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "O2"
+            ],
+            "cofactors_produced": [
+              "2 CO2",
+              "2 H2O"
+            ]
+          },
+          {
+            "step_number": 7,
+            "substrate": "Protoporphyrinogen IX + 3 O2",
+            "product": "Protoporphyrin IX",
+            "enzyme_ec": "EC 1.3.3.4",
+            "enzyme_name": "Protoporphyrinogen oxidase (HEM14)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "3 O2"
+            ],
+            "cofactors_produced": [
+              "3 H2O2"
+            ]
+          },
+          {
+            "step_number": 8,
+            "substrate": "Protoporphyrin IX + Fe2+",
+            "product": "Heme (Protoheme)",
+            "enzyme_ec": "EC 4.98.1.1",
+            "enzyme_name": "Ferrochelatase (HEM15)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "Fe2+"
+            ],
+            "cofactors_produced": []
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": 0,
+          "NADH": 0,
+          "ATP": 0,
+          "O2": 4,
+          "FAD": 0,
+          "Fe2+": 1,
+          "Succinyl-CoA": 8,
+          "Glycine": 8
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [],
+        "knockouts": [
+          {
+            "gene_name": "COX10",
+            "yeast_systematic_id": "YPL172C",
+            "reaction_blocked": "HEMEOSm (Heme O synthase)",
+            "rationale": "Prevents conversion of protoheme (heme B) to heme O, blocking the major product-degrading pathway that diverts heme toward cytochrome c oxidase assembly"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "HEM1",
+            "yeast_systematic_id": "YDR232W",
+            "reaction_boosted": "ALASm (5-aminolevulinate synthase)",
+            "rationale": "Rate-limiting first step in heme biosynthesis; overexpression increases 5-aminolevulinate (ALA) flux, the committed precursor for the entire pathway"
+          },
+          {
+            "gene_name": "HEM12",
+            "yeast_systematic_id": "YDR047W",
+            "reaction_boosted": "UPPDC1 (Uroporphyrinogen decarboxylase)",
+            "rationale": "Catalyzes four sequential decarboxylations of uroporphyrinogen III to coproporphyrinogen III; overexpression prevents bottleneck at this branch point where uroporphyrinogen III can be diverted to siroheme"
+          },
+          {
+            "gene_name": "HEM13",
+            "yeast_systematic_id": "YDR044W",
+            "reaction_boosted": "CPPPGO (Coproporphyrinogen oxidase)",
+            "rationale": "Oxygen-dependent oxidative decarboxylation step; overexpression ensures flux through this step matches upstream ALA supply increase"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 0.514135,
+        "optimized_max_flux": 0.54517,
+        "biomass_at_optimum": 0.004007,
+        "strategy_description": "Heme (protoheme/heme B) production in S. cerevisiae using the entirely native heme biosynthesis pathway (KEGG module M00868). All 8 enzymatic steps (HEM1-HEM4, HEM12-HEM15) are present in iMM904. Strategy: (1) KO COX10/YPL172C to block protoheme degradation via heme O synthase; (2) Overexpress HEM1/YDR232W (rate-limiting ALA synthase, min flux 0.5); (3) Overexpress HEM12/YDR047W (uroporphyrinogen decarboxylase, min flux 0.5); (4) Overexpress HEM13/YDR044W (coproporphyrinogen oxidase, min flux 0.5). Added transport (PHEMEtm) and exchange (EX_pheme_c) reactions. Theoretical max 0.5502, optimized 0.5452 at 10% biomass (6% improvement over baseline 0.5141). Aerobic conditions required. Iron supplementation recommended."
+      }
+    },
+    {
+      "case_id": "case_007",
+      "product": "Biochanin A",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "L-Phenylalanine",
+            "product": "trans-Cinnamate",
+            "enzyme_ec": "EC 4.3.1.24",
+            "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "NH4+"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "trans-Cinnamate",
+            "product": "4-Coumarate",
+            "enzyme_ec": "EC 1.14.14.91",
+            "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H / CYP73A5)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 3,
+            "substrate": "4-Coumarate",
+            "product": "p-Coumaroyl-CoA",
+            "enzyme_ec": "EC 6.2.1.12",
+            "enzyme_name": "4-Coumarate--CoA ligase (4CL1)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "ATP",
+              "CoA"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 4,
+            "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+            "product": "Naringenin chalcone",
+            "enzyme_ec": "EC 2.3.1.74",
+            "enzyme_name": "Chalcone synthase (CHS / TT4)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "4 CoA",
+              "3 CO2"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Naringenin chalcone",
+            "product": "Naringenin",
+            "enzyme_ec": "EC 5.5.1.6",
+            "enzyme_name": "Chalcone--flavanone isomerase (CHI)",
+            "source_organism": "Medicago sativa",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 6,
+            "substrate": "Naringenin",
+            "product": "2-Hydroxy-2,3-dihydrogenistein",
+            "enzyme_ec": "EC 1.14.14.87",
+            "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS / CYP93C1v2)",
+            "source_organism": "Glycine max",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 7,
+            "substrate": "2-Hydroxy-2,3-dihydrogenistein",
+            "product": "Genistein",
+            "enzyme_ec": "EC 4.2.1.105",
+            "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDH)",
+            "source_organism": "Glycine max",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 8,
+            "substrate": "Genistein + S-Adenosyl-L-methionine",
+            "product": "Biochanin A + S-Adenosyl-L-homocysteine",
+            "enzyme_ec": "EC 2.1.1.46",
+            "enzyme_name": "Isoflavone 4'-O-methyltransferase (HI4'OMT)",
+            "source_organism": "Medicago truncatula",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "SAM"
+            ],
+            "cofactors_produced": [
+              "SAH"
+            ]
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": -2,
+          "NADH": 0,
+          "ATP": -1,
+          "O2": -2,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "PAL2",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P45724",
+            "ec_number": "EC 4.3.1.24",
+            "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate"
+          },
+          {
+            "gene_name": "CYP73A5 (C4H)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P92994",
+            "ec_number": "EC 1.14.14.91",
+            "function": "Trans-cinnamate 4-monooxygenase; hydroxylates cinnamate to 4-coumarate (CYP450)"
+          },
+          {
+            "gene_name": "ATR1 (CPR)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q9SB48",
+            "ec_number": "EC 1.6.2.4",
+            "function": "NADPH--cytochrome P450 reductase; provides electrons to CYP450 enzymes C4H and IFS"
+          },
+          {
+            "gene_name": "4CL1",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q42524",
+            "ec_number": "EC 6.2.1.12",
+            "function": "4-coumarate--CoA ligase; activates coumarate to coumaroyl-CoA"
+          },
+          {
+            "gene_name": "TT4 (CHS)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P13114",
+            "ec_number": "EC 2.3.1.74",
+            "function": "Chalcone synthase; condenses coumaroyl-CoA with 3 malonyl-CoA to naringenin chalcone"
+          },
+          {
+            "gene_name": "CHI1",
+            "source_organism": "Medicago sativa",
+            "uniprot_id": "P28012",
+            "ec_number": "EC 5.5.1.6",
+            "function": "Chalcone--flavanone isomerase; cyclizes naringenin chalcone to naringenin"
+          },
+          {
+            "gene_name": "IFS2 (CYP93C1v2)",
+            "source_organism": "Glycine max",
+            "uniprot_id": "Q9SWR5",
+            "ec_number": "EC 1.14.14.87",
+            "function": "2-hydroxyisoflavanone synthase; converts naringenin to 2-hydroxy-2,3-dihydrogenistein (CYP450)"
+          },
+          {
+            "gene_name": "HIDH",
+            "source_organism": "Glycine max",
+            "uniprot_id": "Q5NUF3",
+            "ec_number": "EC 4.2.1.105",
+            "function": "2-hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein"
+          },
+          {
+            "gene_name": "HI4'OMT",
+            "source_organism": "Medicago truncatula",
+            "uniprot_id": "Q29U70",
+            "ec_number": "EC 2.1.1.46",
+            "function": "Isoflavone 4'-O-methyltransferase; methylates genistein to biochanin A using SAM"
+          }
+        ],
+        "knockouts": [],
+        "overexpressions": [
+          {
+            "gene_name": "ARO4",
+            "yeast_systematic_id": "YBR249C",
+            "reaction_boosted": "DDPA (3-deoxy-D-arabino-heptulosonate 7-phosphate synthase)",
+            "rationale": "Increase carbon flux into shikimate pathway toward phenylalanine; feedback-resistant ARO4 mutant (K229L) recommended"
+          },
+          {
+            "gene_name": "ARO7",
+            "yeast_systematic_id": "YPR060C",
+            "reaction_boosted": "CHORM (Chorismate mutase)",
+            "rationale": "Increase flux from chorismate to prephenate toward phenylalanine; feedback-resistant ARO7 mutant (T226I) recommended"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 0.714323,
+        "optimized_max_flux": 0.722062,
+        "biomass_at_optimum": 0.025822,
+        "strategy_description": "8-gene heterologous pathway (PAL, C4H, 4CL, CHS, CHI, IFS, HID, IOMT) plus CPR for CYP450 electron transfer from L-phenylalanine to biochanin A. Overexpression of feedback-resistant ARO4 (DAHP synthase) and ARO7 (chorismate mutase) to boost shikimate pathway flux. At 10% minimum biomass, optimized flux = 0.722 mmol/gDW/h vs baseline 0.714 (+1.1%). Theoretical max at zero growth = 0.789 mmol/gDW/h."
+      }
+    },
+    {
+      "case_id": "case_008",
+      "product": "Lacto-N-neotetraose (LNnT)",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "Fructose-6-phosphate + L-Glutamine",
+            "product": "D-Glucosamine-6-phosphate + L-Glutamate",
+            "enzyme_ec": "EC 2.6.1.16",
+            "enzyme_name": "Glutamine--fructose-6-phosphate transaminase (GFA1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 2,
+            "substrate": "D-Glucosamine-6-phosphate + Acetyl-CoA",
+            "product": "N-Acetyl-D-glucosamine-6-phosphate + CoA",
+            "enzyme_ec": "EC 2.3.1.4",
+            "enzyme_name": "Glucosamine-phosphate N-acetyltransferase (GNA1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "Acetyl-CoA"
+            ],
+            "cofactors_produced": [
+              "CoA"
+            ]
+          },
+          {
+            "step_number": 3,
+            "substrate": "N-Acetyl-D-glucosamine-6-phosphate",
+            "product": "N-Acetyl-D-glucosamine-1-phosphate",
+            "enzyme_ec": "EC 5.4.2.3",
+            "enzyme_name": "Phosphoacetylglucosamine mutase (AGM1/PCM1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 4,
+            "substrate": "N-Acetyl-D-glucosamine-1-phosphate + UTP",
+            "product": "UDP-GlcNAc + PPi",
+            "enzyme_ec": "EC 2.7.7.23",
+            "enzyme_name": "UDP-N-acetylglucosamine diphosphorylase (QRI1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "UTP"
+            ],
+            "cofactors_produced": [
+              "PPi"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Glucose-1-phosphate + UTP",
+            "product": "UDP-glucose + PPi",
+            "enzyme_ec": "EC 2.7.7.9",
+            "enzyme_name": "UTP--glucose-1-phosphate uridylyltransferase (UGP1)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [
+              "UTP"
+            ],
+            "cofactors_produced": [
+              "PPi"
+            ]
+          },
+          {
+            "step_number": 6,
+            "substrate": "UDP-glucose",
+            "product": "UDP-galactose",
+            "enzyme_ec": "EC 5.1.3.2",
+            "enzyme_name": "UDP-glucose 4-epimerase (GAL10)",
+            "source_organism": "Saccharomyces cerevisiae",
+            "native_or_heterologous": "native",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 7,
+            "substrate": "UDP-galactose + D-Glucose",
+            "product": "Lactose + UDP",
+            "enzyme_ec": "EC 2.4.1.22",
+            "enzyme_name": "Beta-1,4-galactosyltransferase 1 (B4GALT1)",
+            "source_organism": "Homo sapiens",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 8,
+            "substrate": "Lactose + UDP-GlcNAc",
+            "product": "Lacto-N-triose II (LNT-3) + UDP",
+            "enzyme_ec": "EC 2.4.1.149",
+            "enzyme_name": "Beta-1,3-N-acetylglucosaminyltransferase (LgtA)",
+            "source_organism": "Neisseria meningitidis",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 9,
+            "substrate": "Lacto-N-triose II + UDP-galactose",
+            "product": "Lacto-N-neotetraose (LNnT) + UDP",
+            "enzyme_ec": "EC 2.4.1.90",
+            "enzyme_name": "Beta-1,4-galactosyltransferase (LgtB)",
+            "source_organism": "Neisseria meningitidis",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": 0,
+          "NADH": 0,
+          "ATP": 0,
+          "O2": 0,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "lgtA",
+            "source_organism": "Neisseria meningitidis",
+            "uniprot_id": "Q8KHG4",
+            "ec_number": "EC 2.4.1.149",
+            "function": "Beta-1,3-N-acetylglucosaminyltransferase; transfers GlcNAc from UDP-GlcNAc to lactose forming lacto-N-triose II (GlcNAc-beta1,3-Gal-beta1,4-Glc)"
+          },
+          {
+            "gene_name": "lgtB",
+            "source_organism": "Neisseria meningitidis",
+            "uniprot_id": "Q51116",
+            "ec_number": "EC 2.4.1.90",
+            "function": "Beta-1,4-galactosyltransferase; transfers Gal from UDP-Gal to lacto-N-triose II forming LNnT (Gal-beta1,4-GlcNAc-beta1,3-Gal-beta1,4-Glc)"
+          },
+          {
+            "gene_name": "B4GALT1",
+            "source_organism": "Homo sapiens",
+            "uniprot_id": "P15291",
+            "ec_number": "EC 2.4.1.22",
+            "function": "Beta-1,4-galactosyltransferase 1; catalyzes lactose synthesis from UDP-galactose and glucose; requires Mn2+ cofactor; PDB structures available (2AE7, 2AEC, etc.)"
+          },
+          {
+            "gene_name": "LAC12",
+            "source_organism": "Kluyveromyces lactis",
+            "uniprot_id": "P07921",
+            "ec_number": "N/A",
+            "function": "Lactose permease (587 aa); mediates lactose transport via proton symport; used to facilitate LNnT export or as alternative lactose import route"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "GLG1",
+            "yeast_systematic_id": "YKR058W",
+            "reaction_blocked": "GLCS2 (glycogen synthase, UDP-Glc -> glycogen) and GLYGS (glycogen/starch synthase)",
+            "rationale": "Eliminates glycogen synthesis that consumes UDP-glucose (baseline flux 0.149 mmol/gDW/h), redirecting UDP-Glc toward UDP-Gal via GAL10 for LNnT biosynthesis"
+          },
+          {
+            "gene_name": "HUT1",
+            "yeast_systematic_id": "YPL244C",
+            "reaction_blocked": "UDPGALt2g (UDP-galactose transport from cytoplasm to Golgi)",
+            "rationale": "Prevents loss of cytoplasmic UDP-galactose to the Golgi apparatus, retaining the precursor for the cytoplasmic LNnT pathway which requires 2 UDP-Gal per molecule"
+          },
+          {
+            "gene_name": "EHT1",
+            "yeast_systematic_id": "YLR189C",
+            "reaction_blocked": "ERGSTGLCT (UDP-glucose:ergosterol glucosyltransferase)",
+            "rationale": "Eliminates ergosterol glucosylation that competes for UDP-glucose, further increasing UDP-Glc availability for conversion to UDP-Gal"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "GAL10",
+            "yeast_systematic_id": "YBR019C",
+            "reaction_boosted": "UDPG4E (UDP-glucose 4-epimerase; UDP-Glc <=> UDP-Gal)",
+            "rationale": "Enhances conversion of UDP-glucose to UDP-galactose; two molecules of UDP-Gal are consumed per LNnT (lactose synthesis + final galactosylation); forced min flux = 0.5"
+          },
+          {
+            "gene_name": "GFA1",
+            "yeast_systematic_id": "YMR085W",
+            "reaction_boosted": "GF6PTA (glutamine--fructose-6-phosphate transaminase; F6P + Gln -> GlcN-6P + Glu)",
+            "rationale": "Rate-limiting entry point for UDP-GlcNAc biosynthesis from fructose-6-phosphate; overexpression increases hexosamine pathway flux for UDP-GlcNAc supply; forced min flux = 0.3"
+          },
+          {
+            "gene_name": "UGP1",
+            "yeast_systematic_id": "YKL035W",
+            "reaction_boosted": "GALUi (UTP--glucose-1-phosphate uridylyltransferase; G1P + UTP -> UDP-Glc + PPi)",
+            "rationale": "Increases UDP-glucose supply from glucose-1-phosphate, feeding the GAL10 epimerase for enhanced UDP-Gal production; forced min flux = 0.5"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 1.391304,
+        "optimized_max_flux": 1.279171,
+        "biomass_at_optimum": 0.023674,
+        "strategy_description": "Heterologous pathway adds 3 glycosyltransferase reactions (LACS: UDP-Gal + Glc -> Lactose; LGTA: Lactose + UDP-GlcNAc -> LNT-3; LGTB: LNT-3 + UDP-Gal -> LNnT) plus an export reaction. The theoretical ceiling (no growth) is 1.391 mmol/gDW/h on 10 mmol/gDW/h glucose. With 10% minimum biomass constraint and optimized knockouts (GLG1, HUT1, YLR189C) plus overexpressions (GAL10 min=0.5, GFA1 min=0.3, UGP1 min=0.5), the optimized max flux is 1.279 mmol/gDW/h at biomass=0.0237. The production envelope shows a linear tradeoff: at full wild-type growth (0.237), residual LNnT flux is 0.250 mmol/gDW/h. Key metabolic bottleneck is UDP-Gal supply (consumed 2x per LNnT) from the limited UDP-Glc pool. TPS1 and GLG1+GLG2 double knockouts are lethal in the iMM904 model and were avoided."
+      }
+    },
+    {
+      "case_id": "case_009",
+      "product": "3'-Hydroxygenistein",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "L-Phenylalanine",
+            "product": "trans-Cinnamate",
+            "enzyme_ec": "EC 4.3.1.24",
+            "enzyme_name": "Phenylalanine ammonia-lyase (PAL)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "NH3"
+            ]
+          },
+          {
+            "step_number": 2,
+            "substrate": "trans-Cinnamate",
+            "product": "4-Coumarate",
+            "enzyme_ec": "EC 1.14.14.91",
+            "enzyme_name": "Trans-cinnamate 4-monooxygenase (C4H/CYP73A5)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 3,
+            "substrate": "4-Coumarate",
+            "product": "p-Coumaroyl-CoA",
+            "enzyme_ec": "EC 6.2.1.12",
+            "enzyme_name": "4-Coumarate-CoA ligase (4CL1)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "ATP",
+              "CoA"
+            ],
+            "cofactors_produced": [
+              "AMP",
+              "PPi"
+            ]
+          },
+          {
+            "step_number": 4,
+            "substrate": "p-Coumaroyl-CoA + 3 Malonyl-CoA",
+            "product": "Naringenin chalcone",
+            "enzyme_ec": "EC 2.3.1.74",
+            "enzyme_name": "Chalcone synthase (CHS/TT4)",
+            "source_organism": "Arabidopsis thaliana",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": [
+              "4 CoA",
+              "3 CO2"
+            ]
+          },
+          {
+            "step_number": 5,
+            "substrate": "Naringenin chalcone",
+            "product": "Naringenin",
+            "enzyme_ec": "EC 5.5.1.6",
+            "enzyme_name": "Chalcone isomerase (CHI1)",
+            "source_organism": "Medicago sativa",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 6,
+            "substrate": "Naringenin",
+            "product": "2-Hydroxy-2,3-dihydrogenistein",
+            "enzyme_ec": "EC 1.14.14.87",
+            "enzyme_name": "2-Hydroxyisoflavanone synthase (IFS/CYP93C1v2)",
+            "source_organism": "Glycine max",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 7,
+            "substrate": "2-Hydroxy-2,3-dihydrogenistein",
+            "product": "Genistein",
+            "enzyme_ec": "EC 4.2.1.105",
+            "enzyme_name": "2-Hydroxyisoflavanone dehydratase (HIDH)",
+            "source_organism": "Glycine max",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [],
+            "cofactors_produced": []
+          },
+          {
+            "step_number": 8,
+            "substrate": "Genistein",
+            "product": "3'-Hydroxygenistein (Orobol)",
+            "enzyme_ec": "EC 1.14.14.88",
+            "enzyme_name": "Isoflavone 3'-hydroxylase (CYP57B3)",
+            "source_organism": "Aspergillus oryzae",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADPH",
+              "O2"
+            ],
+            "cofactors_produced": []
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": -3,
+          "NADH": 0,
+          "ATP": -1,
+          "O2": -3,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "PAL1",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P35510",
+            "ec_number": "EC 4.3.1.24",
+            "function": "Phenylalanine ammonia-lyase; converts L-phenylalanine to trans-cinnamate + NH3; first committed step of phenylpropanoid pathway"
+          },
+          {
+            "gene_name": "CYP73A5 (C4H)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P92994",
+            "ec_number": "EC 1.14.14.91",
+            "function": "Trans-cinnamate 4-monooxygenase; hydroxylates trans-cinnamate to p-coumarate; CYP450 requiring heme and CPR"
+          },
+          {
+            "gene_name": "4CL1",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "Q42524",
+            "ec_number": "EC 6.2.1.12",
+            "function": "4-Coumarate-CoA ligase; activates p-coumarate to p-coumaroyl-CoA using ATP; Km=38 uM for 4-coumarate"
+          },
+          {
+            "gene_name": "TT4 (CHS)",
+            "source_organism": "Arabidopsis thaliana",
+            "uniprot_id": "P13114",
+            "ec_number": "EC 2.3.1.74",
+            "function": "Chalcone synthase; condenses p-coumaroyl-CoA with 3 malonyl-CoA to form naringenin chalcone"
+          },
+          {
+            "gene_name": "CHI1",
+            "source_organism": "Medicago sativa",
+            "uniprot_id": "P28012",
+            "ec_number": "EC 5.5.1.6",
+            "function": "Chalcone isomerase; cyclizes naringenin chalcone to (2S)-naringenin; well-characterized with crystal structures (PDB: 1EYP)"
+          },
+          {
+            "gene_name": "IFS2 (CYP93C1v2)",
+            "source_organism": "Glycine max",
+            "uniprot_id": "Q9SWR5",
+            "ec_number": "EC 1.14.14.87",
+            "function": "2-Hydroxyisoflavanone synthase; CYP450 that catalyzes aryl migration converting naringenin to 2-hydroxy-2,3-dihydrogenistein"
+          },
+          {
+            "gene_name": "HIDH",
+            "source_organism": "Glycine max",
+            "uniprot_id": "Q5NUF3",
+            "ec_number": "EC 4.2.1.105",
+            "function": "2-Hydroxyisoflavanone dehydratase; dehydrates 2-hydroxy-2,3-dihydrogenistein to genistein; Km=170 uM"
+          },
+          {
+            "gene_name": "CYP57B3",
+            "source_organism": "Aspergillus oryzae",
+            "uniprot_id": "D4QC19",
+            "ec_number": "EC 1.14.14.88",
+            "function": "Isoflavone 3'-hydroxylase; CYP450 that hydroxylates genistein at the 3' position to produce 3'-hydroxygenistein (orobol); fungal origin compatible with yeast expression"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "ARO10",
+            "yeast_systematic_id": "YDR380W",
+            "reaction_blocked": "PPYRDC (phenylpyruvate decarboxylase)",
+            "rationale": "Blocks degradation of phenylpyruvate (Ehrlich pathway), increasing flux toward phenylalanine biosynthesis via PHETA1 reverse reaction; OR-logic requires combined KO with PDC genes for full effect"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "ARO7",
+            "yeast_systematic_id": "YPR060C",
+            "reaction_boosted": "CHORM (chorismate mutase)",
+            "rationale": "Increases flux from chorismate to prephenate, boosting phenylalanine precursor supply; feedback-resistant mutant ARO7(T226I) preferred"
+          },
+          {
+            "gene_name": "ZWF1",
+            "yeast_systematic_id": "YNL241C",
+            "reaction_boosted": "G6PDH2r (glucose-6-phosphate dehydrogenase)",
+            "rationale": "Entry point of pentose phosphate pathway producing NADPH; pathway requires 3 NADPH per product molecule for C4H, IFS, and CYP57B3 reactions"
+          },
+          {
+            "gene_name": "ACS2",
+            "yeast_systematic_id": "YLR153C",
+            "reaction_boosted": "ACS (acetyl-CoA synthetase)",
+            "rationale": "Increases cytoplasmic acetyl-CoA supply which feeds into malonyl-CoA via ACC1; CHS requires 3 malonyl-CoA per naringenin chalcone"
+          },
+          {
+            "gene_name": "ACC1",
+            "yeast_systematic_id": "YNR016C",
+            "reaction_boosted": "ACCOAC (acetyl-CoA carboxylase)",
+            "rationale": "Converts acetyl-CoA to malonyl-CoA; overexpression of ACC1(S659A/S1157A) phosphorylation-resistant mutant increases malonyl-CoA pool"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 0.666667,
+        "optimized_max_flux": 0.666187,
+        "biomass_at_optimum": 0.025822,
+        "strategy_description": "Heterologous 8-step pathway from L-phenylalanine to 3'-hydroxygenistein via phenylpropanoid, flavonoid, isoflavonoid biosynthesis, and 3'-hydroxylation. Eight plant/fungal enzymes are required (PAL, C4H, 4CL, CHS from A. thaliana; CHI from M. sativa; IFS, HIDH from G. max; CYP57B3 from A. oryzae). Three CYP450 steps (C4H, IFS, CYP57B3) utilize the native yeast NADPH-cytochrome P450 reductase NCP1 (YHR042W). Engineering strategy includes ARO10 knockout to block phenylpyruvate degradation, and overexpression of ARO7 (feedback-resistant mutant), ZWF1, ACS2, and ACC1 to boost precursor and cofactor supply. FBA theoretical maximum flux is 0.667 mmol/gDW/h at zero growth and 0.666 at 10% minimum biomass. Production envelope shows linear growth-production tradeoff. Aerobic conditions required for three O2-dependent CYP450 reactions."
+      }
+    },
+    {
+      "case_id": "case_010",
+      "product": "L-Lactic acid",
+      "pathway": {
+        "steps": [
+          {
+            "step_number": 1,
+            "substrate": "Pyruvate",
+            "product": "L-Lactate",
+            "enzyme_ec": "EC 1.1.1.27",
+            "enzyme_name": "L-lactate dehydrogenase",
+            "source_organism": "Lacticaseibacillus casei",
+            "native_or_heterologous": "heterologous",
+            "cofactors_consumed": [
+              "NADH"
+            ],
+            "cofactors_produced": [
+              "NAD+"
+            ]
+          }
+        ],
+        "total_cofactors": {
+          "NADPH": 0,
+          "NADH": -1,
+          "ATP": 0,
+          "O2": 0,
+          "FAD": 0
+        }
+      },
+      "engineering": {
+        "heterologous_genes": [
+          {
+            "gene_name": "ldh",
+            "source_organism": "Lacticaseibacillus casei",
+            "uniprot_id": "P00343",
+            "ec_number": "EC 1.1.1.27",
+            "function": "L-lactate dehydrogenase; converts pyruvate + NADH to L-lactate + NAD+"
+          }
+        ],
+        "knockouts": [
+          {
+            "gene_name": "PDC1",
+            "yeast_systematic_id": "YLR044C",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+            "rationale": "Major pyruvate decarboxylase; blocks ethanol pathway to redirect pyruvate flux toward lactate (WT flux 15.95)"
+          },
+          {
+            "gene_name": "PDC5",
+            "yeast_systematic_id": "YLR134W",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+            "rationale": "Isozyme of PDC1; must knock out all three PDC genes due to OR-logic GPR to fully disable PYRDC"
+          },
+          {
+            "gene_name": "PDC6",
+            "yeast_systematic_id": "YGR087C",
+            "reaction_blocked": "PYRDC (pyruvate decarboxylase)",
+            "rationale": "Third pyruvate decarboxylase isozyme; required for complete PYRDC elimination"
+          },
+          {
+            "gene_name": "ADH1",
+            "yeast_systematic_id": "YOL086C",
+            "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
+            "rationale": "Major alcohol dehydrogenase; blocks acetaldehyde to ethanol conversion (WT flux 15.82)"
+          },
+          {
+            "gene_name": "ADH3",
+            "yeast_systematic_id": "YGL256W",
+            "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
+            "rationale": "Alcohol dehydrogenase isozyme; OR-logic GPR requires multi-gene knockout"
+          },
+          {
+            "gene_name": "ADH5",
+            "yeast_systematic_id": "YBR145W",
+            "reaction_blocked": "ALCD2ir (alcohol dehydrogenase, ethanol)",
+            "rationale": "Alcohol dehydrogenase isozyme; completes elimination of ethanol production"
+          },
+          {
+            "gene_name": "CYB2",
+            "yeast_systematic_id": "YML054C",
+            "reaction_blocked": "L_LACD2cm (L-lactate cytochrome c oxidoreductase)",
+            "rationale": "Degrades L-lactate back to pyruvate; knockout prevents product degradation"
+          },
+          {
+            "gene_name": "GPD1",
+            "yeast_systematic_id": "YDL022W",
+            "reaction_blocked": "G3PD1ir (glycerol-3-phosphate dehydrogenase)",
+            "rationale": "Blocks glycerol pathway to redirect NADH toward LDH reaction (WT flux 0.007)"
+          }
+        ],
+        "overexpressions": [
+          {
+            "gene_name": "PYK1 (CDC19)",
+            "yeast_systematic_id": "YAL038W",
+            "reaction_boosted": "PYK (pyruvate kinase)",
+            "rationale": "Increase pyruvate supply from PEP; ensures high substrate availability for LDH"
+          }
+        ]
+      },
+      "fba_results": {
+        "baseline_max_flux": 20.0,
+        "optimized_max_flux": 19.648346,
+        "biomass_at_optimum": 0.028691,
+        "strategy_description": "Express heterologous L-LDH from L. casei (P00343). Knock out all three pyruvate decarboxylase genes (PDC1/PDC5/PDC6), three alcohol dehydrogenase genes (ADH1/ADH3/ADH5), CYB2 (lactate degradation), and GPD1 (glycerol pathway). This eliminates ethanol and glycerol as competing pathways, prevents L-lactate degradation, and redirects nearly all glycolytic flux through LDH. With 10% minimum biomass constraint, achieves 19.65 mmol/gDW/h lactate production (98.2% of theoretical maximum 20.0). Production envelope shows linear tradeoff: at full biomass (0.287) production is 15.83; at zero biomass production reaches 20.0."
+      }
+    }
+  ]
+}
