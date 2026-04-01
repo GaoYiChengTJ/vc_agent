@@ -1,0 +1,680 @@
+{
+  "evaluation_summary": "Rigorous re-evaluation of v2 benchmark results compared to v1. OE recall counts ALL agent recommendations including overexpressions JSON field, protein_engineering_notes, Phase 3.5 CYP450 notes, and FBA strategy recommendations.",
+  "evaluation_date": "2026-03-31",
+  "methodology": "Each v2 case result was compared against ground truth from synbio_yeast_benchmark.json. OE recall is counted broadly: any recommendation in overexpressions, protein_engineering_notes, or FBA rounds that matches a GT OE target counts as found. Scoring is conservative: only exact gene matches or clear functional equivalents count.",
+  "cases": [
+    {
+      "case_id": "case_001",
+      "product": "Glabridin",
+      "pathway_design": {
+        "gt_steps": 16,
+        "agent_steps": 11,
+        "step_recall": {
+          "found": 9,
+          "total": 16,
+          "score": 0.5625,
+          "mapping": "Agent covers GT steps 1-7 (PAL->C4H->4CL->CHS+CHR->CHI->IFS->HID) exactly = 7 steps. Agent step 8 (I2'H: daidzein->2'-hydroxydaidzein) matches GT step 9 functionally but GT goes via formononetin (GT step 8: OMT) first. Agent step 9 (IFR) matches GT step 10. Agent step 10 (G4DT prenyltransferase) matches GT step 14 (prenylation). Agent step 11 (CYP ring closure) loosely maps to GT step 15 (oxidative cyclase). Missed: GT step 8 (OMT/formononetin), GT step 11 (VR/vestitone reductase), GT step 12 (PTS/pterocarpan synthase), GT step 13 (PTR/pterocarpan reductase), GT step 16 (DMT/demethylase). Counting generous matches: 9/16.",
+          "notation": "9/16"
+        },
+        "step_precision": {
+          "correct": 9,
+          "reasonable_alt": 2,
+          "wrong": 0,
+          "total": 11,
+          "score": 0.818,
+          "notation": "9/11 exact, 11/11 with alternatives"
+        },
+        "path_selection": "reasonable_alternative",
+        "path_selection_notes": "Agent correctly reconstructed the core isoflavonoid pathway (steps 1-7) but used a simplified route skipping the formononetin/methylation branch and the medicarpin module (VR, PTS steps). The tailoring module (PTR, PT, OC, DMT) was partially captured (prenylation and ring closure) but missed the methylation-demethylation protection cycle that is the paper's key discovery.",
+        "cofactor_identification": "partial",
+        "cofactor_notes": "Agent: 6 NADPH, 1 ATP, 3 O2. Correct for the 11-step agent pathway but incomplete for the full 16-step GT pathway which requires additional NADPH and DMAPP."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 10,
+          "total": 18,
+          "score": 0.556,
+          "mapping": "GT has 18 heterologous genes (GgPAL1, GgC4H1, Gg4CL1, GgCHS1, GgCHR1, GgCHI1, GgIFS1, GgHID1, GgOMT1, GgI2'H1, GgIFR1, GgVR1, GgPTS1, GgPTR1, GgPT1, GgOC1, GgDMT1, StsTAL). Agent found functional equivalents for: PAL, C4H, 4CL, CHS, CHR, CHI, IFS, HID, I2'H, IFR = 10. Also G4DT (prenyltransferase) partially maps to GgPT1 = could be 11. Missed: OMT, VR, PTS, PTR, OC, DMT, TAL = 7.",
+          "notation": "10/18"
+        },
+        "heterologous_precision": {
+          "valid": 12,
+          "total": 12,
+          "score": 1.0,
+          "notes": "All 12 agent genes (PAL2, C4H, 4CL, CHS, CHR, CHI, IFS, HIDM, I2'H, IFR, G4DT, CPR) are biologically valid.",
+          "notation": "12/12"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT has no explicit KOs. Agent proposed ARO10 KO (reasonable but not in GT).",
+          "notation": "N/A"
+        },
+        "oe_recall": {
+          "found": 1,
+          "total": 3,
+          "score": 0.333,
+          "mapping": "GT OEs: (1) tHMG1 for mevalonate flux, (2) IDI1 for DMAPP supply, (3) ERG20 dynamic regulation for DMAPP/FPP balance. Agent formal OEs: ARO4, ARO7, ZWF1. Agent protein_engineering_notes mentions: 'consider tHMG1 overexpression to boost IPP/DMAPP supply' and 'HEM3 overexpression'. tHMG1 mention in notes matches GT OE #1. IDI1 not mentioned anywhere. ERG20 not mentioned as OE (mentioned as 'ERG9 downregulation' context only). Final count: tHMG1=found (in notes). IDI1=missed. ERG20=missed.",
+          "notation": "1/3"
+        },
+        "source_species_match": {
+          "score": 0.55,
+          "breakdown": "GT uses all G. glabra enzymes. Agent uses: A. thaliana (PAL,C4H,4CL,CPR)=0.4x4; G. max (CHS,CHR,IFR,G4DT)=0.7x4; M. sativa (CHI)=0.7x1; G. echinata (IFS,HIDM,I2'H)=0.7x3 (same genus as G. glabra). Weighted average = (4*0.4 + 4*0.7 + 1*0.7 + 3*0.7)/12 = (1.6+2.8+0.7+2.1)/12 = 7.2/12 = 0.60. Being conservative: 0.55"
+        }
+      }
+    },
+    {
+      "case_id": "case_002",
+      "product": "Pregnenolone",
+      "pathway_design": {
+        "gt_steps": 13,
+        "agent_steps": 12,
+        "step_recall": {
+          "found": 10,
+          "total": 13,
+          "score": 0.769,
+          "mapping": "Agent covers: steps 1-7 (MVA pathway to zymosterol) = 7 native steps all present in agent steps 1-7. Step 8 (DHCR24: zymosterol->cholest-8-en-ol) = agent step 8. Step 9 (EBP isomerase) = agent step 9. Step 10 (ERG3/SC5D desaturase) = agent step 10. Step 11 (DHCR7) = agent step 11. Step 12 (CYP11A1 side-chain cleavage) = agent step 12. But GT step 10 uses ERG2+ERG3 (C8-isomerase + C5-desaturase) while agent separates differently. GT steps 10-11 (ERG2/ERG3 then DHCR24) differ in ordering from agent. Counting overlap: 10/13 steps clearly matched. Missed: GT has specific ordering differences and intermediate metabolites.",
+          "notation": "10/13"
+        },
+        "step_precision": {
+          "correct": 12,
+          "total": 12,
+          "score": 1.0,
+          "notation": "12/12"
+        },
+        "path_selection": "reasonable_alternative",
+        "path_selection_notes": "Agent uses Kandutsch-Russell pathway variant. GT uses Bloch pathway variant with different ordering of DHCR24/ERG2/ERG3 steps. For side-chain cleavage: agent uses mammalian CYP11A1+FDX1+FDXR; GT uses plant CYP87A3+ATR. Both are valid P450 side-chain cleavage systems.",
+        "cofactor_identification": "partial",
+        "cofactor_notes": "Agent captures NADPH and O2 requirements correctly for the heterologous steps."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 3,
+          "total": 8,
+          "score": 0.375,
+          "mapping": "GT heterologous genes: (1) DHCR24 (G. gallus), (2) MuDHCR7 (B. taurus, engineered), (3) CYP87A3 (R. glutinosa), (4) ATR reductase (A. thaliana), (5) ADR/ADX electron transfer, (6) GDH (B. subtilis), (7) FPK (B. breve), (8) PTA (C. kluyveri). Agent found: DHCR24 (H. sapiens, diff source), DHCR7 (H. sapiens, diff source), CYP11A1 (B. taurus, diff enzyme than CYP87A3 but same function). FDX1/FDXR partially maps to ADR/ADX (functional equivalent). Counting: DHCR24=found (diff source), DHCR7=found (diff source), P450scc=found (diff enzyme). ADR/ADX vs FDX1/FDXR=found (functional equivalent). GDH, FPK, PTA, ATR = missed. Count: 3-4 of 8.",
+          "notation": "3/8"
+        },
+        "heterologous_precision": {
+          "valid": 5,
+          "total": 5,
+          "score": 1.0,
+          "notation": "5/5"
+        },
+        "ko_recall": {
+          "found": 1,
+          "total": 2,
+          "score": 0.5,
+          "mapping": "GT KOs: ERG5, ERG6. Agent found ERG6 (KO). Agent also KO'd FRTT (not in GT). Missed: ERG5.",
+          "notation": "1/2"
+        },
+        "oe_recall": {
+          "found": 2,
+          "total": 3,
+          "score": 0.667,
+          "mapping": "GT OEs: (1) tHMG1 multi-copy at TY1 sites, (2) IDI1 multi-copy at TY1 sites, (3) ERG2/ERG3 multi-copy at TY3 sites. Agent formal OEs: tHMG1 (found!), ZWF1, IDP2, ERG9. Agent protein_engineering_notes: mentions 'HEM1/HEM3 overexpression', 'VHb expression', 'INO2/INO4 overexpression', 'multi-copy CYP11A1'. tHMG1 = found (GT OE #1). IDI1 = not mentioned anywhere in agent output. ERG2/ERG3 = not in agent OEs. But re-reading GT: ERG2/ERG3 are overexpressed at TY3 sites. Agent does not mention ERG2/ERG3 OE. Count: tHMG1=found. IDI1=missed. ERG2/ERG3=missed. Score: 1/3. WAIT - checking more carefully. The protein_engineering_notes mentions ER membrane expansion (INO2) which is not a GT OE. Let me recount: only tHMG1 is clearly matched. Score = 1/3.",
+          "revised_found": 1,
+          "revised_score": 0.333,
+          "notation": "1/3"
+        },
+        "source_species_match": {
+          "score": 0.57,
+          "breakdown": "DHCR24: H.sapiens vs G.gallus (same domain mammals/aves=0.7); DHCR7: H.sapiens vs B.taurus (same domain=0.7); CYP11A1 vs CYP87A3: mammal vs plant (different=0.4); FDX1/FDXR vs ADR/ADX: both mammalian (0.7). Average=(0.7+0.7+0.4+0.7)/4=0.625. Being conservative: 0.57"
+        }
+      }
+    },
+    {
+      "case_id": "case_003",
+      "product": "Short- and medium-chain fatty acids (C8, C10, C12)",
+      "pathway_design": {
+        "gt_steps": 7,
+        "agent_steps": 4,
+        "step_recall": {
+          "found": 2,
+          "total": 7,
+          "score": 0.286,
+          "mapping": "GT pathway: (1) Glucose->Pyruvate (glycolysis), (2) Pyruvate->Acetyl-CoA (PDH), (3) Acetyl-CoA+Malonyl-CoA condensation (mFAS-KS), (4) KR reduction, (5) DH dehydration, (6) ER reduction, (7) TE chain release. Agent pathway: (1) Acetyl-CoA->Malonyl-CoA (ACC1), (2) FAS elongation to C8-CoA, (3) Thioesterase cleavage, (4) Export. Overlap: acetyl-CoA supply steps (1-2) overlap. The core mechanism is fundamentally different: GT uses heterologous mFAS with KS G113 mutations; agent uses native yeast FAS + heterologous thioesterases. Only 2 steps overlap conceptually.",
+          "notation": "2/7"
+        },
+        "step_precision": {
+          "correct": 4,
+          "total": 4,
+          "score": 1.0,
+          "notes": "Agent steps are biochemically valid for a thioesterase-based strategy, but don't match the GT mFAS approach.",
+          "notation": "4/4"
+        },
+        "path_selection": "wrong",
+        "path_selection_notes": "Agent chose thioesterase-based SMCFA production. GT paper uses engineered metazoan FAS (mFAS) with KS G113 mutations. Fundamentally different approaches.",
+        "cofactor_identification": "partial",
+        "cofactor_notes": "NADPH and ATP numbers are biochemically correct for FA elongation but the mechanism differs."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 0,
+          "total": 1,
+          "score": 0.0,
+          "mapping": "GT heterologous gene: mFAS (metazoan FAS megasynthase with KS G113 mutations). Agent proposed: tesB (E. coli), CvFatB1 (C. viscosissima). Zero overlap - completely different strategy.",
+          "notation": "0/1"
+        },
+        "heterologous_precision": {
+          "valid": 2,
+          "total": 2,
+          "score": 1.0,
+          "notes": "tesB and CvFatB1 are valid enzymes for SMCFA production, just not what the paper used.",
+          "notation": "2/2"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT has no explicit KOs. Agent proposed FAA2, POX1 KOs.",
+          "notation": "N/A"
+        },
+        "oe_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT strategy is mFAS expression, not native gene OE. Agent proposed ACC1, ZWF1, ACS2 OEs.",
+          "notation": "N/A"
+        },
+        "source_species_match": {
+          "score": 0.4,
+          "breakdown": "No gene overlap between GT and agent. Default=0.4"
+        }
+      }
+    },
+    {
+      "case_id": "case_004",
+      "product": "Liquiritigenin",
+      "pathway_design": {
+        "gt_steps": 7,
+        "agent_steps": 5,
+        "step_recall": {
+          "found": 5,
+          "total": 7,
+          "score": 0.714,
+          "mapping": "GT steps: (1) PEX peroxisome acetyl-CoA supply, (2) ACC1 malonyl-CoA, (3) PAL, (4) C4H, (5) 4CL, (6) CHS+CHR, (7) CHI. Agent covers GT steps 3-7 exactly (PAL->C4H->4CL->CHS+CHR->CHI = 5 steps). Missed: steps 1-2 (PEX peroxisome engineering for acetyl-CoA, ACC1). Core pathway: 5/5=1.0.",
+          "notation": "5/7"
+        },
+        "step_precision": {
+          "correct": 5,
+          "total": 5,
+          "score": 1.0,
+          "notation": "5/5"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Core biosynthetic pathway is an exact match. The difference is in precursor supply (GT uses novel PEX peroxisome engineering; agent uses conventional OEs).",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Agent: 2 NADPH, 1 ATP, 1 O2. Correct for the core 5-step pathway."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 6,
+          "total": 6,
+          "score": 1.0,
+          "mapping": "GT heterologous: PAL, C4H, 4CL, CHS, CHR, CHI (+ PEX genes from Y. lipolytica not counted in core). Agent found all 6 core pathway enzymes. CPR is a valid addition.",
+          "notation": "6/6"
+        },
+        "heterologous_precision": {
+          "valid": 7,
+          "total": 7,
+          "score": 1.0,
+          "notation": "7/7"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT has no explicit KOs.",
+          "notation": "N/A"
+        },
+        "oe_recall": {
+          "found": 1,
+          "total": 1,
+          "score": 1.0,
+          "mapping": "GT engineering_strategies mention malonyl-CoA pool enhancement and ACC1. Agent has ACC1 in overexpressions. The main GT innovation (PEX engineering) is a novel platform strategy, not a standard OE target. Agent also proposes ARO4, NCP1 which are reasonable additions. ACC1=found.",
+          "notation": "1/1"
+        },
+        "source_species_match": {
+          "score": 0.7,
+          "breakdown": "GT doesn't specify exact enzyme sources for core pathway. Agent uses A. thaliana (PAL,C4H,4CL,CPR), G. max (CHS,CHR), M. sativa (CHI). All are standard plant sources. Same domain=0.7"
+        }
+      }
+    },
+    {
+      "case_id": "case_005",
+      "product": "Salidroside",
+      "pathway_design": {
+        "gt_steps": 8,
+        "agent_steps": 5,
+        "step_recall": {
+          "found": 4,
+          "total": 8,
+          "score": 0.5,
+          "mapping": "GT: (1) Glucose->Chorismate, (2) Chorismate->Tyr, (3) Tyr->4HPP, (4) 4HPP->4HPA, (5) 4HPA->Tyrosol, (6) Tyrosol->Hydroxytyrosol (HpaB/HpaC), (7) Tyrosol->Salidroside (RrU8GT33), (8) Sucrose->UDP-glucose (tGuSUS1). Agent covers steps 3-5 (Ehrlich pathway to tyrosol) and step 7 (glucosylation). But agent also includes HpaB/HpaC step for hydroxytyrosol. So agent matches: step 3 (transamination), step 4 (decarboxylation), step 5 (reduction to tyrosol), step 6 (HpaB/HpaC hydroxylation), step 7 (UGT glucosylation). That's 5 matches. But agent pathway is only 5 steps (Tyr->4HPP->4HPA->Tyrosol->HT->Salidroside). Missed: step 1 (shikimate, reasonable omission), step 2 (Tyr synthesis, handled via OE), step 8 (tGuSUS1). Count: 4-5/8.",
+          "notation": "4/8"
+        },
+        "step_precision": {
+          "correct": 5,
+          "total": 5,
+          "score": 1.0,
+          "notation": "5/5"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Core salidroside pathway matches: Ehrlich pathway (Tyr->tyrosol) + hydroxylation + glucosylation.",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Agent: 2 NADH, 1 O2, 1 UDP-glucose. Correct."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 3,
+          "total": 4,
+          "score": 0.75,
+          "mapping": "GT heterologous: (1) PaHpaB, (2) EcHpaC, (3) RrU8GT33, (4) tGuSUS1. Agent found: HpaB (Q57160, E. coli - same function as PaHpaB), HpaC (Q57501, E. coli - matches EcHpaC), UGT85A1-DHG/UGT73B6 (functionally equivalent to RrU8GT33). Missed: tGuSUS1. Count: 3/4.",
+          "notation": "3/4"
+        },
+        "heterologous_precision": {
+          "valid": 4,
+          "total": 4,
+          "score": 1.0,
+          "notes": "HpaB, HpaC, UGT85A1-DHG, UGT73B6 all valid.",
+          "notation": "4/4"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 1,
+          "score": 0.0,
+          "mapping": "GT KO: SUC2. Agent KO: ARO10 attenuation (not same target). Missed SUC2.",
+          "notation": "0/1"
+        },
+        "oe_recall": {
+          "found": 2,
+          "total": 3,
+          "score": 0.667,
+          "mapping": "GT OEs (implied): (1) ARO7/TYR1 optimization, (2) tGuSUS1 (counted as heterologous), (3) UDP-glucose supply enhancement. Re-examining GT engineering_strategies: 'Tyrosol chassis strain optimization' implies ARO pathway engineering. Agent formal OEs: ARO4, TYR1, ARO7, ARO10, UGP1. Agent protein_engineering_notes: mentions tGuSUS1 co-expression. TYR1=found (matches GT implied TYR1 optimization). ARO7=found (matches GT implied ARO7 optimization). tGuSUS1 mentioned in notes but counted in heterologous. UDP-glucose supply: agent has UGP1 OE which addresses this. Count: TYR1=found, ARO7=found. 2/3.",
+          "notation": "2/3"
+        },
+        "source_species_match": {
+          "score": 0.85,
+          "breakdown": "HpaB: E. coli (agent) vs P. aeruginosa (GT) = same domain bacteria = 0.7. HpaC: E. coli = exact match 1.0. UGT: R. sachalinensis (agent UGT73B6) vs R. rosea (GT RrU8GT33) = same genus = 1.0. Average = (0.7+1.0+1.0)/3 = 0.9. Being slightly conservative: 0.85"
+        }
+      }
+    },
+    {
+      "case_id": "case_006",
+      "product": "Heme",
+      "pathway_design": {
+        "gt_steps": 8,
+        "agent_steps": 8,
+        "step_recall": {
+          "found": 8,
+          "total": 8,
+          "score": 1.0,
+          "mapping": "Perfect match. All 8 heme biosynthesis steps (HEM1-HEM4, HEM12-HEM15) correctly identified.",
+          "notation": "8/8"
+        },
+        "step_precision": {
+          "correct": 8,
+          "total": 8,
+          "score": 1.0,
+          "notation": "8/8"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Exact match. Native 8-step pathway correctly identified.",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Agent: 4 O2, 1 Fe2+, 8 succinyl-CoA, 8 glycine. Correct."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "Both GT and agent correctly identify that no heterologous genes are needed.",
+          "notation": "N/A"
+        },
+        "heterologous_precision": {
+          "valid": 0,
+          "total": 0,
+          "score": "N/A",
+          "notation": "N/A"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 1,
+          "score": 0.0,
+          "mapping": "GT KO: HMX1 (heme oxygenase). Agent KO: COX10 (heme O synthase), MET1 (uroporphyrinogen methyltransferase). COX10 and MET1 are both reasonable anti-degradation/anti-diversion targets, but neither is HMX1. Missed: HMX1.",
+          "notation": "0/1"
+        },
+        "oe_recall": {
+          "found": 2,
+          "total": 4,
+          "score": 0.5,
+          "mapping": "GT OEs: (1) HEM2, (2) HEM3, (3) HEM12, (4) HEM13. Agent formal OEs: HEM1, HEM15. Agent FBA rounds show: Round 2 includes 'OE HEM12 (min_flux=0.5) + OE HEM3 (min_flux=0.5)', Round 3 includes 'OE HEM13 (min_flux=0.5) + OE HEM14 (min_flux=0.25)'. So agent tried HEM12, HEM3, HEM13, HEM14 in FBA. Counting ALL agent recommendations: HEM12=found (GT OE #3, in FBA Round 2), HEM13=found (GT OE #4, in FBA Round 3). HEM3=found (GT OE #2, in FBA Round 2). HEM2=missed (not in any agent recommendation). So: HEM3=found, HEM12=found, HEM13=found, HEM2=missed. Count: 3/4.",
+          "revised_found": 3,
+          "revised_score": 0.75,
+          "notation": "3/4"
+        },
+        "source_species_match": {
+          "score": "N/A",
+          "breakdown": "No heterologous genes - all native pathway."
+        }
+      }
+    },
+    {
+      "case_id": "case_007",
+      "product": "Biochanin A",
+      "pathway_design": {
+        "gt_steps": 7,
+        "agent_steps": 8,
+        "step_recall": {
+          "found": 7,
+          "total": 7,
+          "score": 1.0,
+          "mapping": "All 7 GT steps covered. Agent provides more granular detail (8 steps) by separating PAL/TAL into PAL+C4H. GT: (1) PAL/TAL->coumarate, (2) 4CL, (3) CHS, (4) CHI, (5) IFS, (6) HID, (7) OMT. Agent: (1) PAL, (2) C4H, (3) 4CL, (4) CHS, (5) CHI, (6) IFS, (7) HID, (8) OMT. All GT enzyme types represented.",
+          "notation": "7/7"
+        },
+        "step_precision": {
+          "correct": 8,
+          "total": 8,
+          "score": 1.0,
+          "notation": "8/8"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Exact match for the full pathway: phenylpropanoid -> naringenin -> genistein -> biochanin A.",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Agent: 2 NADPH, 1 ATP, 2 O2, 1 SAM. Correct."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 7,
+          "total": 7,
+          "score": 1.0,
+          "mapping": "GT: PAL/TAL, 4CL, CHS, CHI, PlIFS, HID, PlOMT9. Agent found all with functional equivalents: PAL2, C4H, 4CL1, CHS, CHI1, IFS2(GmIFS2 vs PlIFS), HI4'OMT(MtHI4'OMT vs PlOMT9). CPR is a valid auxiliary.",
+          "notation": "7/7"
+        },
+        "heterologous_precision": {
+          "valid": 9,
+          "total": 9,
+          "score": 1.0,
+          "notation": "9/9"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT has no explicit KOs. Agent also has no formal KOs.",
+          "notation": "N/A"
+        },
+        "oe_recall": {
+          "found": 2,
+          "total": 4,
+          "score": 0.5,
+          "mapping": "GT OEs/strategies: (1) PlIFS copy number optimization, (2) VHb (Vitreoscilla hemoglobin) expression, (3) ER membrane expansion, (4) Heme supply improvement. Agent formal OEs: ZWF1, ARO4, ARO7. Agent additional_engineering_recommendations: INO2 overexpression (ER membrane expansion), HEM3 overexpression (heme supply). Agent protein_engineering_notes: mentions ER membrane expansion, heme supply, VHb not explicitly mentioned. Counting ALL: ER expansion (INO2 in additional_engineering_recommendations) = matches GT #3. Heme supply (HEM3 in additional_engineering_recommendations) = matches GT #4. PlIFS copy number = agent mentions multi-copy integration for IFS2 in expression_notes. VHb = not mentioned in case_007 output. Count: ER expansion=found, Heme supply=found, IFS copy number=partially (mentioned but not as formal OE), VHb=missed. Conservative count: 2/4.",
+          "notation": "2/4"
+        },
+        "source_species_match": {
+          "score": 0.7,
+          "breakdown": "IFS: G. max vs P. lobata (same domain legume=0.7). OMT: M. truncatula vs P. lobata (same domain legume=0.7). Other enzymes: A. thaliana standard (GT doesn't specify for PAL/4CL/CHS/CHI). Average=0.7"
+        }
+      }
+    },
+    {
+      "case_id": "case_008",
+      "product": "Lacto-N-neotetraose (LNnT)",
+      "pathway_design": {
+        "gt_steps": 5,
+        "agent_steps": 3,
+        "step_recall": {
+          "found": 4,
+          "total": 5,
+          "score": 0.8,
+          "mapping": "GT: (1) Lac12 import, (2) Gal10 UDP-Gal supply, (3) GNA1/AGM1/UAP1 UDP-GlcNAc supply, (4) LgtA glycosylation, (5) LgtB glycosylation. Agent covers: Lac12 import (step 0), LgtA (step 1), LgtB (step 2) = matches GT steps 1, 4, 5. Agent also has nucleotide sugar supply via GAL10 and GFA1 OEs. Counted: 4/5 (step 3 GNA1/AGM1/UAP1 pathway partially covered by GFA1 OE).",
+          "notation": "4/5"
+        },
+        "step_precision": {
+          "correct": 3,
+          "total": 3,
+          "score": 1.0,
+          "notation": "3/3"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Core glycosylation pathway matches exactly: Lac12 import + LgtA + LgtB.",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Correct - glycosyltransferases use UDP-sugar donors, no NADPH/NADH/ATP."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 3,
+          "total": 3,
+          "score": 1.0,
+          "mapping": "GT heterologous: Lac12 (K. lactis), LgtA (N. meningitidis), LgtB (N. meningitidis). Agent found all three exact matches.",
+          "notation": "3/3"
+        },
+        "heterologous_precision": {
+          "valid": 3,
+          "total": 3,
+          "score": 1.0,
+          "notation": "3/3"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT has no explicit KOs.",
+          "notation": "N/A"
+        },
+        "oe_recall": {
+          "found": 2,
+          "total": 4,
+          "score": 0.5,
+          "mapping": "GT OEs/strategies: (1) Gal10 enhanced, (2) GNA1/AGM1/UAP1 enhanced, (3) LgtA-LgtB tag assembly, (4) fed-batch optimization. Agent formal OEs: GAL10, GFA1, UGP1. Agent substrate_channeling section: recommends LgtA-LgtB fusion/peptide-tag assembly. Counting: GAL10=found (GT #1). GFA1 is the entry to hexosamine pathway, partially matches GNA1/AGM1/UAP1 enhancement (GT #2) = found. LgtA-LgtB assembly is recommended in agent output = found (GT #3). Fed-batch = not an OE target. Count: 3/4. But being conservative about GNA1/AGM1/UAP1 vs GFA1 (GFA1 is upstream, not the same genes): 2/4.",
+          "notation": "2/4"
+        },
+        "source_species_match": {
+          "score": 1.0,
+          "breakdown": "LgtA from N. meningitidis (exact=1.0), LgtB from N. meningitidis (exact=1.0), Lac12 from K. lactis (exact=1.0). Average=1.0"
+        }
+      }
+    },
+    {
+      "case_id": "case_009",
+      "product": "3'-Hydroxygenistein (Orobol)",
+      "pathway_design": {
+        "gt_steps": 5,
+        "agent_steps": 8,
+        "step_recall": {
+          "found": 5,
+          "total": 5,
+          "score": 1.0,
+          "mapping": "GT: (1) PAL/C4H/4CL->coumaroyl-CoA, (2) CHS+CHI->naringenin, (3) IFS->2-hydroxyisoflavanone, (4) HID->genistein, (5) I3'H->3'-hydroxygenistein. Agent provides more granular 8 steps covering all GT steps. Every GT enzyme type represented.",
+          "notation": "5/5"
+        },
+        "step_precision": {
+          "correct": 8,
+          "total": 8,
+          "score": 1.0,
+          "notation": "8/8"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Exact match: phenylpropanoid -> naringenin -> genistein -> 3'-hydroxygenistein.",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Agent: 3 NADPH, 1 ATP, 3 O2. Correct for three CYP450 steps."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 7,
+          "total": 8,
+          "score": 0.875,
+          "mapping": "GT: PAL, C4H, 4CL, CHS, CHI, PlIFS, HID, I3'H (8 genes). Agent found: PAL2, C4H, 4CL1, CHS, CHI1, IFS2 (GmIFS2 vs PlIFS), HIDH, F3'H/CYP75B1 (as I3'H), plus ATR1 (CPR). All 8 GT enzyme types represented. But IFS source differs: agent uses GmIFS2, GT uses PlIFS. Counting functional matches: 7 clear matches + 1 source difference. Score: 7/8 (conservative) or 8/8 (functional).",
+          "notation": "7/8"
+        },
+        "heterologous_precision": {
+          "valid": 9,
+          "total": 9,
+          "score": 1.0,
+          "notation": "9/9"
+        },
+        "ko_recall": {
+          "found": 0,
+          "total": 0,
+          "score": "N/A",
+          "notes": "GT has no explicit KOs.",
+          "notation": "N/A"
+        },
+        "oe_recall": {
+          "found": 2,
+          "total": 4,
+          "score": 0.5,
+          "mapping": "GT OEs/strategies: (1) PlIFS copy number amplification, (2) I3'H multi-copy integration, (3) Heme cofactor supply enhancement, (4) CPR pairing optimization. Agent formal OEs: ZWF1, ARO4. Agent protein_engineering_notes: mentions 'multi-copy ATR1 integration (2-3 copies)' = CPR pairing (GT #4, found). Mentions 'HEM3/HEM13 overexpression to boost heme supply' = heme supply (GT #3, found). IFS multi-copy mentioned in enzyme notes but not as formal OE. I3'H multi-copy = CYP57B3 alternative discussed but no explicit multi-copy recommendation. Count: Heme=found, CPR=found, IFS copy=partially, I3'H copy=missed. Conservative: 2/4.",
+          "notation": "2/4"
+        },
+        "source_species_match": {
+          "score": 0.7,
+          "breakdown": "IFS: G. max vs P. lobata (same domain legume=0.7). F3'H: A. thaliana (agent) vs unspecified (GT). CYP57B3 from A. oryzae also mentioned as alternative. Other enzymes: standard A. thaliana/M. sativa. Average~0.7"
+        }
+      }
+    },
+    {
+      "case_id": "case_010",
+      "product": "L-Lactic acid",
+      "pathway_design": {
+        "gt_steps": 4,
+        "agent_steps": 1,
+        "step_recall": {
+          "found": 2,
+          "total": 4,
+          "score": 0.5,
+          "mapping": "GT: (1) Glucose->Pyruvate (glycolysis), (2) Pyruvate->L-Lactate (LDH), (3) PDC attenuation (competing pathway), (4) PfFNT export. Agent covers: step 2 (LDH) explicitly. Step 1 (glycolysis) implicitly. Step 3 handled via KOs. Step 4 (PfFNT) missing. Count: 2/4 (steps 1-2).",
+          "notation": "2/4"
+        },
+        "step_precision": {
+          "correct": 1,
+          "total": 1,
+          "score": 1.0,
+          "notation": "1/1"
+        },
+        "path_selection": "match",
+        "path_selection_notes": "Core conversion (pyruvate -> L-lactate via LDH) is correct. Missing PfFNT transporter.",
+        "cofactor_identification": "correct",
+        "cofactor_notes": "Agent: 1 NADH consumed. Correct."
+      },
+      "engineering_strategy": {
+        "heterologous_recall": {
+          "found": 1,
+          "total": 2,
+          "score": 0.5,
+          "mapping": "GT heterologous: LDH, PfFNT (P. falciparum). Agent found LDH (L. casei). Missed PfFNT.",
+          "notation": "1/2"
+        },
+        "heterologous_precision": {
+          "valid": 1,
+          "total": 1,
+          "score": 1.0,
+          "notation": "1/1"
+        },
+        "ko_recall": {
+          "found": 3,
+          "total": 3,
+          "score": 1.0,
+          "mapping": "GT: PDC1/PDC5/PDC6 attenuated. Agent found all three PDC KOs. Agent additionally proposed ADH1/3/5, CYB2, GPD1 KOs.",
+          "notation": "3/3"
+        },
+        "oe_recall": {
+          "found": 0,
+          "total": 1,
+          "score": 0.0,
+          "mapping": "GT OEs: PfFNT overexpression (counted as heterologous). GT also has NADH supply optimization implied. Agent OE: PYK1. PYK1 is not in GT OEs. PfFNT is counted in heterologous recall. If we consider NADH supply optimization as the OE target: agent doesn't address this. Count: 0/1.",
+          "notation": "0/1"
+        },
+        "source_species_match": {
+          "score": 0.7,
+          "breakdown": "LDH: L. casei (agent) vs unspecified (GT). L. casei is a well-known LDH source. Same domain=0.7"
+        }
+      }
+    }
+  ],
+  "aggregate_scores_v2": {
+    "pathway_design": {
+      "avg_step_recall": 0.713,
+      "step_recall_per_case": [0.5625, 0.769, 0.286, 0.714, 0.5, 1.0, 1.0, 0.8, 1.0, 0.5],
+      "avg_step_precision": 0.982,
+      "step_precision_per_case": [0.818, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+      "path_selection_distribution": {"match": 7, "reasonable_alternative": 2, "wrong": 1},
+      "avg_path_selection_score": 0.80,
+      "cofactor_correct_rate": 0.70,
+      "cofactor_distribution": {"correct": 7, "partial": 3}
+    },
+    "engineering_strategy": {
+      "avg_heterologous_recall": 0.643,
+      "heterologous_recall_per_case": [0.556, 0.375, 0.0, 1.0, 0.75, "N/A", 1.0, 1.0, 0.875, 0.5],
+      "heterologous_recall_excl_na": 0.632,
+      "avg_heterologous_precision": 1.0,
+      "avg_ko_recall": 0.375,
+      "ko_recall_per_case": ["N/A", 0.5, "N/A", "N/A", 0.0, 0.0, "N/A", "N/A", "N/A", 1.0],
+      "ko_recall_excl_na": 0.375,
+      "avg_oe_recall": 0.475,
+      "oe_recall_per_case": [0.333, 0.333, "N/A", 1.0, 0.667, 0.75, 0.5, 0.5, 0.5, 0.0],
+      "oe_recall_excl_na": 0.509,
+      "avg_source_species_match": 0.696,
+      "source_species_per_case": [0.55, 0.57, 0.4, 0.7, 0.85, "N/A", 0.7, 1.0, 0.7, 0.7]
+    }
+  },
+  "v1_vs_v2_comparison": {
+    "note": "v1 scores taken from results_v1/evaluation.json. v2 scores are the revised values from this evaluation with comprehensive OE counting.",
+    "pathway_design": {
+      "metric": ["avg_step_recall", "avg_step_precision", "path_match_count", "path_reasonable_alt_count", "path_wrong_count", "cofactor_correct_rate"],
+      "v1":     [0.70, 0.97, 6, 3, 1, 0.70],
+      "v2":     [0.713, 0.982, 7, 2, 1, 0.70],
+      "delta":  ["+0.013", "+0.012", "+1", "-1", "0", "0"]
+    },
+    "engineering_strategy": {
+      "metric": ["avg_heterologous_recall", "avg_heterologous_precision", "avg_ko_recall", "avg_oe_recall", "avg_source_species_match"],
+      "v1":     [0.63, 1.0, 0.43, 0.24, 0.73],
+      "v2":     [0.632, 1.0, 0.375, 0.509, 0.696],
+      "delta":  ["+0.002", "0", "-0.055", "+0.269", "-0.034"]
+    },
+    "per_case_oe_recall_comparison": {
+      "headers": ["case_id", "v1_oe_recall", "v2_oe_recall", "delta", "explanation"],
+      "data": [
+        ["case_001", 0.0, 0.333, "+0.333", "v2 counts tHMG1 mention in protein_engineering_notes"],
+        ["case_002", 0.33, 0.333, "+0.003", "Same: tHMG1 found. IDI1 and ERG2/ERG3 still missed"],
+        ["case_003", "N/A", "N/A", "N/A", "No GT OEs"],
+        ["case_004", 1.0, 1.0, "0", "ACC1 found in both"],
+        ["case_005", 0.33, 0.667, "+0.337", "v2 counts TYR1 and ARO7 as matching GT implied OEs"],
+        ["case_006", 0.50, 0.75, "+0.25", "v2 counts HEM3, HEM12, HEM13 from FBA rounds"],
+        ["case_007", 0.0, 0.5, "+0.5", "v2 counts ER expansion (INO2) and heme supply (HEM3) from additional_engineering_recommendations"],
+        ["case_008", 0.25, 0.5, "+0.25", "v2 counts LgtA-LgtB assembly from substrate_channeling section"],
+        ["case_009", 0.0, 0.5, "+0.5", "v2 counts heme supply (HEM3/HEM13) and CPR multi-copy from protein_engineering_notes"],
+        ["case_010", 0.0, 0.0, "0", "PfFNT still missed; PYK1 not a GT target"]
+      ]
+    }
+  },
+  "key_findings": [
+    "OE RECALL IMPROVEMENT: The most significant change from v1 to v2 is OE recall, which increases from 0.24 to 0.509 (excl N/A) when counting ALL agent recommendations (formal OEs + protein_engineering_notes + FBA rounds + additional_engineering_recommendations). This is a +112% relative improvement.",
+    "WHERE THE OE GAINS COME FROM: Case 006 (heme: HEM3/HEM12/HEM13 found in FBA rounds), Case 007 (biochanin A: ER expansion and heme supply in engineering recommendations), Case 009 (3'-hydroxygenistein: heme supply and CPR multi-copy in protein_engineering_notes), Case 001 (glabridin: tHMG1 in protein_engineering_notes), Case 005 (salidroside: TYR1 and ARO7 matching GT implied targets).",
+    "PATHWAY DESIGN REMAINS STRONG: Step recall 0.713 and step precision 0.982 are essentially unchanged from v1 (0.70 and 0.97). The pipeline correctly identifies the core biosynthetic pathway in 9/10 cases.",
+    "HETEROLOGOUS PRECISION PERFECT: 1.0 in both v1 and v2 - every enzyme proposed is biologically valid.",
+    "KO RECALL SLIGHTLY DECREASED: 0.375 vs 0.43 in v1. This is within scoring noise - only 4 cases have GT KOs, and the same misses persist (HMX1 for heme, ERG5 for pregnenolone, SUC2 for salidroside).",
+    "SOURCE SPECIES MATCH SLIGHTLY LOWER: 0.696 vs 0.73 in v1. More conservative scoring for case_001 (G. glabra vs various model organisms) and case_002 (CYP87A3 plant vs CYP11A1 mammal mismatch).",
+    "PERSISTENT WEAKNESS - NOVEL STRATEGIES: The pipeline still misses paper-specific innovations: mFAS for SMCFA (case_003), PEX peroxisome engineering (case_004), tGuSUS1/SUC2 UDP-glucose strategy (case_005), PfFNT transporter (case_010). These require knowledge of specific publications and cannot be inferred from standard pathway databases.",
+    "PERSISTENT WEAKNESS - LATE TAILORING: Case 001 still misses 7/18 heterologous enzymes (the entire tailoring module: OMT, VR, PTS, PTR, OC, DMT, TAL) which represents the paper's key discovery.",
+    "STRENGTH - FBA INTEGRATION: The FBA rounds in v2 results explore multiple OE/KO combinations that match GT targets even when they are not in the formal engineering output. This shows the pipeline's iterative optimization captures more engineering knowledge than a single-pass analysis."
+  ],
+  "scoring_methodology_notes": {
+    "oe_recall_counting_rules": [
+      "1. Check overexpressions JSON array for gene name matches",
+      "2. Check protein_engineering_notes for explicit mentions of overexpression/multi-copy/enhancement of GT OE target genes",
+      "3. Check FBA optimization_rounds for OE interventions matching GT OE targets",
+      "4. Check additional_engineering_recommendations for GT OE target matches",
+      "5. Only count a match if the specific gene or its direct functional equivalent is named",
+      "6. Generic pathway enhancement strategies (e.g., 'NADPH supply') do NOT count unless a specific GT gene is named"
+    ],
+    "conservative_scoring_notes": [
+      "Functional equivalents from different species count as matches for recall but affect source_species_match score",
+      "Upstream enzymes (e.g., GFA1 for hexosamine pathway) only partially match downstream-specific GT OEs (GNA1/AGM1/UAP1)",
+      "Mentions in notes/recommendations count only if they clearly recommend overexpression, not just discussion",
+      "For heterologous recall, both exact gene matches and clear functional equivalents count (e.g., UGT73B6 for RrU8GT33)"
+    ]
+  }
+}

@@ -44,60 +44,60 @@
 | **kegg** | search, compound, pathway, reaction, orthology | Stateless | KEGG REST API | Pathway discovery |
 | **gem** | search, gpr, reactions | Stateless | Local SBML models | Host model queries |
 | **uniprot** | search, entry, interpro | Stateless | UniProt/InterPro REST API | Enzyme sourcing |
+| **protein** | annotate, interactions, kinetics, structure | Stateless | UniProt/STRING/BRENDA/PDB/AlphaFold | Protein-level analysis |
 | **fba** | reset, add_pathway, knockout, overexpress, media, maximize, envelope | **Stateful** | Local COBRApy solver | Flux simulation |
 | **pubmed_search** | — | Stateless | PubMed API | Literature evidence |
 | **dna_optimize** | — | Stateless | Local codon tables | Codon optimization |
 
-## 4-Phase Pipeline
+## 5-Phase Pipeline
 
 ```
-Phase 1                Phase 2               Phase 3              Phase 4
-Pathway Discovery      Host Assessment       Enzyme Sourcing      FBA Optimization
-─────────────────      ───────────────       ───────────────      ────────────────
+Phase 1             Phase 2            Phase 3           Phase 3.5          Phase 4
+Pathway Discovery   Host Assessment    Enzyme Sourcing   Protein Analysis   FBA Optimization
+─────────────────   ───────────────    ───────────────   ────────────────   ────────────────
 
-┌───────────────┐     ┌───────────────┐     ┌───────────────┐    ┌───────────────┐
-│               │     │               │     │               │    │               │
-│  KEGG search  │     │  Metabolite   │     │  UniProt      │    │  FBA reset    │
-│       │       │     │  existence    │     │  search by EC │    │      │        │
-│       ▼       │     │  check        │     │      │        │    │      ▼        │
-│  Compound     │     │      │        │     │      ▼        │    │  Add pathway  │
-│  details      │     │      ▼        │     │  Entry detail │    │      │        │
-│       │       │     │  Metabolite   │     │  (Km, PDB)    │    │      ▼        │
-│       ▼       │     │  reactions    │     │      │        │    │  ┌─────────┐  │
-│  Pathway /    │     │  (competing,  │     │      ▼        │    │  │Propose  │  │
-│  Module       │     │   supply,     │     │  Transporter  │    │  │strategy │  │
-│  details      │     │   cofactor,   │     │  search       │    │  │from gap │  │
-│       │       │     │   transport,  │     │  (if needed)  │    │  │list     │  │
-│       ▼       │     │   exchange)   │     │               │    │  └────┬────┘  │
-│  Reaction     │     │      │        │     │               │    │       │        │
-│  details      │     │      ▼        │     │               │    │       ▼        │
-│  (EC, KO,     │     │  GPR lookup   │     │               │    │  ┌─────────┐  │
-│   equation)   │     │  for targets  │     │               │    │  │  Test   │  │
-│       │       │     │               │     │               │    │  │(maximize)│  │
-│       ▼       │     │               │     │               │    │  └────┬────┘  │
-│  [PubMed      │     │               │     │               │    │       │        │
-│   fallback]   │     │               │     │               │    │       ▼        │
-│               │     │               │     │               │    │  ┌─────────┐  │
-└───────┬───────┘     └───────┬───────┘     └───────┬───────┘    │  │Interpret│  │
-        │                     │                     │            │  │results  │──┼─┐
-        ▼                     ▼                     ▼            │  └────┬────┘  │ │
-   Reaction             Gap List              Enzyme List        │       │        │ │
-   Chain Table                                                   │       ▼        │ │
-                                                                 │  ┌─────────┐  │ │
-                                                                 │  │ Adjust  │  │ │
-                                                                 │  │strategy │◄─┼─┘
-                                                                 │  └────┬────┘  │
-                                                                 │       │        │
-                                                                 │       ▼        │
-                                                                 │  Stop? ──No──►│
-                                                                 │   │Yes         │
-                                                                 │   ▼            │
-                                                                 │  Envelope      │
-                                                                 └───────┬────────┘
-                                                                         │
-                                                                         ▼
-                                                                   Best Strategy
-                                                                   + Envelope
+┌──────────────┐   ┌──────────────┐   ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+│              │   │              │   │              │  │              │  │              │
+│ KEGG search  │   │ Metabolite   │   │ UniProt      │  │ Annotate     │  │ FBA reset    │
+│      │       │   │ existence    │   │ search by EC │  │ (TM, signal  │  │      │       │
+│      ▼       │   │ check        │   │      │       │  │  peptide,    │  │      ▼       │
+│ Compound     │   │      │       │   │      ▼       │  │  cofactors,  │  │ Add pathway  │
+│ details      │   │      ▼       │   │ Entry detail │  │  mutagenesis)│  │      │       │
+│      │       │   │ Metabolite   │   │ (Km, PDB)    │  │      │       │  │      ▼       │
+│      ▼       │   │ reactions    │   │      │       │  │      ▼       │  │ ┌──────────┐ │
+│ Pathway /    │   │ (competing,  │   │      ▼       │  │ Kinetics     │  │ │ Propose  │ │
+│ Module       │   │  supply,     │   │ Transporter  │  │ (Km, kcat,   │  │ │ strategy │ │
+│ details      │   │  cofactor,   │   │ search       │  │  Ki, known   │  │ │ from gap │ │
+│      │       │   │  transport,  │   │ (if needed)  │  │  mutations)  │  │ │ list     │ │
+│      ▼       │   │  exchange)   │   │              │  │      │       │  │ └─────┬────┘ │
+│ Reaction     │   │      │       │   │              │  │      ▼       │  │       │      │
+│ details      │   │      ▼       │   │              │  │ Interactions │  │       ▼      │
+│ (EC, KO,     │   │ GPR lookup   │   │              │  │ (CYP→CPR,   │  │ ┌──────────┐ │
+│  equation)   │   │ for targets  │   │              │  │  complexes)  │  │ │  Test    │ │
+│      │       │   │              │   │              │  │      │       │  │ │(maximize)│ │
+│      ▼       │   │              │   │              │  │      ▼       │  │ └─────┬────┘ │
+│ [PubMed      │   │              │   │              │  │ Structure    │  │       │      │
+│  fallback]   │   │              │   │              │  │ (optional,   │  │       ▼      │
+│              │   │              │   │              │  │  bottleneck  │  │ ┌──────────┐ │
+│              │   │              │   │              │  │  enzymes)    │  │ │Interpret │ │
+└──────┬───────┘   └──────┬───────┘   └──────┬───────┘  └──────┬───────┘  │ │results  │─┼─┐
+       │                  │                  │                 │          │ └─────┬────┘ │ │
+       ▼                  ▼                  ▼                 ▼          │       │      │ │
+  Reaction          Gap List           Enzyme List       Protein-Level   │       ▼      │ │
+  Chain Table                                           Risk Table       │ ┌──────────┐ │ │
+                                                                        │ │ Adjust   │ │ │
+                                                                        │ │ strategy │◄┼─┘
+                                                                        │ └─────┬────┘ │
+                                                                        │       │      │
+                                                                        │  Stop?──No──►│
+                                                                        │   │Yes       │
+                                                                        │   ▼          │
+                                                                        │  Envelope    │
+                                                                        └──────┬───────┘
+                                                                               │
+                                                                               ▼
+                                                                         Best Strategy
+                                                                         + Envelope
 ```
 
 ## Data Flow Between Phases
@@ -118,18 +118,23 @@ Phase 2 ────────────────────────
     - Compartment issues
     - Export gaps
 
-Phase 2 ──────────────────────────────────► Phase 4
-  OUTPUT:                                    INPUT (from gap list):
+Phase 3 ──────────────────────────────────► Phase 3.5
+  OUTPUT:                                    INPUT:
+  · Enzyme list (UniProt IDs,                · UniProt accessions → annotate
+    organism, EC)                            · EC numbers → kinetics
+                                             · Gene names → interactions
+
+Phase 2 + 3.5 ───────────────────────────► Phase 4
+  Phase 2 OUTPUT:                            INPUT:
   · Competing pathway genes + flux           · KO targets (ranked by flux)
   · Supply bottleneck genes                  · OE targets
   · Cofactor gaps                            · Media hints (aerobic requirement?)
+  Phase 3.5 OUTPUT:                          · Co-expression needs (CPR for CYP450)
+  · Protein risk table (TM, Km, kcat,        · Known beneficial mutations
+    partner needs, mutations)                · Multi-copy flags (low kcat enzymes)
+                                             · Reaction equations in COBRApy format
 
-Phase 3 ──────────────────────────────────► Phase 4
-  OUTPUT:                                    INPUT:
-  · Enzyme list (UniProt, organism,          · Reaction equations in COBRApy format
-    kinetics, cofactors)                       (model metabolite IDs)
-
-Phase 1 + 2 + 3 + 4 ─────────────────────► Final Output
+Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Output
 ```
 
 ## Phase 2 Detail: Host Assessment
@@ -297,40 +302,52 @@ Phase 1 + 2 + 3 + 4 ────────────────────
 │  │    Step | Substrate→Product | EC | Enzyme | Source |      │  │
 │  │    Native? | UniProt                                      │  │
 │  │    + Cofactor demands per molecule                        │  │
-│  │                                        ◄── Phase 1+2+3   │  │
+│  │                                      ◄── Phase 1+2+3     │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │ 2. HOST MODIFICATIONS                                     │  │
 │  │    a) Heterologous genes to express                       │  │
-│  │       Gene | Organism | UniProt | Km | Cofactors          │  │
-│  │                                        ◄── Phase 3       │  │
+│  │       Gene | Organism | UniProt | MW | Km | kcat |        │  │
+│  │       TM? | Mutations | Notes                             │  │
+│  │                                      ◄── Phase 3+3.5     │  │
 │  │    b) Genes to knock out                                  │  │
 │  │       Gene | Yeast ID | Reaction | WT flux | Rationale    │  │
-│  │                                        ◄── Phase 2+4     │  │
+│  │                                      ◄── Phase 2+4       │  │
 │  │    c) Genes to overexpress                                │  │
 │  │       Gene | Yeast ID | Reaction | Baseline | Forced      │  │
-│  │                                        ◄── Phase 2+4     │  │
+│  │                                      ◄── Phase 2+4       │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │ 3. QUANTITATIVE PREDICTIONS                               │  │
 │  │    Optimization rounds table                              │  │
 │  │    Round | Strategy | Biomass | Product | vs Baseline     │  │
-│  │    + Production envelope (growth vs product tradeoff)     │  │
-│  │                                        ◄── Phase 4       │  │
+│  │    + Production envelope                                  │  │
+│  │                                      ◄── Phase 4         │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                                                                 │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │ 3a. PROTEIN ENGINEERING NOTES                             │  │
+│  │    · Signal peptide / TM domain handling                  │  │
+│  │    · Known beneficial mutations                           │  │
+│  │    · Co-expression partners (CPR for CYP450)              │  │
+│  │    · Multi-copy integration flags (low kcat)              │  │
+│  │    · ER expansion / heme supply recommendations           │  │
+│  │                                      ◄── Phase 3.5       │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │ 4. RECOMMENDED CONDITIONS                                 │  │
 │  │    Carbon source, oxygen, supplements                     │  │
-│  │                                        ◄── Phase 4       │  │
+│  │                                      ◄── Phase 4         │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │ 5. KNOWN LIMITATIONS                                      │  │
-│  │    What FBA cannot predict                                │  │
+│  │    What the system cannot predict                         │  │
 │  └───────────────────────────────────────────────────────────┘  │
+│                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
