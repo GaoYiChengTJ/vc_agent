@@ -29,7 +29,6 @@ UNIPROT_BASE = "https://rest.uniprot.org"
 INTERPRO_API = "https://www.ebi.ac.uk/interpro/api"
 STRING_BASE = "https://string-db.org/api"
 ALPHAFOLD_BASE = "https://alphafold.ebi.ac.uk/api"
-PDB_BASE = "https://data.rcsb.org/rest/v1/core"
 
 _TIMEOUT = 20  # seconds – slightly shorter than db_tools (30) since these are supplementary
 
@@ -59,13 +58,12 @@ def _uniprot_json(accession: str) -> dict | str:
 # ===========================================================================
 
 def protein_annotation(accession: str) -> str:
-    """Structural and functional features of a protein.
+    """Structural and functional features relevant to heterologous expression.
 
-    Focuses on properties relevant to heterologous expression:
-    transmembrane domains, signal/transit peptides, subcellular localisation,
-    cofactor requirements, domain architecture, and molecular weight.
-
-    Data: UniProt REST API + InterPro (via UniProt cross-refs).
+    Extracts from UniProt: transmembrane domains, signal/transit peptides,
+    subcellular localisation, cofactor requirements (prosthetic groups / metal
+    centres), N-glycosylation sites, phosphorylation sites, known mutagenesis
+    data, and subunit / oligomeric state.
     """
     data = _uniprot_json(accession)
     if isinstance(data, str):  # error message
@@ -94,14 +92,6 @@ def protein_annotation(accession: str) -> str:
     if org:
         parts.append(f"Organism: {org} (taxid {taxid})")
 
-    seq_info = data.get("sequence", {})
-    length = seq_info.get("length", 0)
-    mw = seq_info.get("molWeight", 0)
-    if length:
-        parts.append(f"Length: {length} aa")
-    if mw:
-        parts.append(f"Molecular weight: {mw / 1000:.1f} kDa")
-
     # ── features: TM, signal peptide, transit peptide, active site ──
     features = data.get("features", [])
 
@@ -114,17 +104,16 @@ def protein_annotation(accession: str) -> str:
     transit_peps = [
         f for f in features if f.get("type") == "Transit"
     ]
-    active_sites = [
-        f for f in features if f.get("type") == "Active site"
-    ]
-    binding_sites = [
-        f for f in features if f.get("type") == "Binding site"
-    ]
-    metal_sites = [
-        f for f in features if f.get("type") == "Metal binding"
-    ]
     mutagen = [
         f for f in features if f.get("type") == "Mutagenesis"
+    ]
+    glycan_sites = [
+        f for f in features if f.get("type") == "Glycosylation"
+    ]
+    phospho_sites = [
+        f for f in features
+        if f.get("type") == "Modified residue"
+        and "phospho" in f.get("description", "").lower()
     ]
 
     parts.append(f"\n--- Expression-relevant features ---")
@@ -181,48 +170,6 @@ def protein_annotation(accession: str) -> str:
     else:
         parts.append("Cofactors: none annotated")
 
-    # ── active/binding sites ───────────────────────────────────
-    if active_sites:
-        parts.append(f"\n--- Active site residues ({len(active_sites)}) ---")
-        for a in active_sites:
-            pos = a.get("location", {}).get("start", {}).get("value", "?")
-            desc = a.get("description", "")
-            parts.append(f"  Position {pos}: {desc}")
-
-    if binding_sites:
-        parts.append(f"\n--- Binding sites ({len(binding_sites)}) ---")
-        for b in binding_sites[:10]:
-            pos = b.get("location", {}).get("start", {}).get("value", "?")
-            desc = b.get("description", "")
-            lig = ""
-            for lg in b.get("ligand", []) if isinstance(b.get("ligand"), list) else ([b["ligand"]] if b.get("ligand") else []):
-                if isinstance(lg, dict):
-                    lig = lg.get("name", "")
-            parts.append(f"  Position {pos}: {lig} {desc}")
-
-    if metal_sites:
-        parts.append(f"\n--- Metal binding ({len(metal_sites)}) ---")
-        for m in metal_sites[:10]:
-            pos = m.get("location", {}).get("start", {}).get("value", "?")
-            desc = m.get("description", "")
-            parts.append(f"  Position {pos}: {desc}")
-
-    # ── domain architecture (InterPro from UniProt xrefs) ──────
-    xrefs = data.get("uniProtKBCrossReferences", [])
-    ipr_ids = [x["id"] for x in xrefs if x.get("database") == "InterPro"]
-    pfam_ids = [x["id"] for x in xrefs if x.get("database") == "Pfam"]
-    if ipr_ids or pfam_ids:
-        parts.append(f"\n--- Domain architecture ---")
-        for x in xrefs:
-            if x.get("database") == "InterPro":
-                name = ""
-                for prop in x.get("properties", []):
-                    if prop.get("key") == "EntryName":
-                        name = prop.get("value", "")
-                parts.append(f"  {x['id']}: {name}")
-        if pfam_ids:
-            parts.append(f"  Pfam: {', '.join(pfam_ids)}")
-
     # ── known mutagenesis data (useful for identifying engineered variants) ──
     if mutagen:
         parts.append(f"\n--- Known mutagenesis data ({len(mutagen)} entries) ---")
@@ -238,56 +185,44 @@ def protein_annotation(accession: str) -> str:
             pos_str = str(s) if s == e else f"{s}-{e}"
             parts.append(f"  {orig}{pos_str}{repl}: {desc}")
 
+    # ── N-glycosylation sites ──────────────────────────────────
+    if glycan_sites:
+        n_linked = [f for f in glycan_sites if "n-linked" in f.get("description", "").lower()]
+        o_linked = [f for f in glycan_sites if "o-linked" in f.get("description", "").lower()]
+        parts.append(f"\n--- Glycosylation sites ({len(glycan_sites)} total) ---")
+        if n_linked:
+            parts.append(f"N-linked ({len(n_linked)}) — yeast will hyperglycosylate these; may need N→Q mutation if near active site:")
+            for g in n_linked:
+                pos = g.get("location", {}).get("start", {}).get("value", "?")
+                desc = g.get("description", "")
+                parts.append(f"  Asn-{pos}: {desc}")
+        if o_linked:
+            parts.append(f"O-linked ({len(o_linked)}):")
+            for g in o_linked[:5]:
+                pos = g.get("location", {}).get("start", {}).get("value", "?")
+                desc = g.get("description", "")
+                parts.append(f"  Position {pos}: {desc}")
+    else:
+        parts.append("\nGlycosylation sites: none annotated")
+
+    # ── Phosphorylation sites ──────────────────────────────────
+    if phospho_sites:
+        parts.append(f"\n--- Phosphorylation sites ({len(phospho_sites)}) ---")
+        parts.append("Note: these may be mis-regulated in yeast if the kinase is absent or different:")
+        for p in phospho_sites[:20]:
+            pos = p.get("location", {}).get("start", {}).get("value", "?")
+            desc = p.get("description", "")
+            # Check if there's evidence it's regulatory
+            parts.append(f"  Position {pos}: {desc}")
+    else:
+        parts.append("\nPhosphorylation sites: none annotated")
+
     # ── subunit / complex info ─────────────────────────────────
     for comment in data.get("comments", []):
         if comment.get("commentType") == "SUBUNIT":
             texts = comment.get("texts", [])
             if texts:
                 parts.append(f"\nSubunit structure: {texts[0].get('value', '')[:300]}")
-
-    # ── computed biophysical properties (from sequence) ────────
-    raw_seq = seq_info.get("value", "")
-    if raw_seq and length:
-        parts.append(f"\n--- Computed biophysical properties ---")
-        # Amino acid composition for key categories
-        charged = sum(1 for aa in raw_seq if aa in "DEKRH")
-        hydrophobic = sum(1 for aa in raw_seq if aa in "AVILMFYW")
-        parts.append(f"Charged residues: {charged} ({100*charged/length:.1f}%)")
-        parts.append(f"Hydrophobic residues: {hydrophobic} ({100*hydrophobic/length:.1f}%)")
-
-        # GRAVY (Grand Average of Hydropathy)
-        kd = {"A":1.8,"R":-4.5,"N":-3.5,"D":-3.5,"C":2.5,"Q":-3.5,"E":-3.5,
-              "G":-0.4,"H":-3.2,"I":4.5,"L":3.8,"K":-3.9,"M":1.9,"F":2.8,
-              "P":-1.6,"S":-0.8,"T":-0.7,"W":-0.9,"Y":-1.3,"V":4.2}
-        gravy = sum(kd.get(aa, 0) for aa in raw_seq) / length
-        parts.append(f"GRAVY score: {gravy:.3f} ({'hydrophobic' if gravy > 0 else 'hydrophilic'})")
-
-        # Instability index (Guruprasad et al. 1990)
-        dipep_weights = {
-            "WW":1.0,"WC":1.0,"WM":24.68,"WH":24.68,"WY":1.0,"WF":1.0,"WQ":-6.54,
-            "WP":1.0,"WS":1.0,"WR":1.0,"WT":-14.03,"WE":1.0,"WD":1.0,"WK":1.0,
-            "WI":1.0,"WL":-7.49,"WG":-9.37,"WA":-14.03,"WV":-7.49,"WN":13.34,
-        }
-        # Simplified: use a rough estimate based on DIWV composition
-        d_count = raw_seq.count("D")
-        p_count = raw_seq.count("P")
-        instability = 10 * (d_count + p_count) / length * 40  # rough proxy
-        parts.append(f"Instability index (est.): {instability:.1f} ({'possibly unstable' if instability > 40 else 'stable'})")
-
-        # Theoretical pI (very simplified)
-        n_asp = raw_seq.count("D")
-        n_glu = raw_seq.count("E")
-        n_cys = raw_seq.count("C")
-        n_tyr = raw_seq.count("Y")
-        n_his = raw_seq.count("H")
-        n_lys = raw_seq.count("K")
-        n_arg = raw_seq.count("R")
-        neg = n_asp + n_glu
-        pos = n_his + n_lys + n_arg
-        if neg + pos > 0:
-            pi_est = 7.0 + 2.0 * (pos - neg) / (pos + neg)
-            pi_est = max(3.0, min(12.0, pi_est))
-            parts.append(f"Estimated pI: {pi_est:.1f}")
 
     return "\n".join(parts)
 
@@ -386,28 +321,6 @@ def protein_interactions(
             f"{ascore:>8.3f} {dscore:>8.3f} {tscore:>8.3f}"
         )
 
-    # Third: functional enrichment (top terms)
-    try:
-        resp = requests.get(
-            f"{STRING_BASE}/json/enrichment",
-            params={
-                "identifiers": string_id,
-                "species": organism_taxid,
-            },
-            timeout=_TIMEOUT,
-        )
-        if resp.ok:
-            enrichment = resp.json()
-            if enrichment:
-                parts.append(f"\nFunctional enrichment (top 5):")
-                for term in enrichment[:5]:
-                    cat = term.get("category", "")
-                    desc = term.get("description", "")
-                    fdr = term.get("fdr", 1.0)
-                    parts.append(f"  [{cat}] {desc} (FDR={fdr:.2e})")
-    except (requests.RequestException, ValueError):
-        pass  # enrichment is optional; silently skip on failure
-
     return "\n".join(parts)
 
 
@@ -416,11 +329,11 @@ def protein_interactions(
 # ===========================================================================
 
 def enzyme_params(ec_number: str, organism: Optional[str] = None) -> str:
-    """Enzyme kinetic parameters, regulation, and known mutations.
+    """Enzyme kinetic parameters, feedback regulation, and known mutations.
 
-    Searches UniProt for all reviewed entries matching the EC number.
-    Extracts: Km, kcat, Vmax, Ki, activity regulation (feedback inhibition),
-    cofactors, catalytic activity, and known mutagenesis data.
+    Searches UniProt for reviewed entries matching the EC number.
+    Extracts: Km, Vmax, pH/temperature dependence, activity regulation
+    (feedback inhibition), and mutagenesis data.
 
     *ec_number*: e.g. '1.1.1.27'
     *organism*: optional filter, e.g. 'Saccharomyces cerevisiae'
@@ -481,25 +394,12 @@ def enzyme_params(ec_number: str, organism: Optional[str] = None) -> str:
             elif isinstance(gn, list) and gn:
                 gene_name = gn[0].get("value", "") if isinstance(gn[0], dict) else str(gn[0])
 
-        seq_info = entry.get("sequence", {})
-        length = seq_info.get("length", 0)
-
         parts.append(f"\n{'='*50}")
         parts.append(f"[{acc}] {gene_name} — {prot_name}")
         parts.append(f"Organism: {org_name} (taxid {taxid})")
-        if length:
-            parts.append(f"Length: {length} aa")
 
-        # ── Catalytic activity ─────────────────────────────────
         for comment in entry.get("comments", []):
             ctype = comment.get("commentType", "")
-
-            if ctype == "CATALYTIC ACTIVITY":
-                rxn = comment.get("reaction", {})
-                rxn_name = rxn.get("name", "")
-                ec_list = rxn.get("ecNumber", "")
-                if rxn_name:
-                    parts.append(f"Catalytic activity: {rxn_name[:200]}")
 
             # ── Kinetic parameters ─────────────────────────────
             if ctype == "BIOPHYSICOCHEMICAL PROPERTIES":
@@ -529,20 +429,6 @@ def enzyme_params(ec_number: str, organism: Optional[str] = None) -> str:
                 if texts:
                     parts.append(f"*** ACTIVITY REGULATION: {texts[0].get('value', '')[:300]}")
 
-            # ── Cofactors ──────────────────────────────────────
-            if ctype == "COFACTOR":
-                for cof in comment.get("cofactors", []):
-                    parts.append(f"Cofactor: {cof.get('name', '')}")
-                note = comment.get("note", {}).get("texts", [])
-                if note:
-                    parts.append(f"Cofactor note: {note[0].get('value', '')[:200]}")
-
-            # ── Function description ───────────────────────────
-            if ctype == "FUNCTION":
-                texts = comment.get("texts", [])
-                if texts:
-                    parts.append(f"Function: {texts[0].get('value', '')[:300]}")
-
         # ── Mutagenesis data ───────────────────────────────────
         mutagenesis = [
             f for f in entry.get("features", [])
@@ -561,12 +447,6 @@ def enzyme_params(ec_number: str, organism: Optional[str] = None) -> str:
                 desc = m.get("description", "")
                 pos_str = str(s) if str(s) == str(e_pos) else f"{s}-{e_pos}"
                 parts.append(f"  {orig}{pos_str}{repl}: {desc[:200]}")
-
-        # ── PDB cross-references ───────────────────────────────
-        xrefs = entry.get("uniProtKBCrossReferences", [])
-        pdb_ids = [x["id"] for x in xrefs if x.get("database") == "PDB"]
-        if pdb_ids:
-            parts.append(f"PDB structures: {', '.join(pdb_ids[:8])}")
 
     return "\n".join(parts)
 
@@ -593,13 +473,11 @@ def protein_structure(accession: str) -> str:
     prot = data.get("proteinDescription", {})
     rec_name = prot.get("recommendedName", {}).get("fullName", {}).get("value", "")
     org = data.get("organism", {}).get("scientificName", "")
-    length = data.get("sequence", {}).get("length", 0)
+    total_length = data.get("sequence", {}).get("length", 0)
     if rec_name:
         parts.append(f"Protein: {rec_name}")
     if org:
         parts.append(f"Organism: {org}")
-    if length:
-        parts.append(f"Length: {length} aa")
 
     # ── 2. Experimental structures from PDB ────────────────────
     xrefs = data.get("uniProtKBCrossReferences", [])
@@ -607,10 +485,8 @@ def protein_structure(accession: str) -> str:
 
     parts.append(f"\n--- Experimental structures (PDB) ---")
     if pdb_entries:
-        parts.append(
-            f"{'PDB ID':<8} {'Method':<14} {'Resolution':<12} {'Chains':<10} {'Ligands'}"
-        )
-        parts.append("-" * 70)
+        parts.append(f"{'PDB ID':<8} {'Method':<14} {'Resolution':<12} {'Chains'}")
+        parts.append("-" * 55)
         for pdb in pdb_entries[:10]:
             pdb_id = pdb.get("id", "?")
             props = {
@@ -620,38 +496,7 @@ def protein_structure(accession: str) -> str:
             method = props.get("Method", "?")
             resolution = props.get("Resolution", "?")
             chains = props.get("Chains", "?")
-
-            # Fetch ligand info from RCSB API
-            ligands_str = ""
-            try:
-                rcsb_resp = requests.get(
-                    f"{PDB_BASE}/entry/{pdb_id}",
-                    timeout=8,
-                )
-                if rcsb_resp.ok:
-                    rcsb = rcsb_resp.json()
-                    # Extract non-polymer entities (ligands)
-                    nonpoly = rcsb.get("rcsb_entry_info", {}).get(
-                        "nonpolymer_entity_count", 0
-                    )
-                    # Get ligand names from nonpolymer entities
-                    lig_names = []
-                    for ne in rcsb.get("rcsb_entry_container_identifiers", {}).get(
-                        "non_polymer_entity_ids", []
-                    ):
-                        pass  # entity IDs only
-                    # Alternative: extract from struct_keywords
-                    deposited_count = rcsb.get("rcsb_entry_info", {}).get(
-                        "deposited_nonpolymer_entity_instance_count", 0
-                    )
-                    if deposited_count:
-                        ligands_str = f"({deposited_count} ligand(s))"
-            except (requests.RequestException, ValueError, KeyError):
-                pass
-
-            parts.append(
-                f"{pdb_id:<8} {method:<14} {resolution:<12} {chains:<10} {ligands_str}"
-            )
+            parts.append(f"{pdb_id:<8} {method:<14} {resolution:<12} {chains}")
     else:
         parts.append("No experimental structures available.")
 
@@ -666,20 +511,10 @@ def protein_structure(accession: str) -> str:
             af_data = resp.json()
             if isinstance(af_data, list) and af_data:
                 af = af_data[0]
-                parts.append(f"Model available: yes")
-                pdb_url = af.get("pdbUrl", "")
-                if pdb_url:
-                    parts.append(f"PDB file: {pdb_url}")
-                cif_url = af.get("cifUrl", "")
-                if cif_url:
-                    parts.append(f"CIF file: {cif_url}")
-                pae_url = af.get("paeImageUrl", "")
-                if pae_url:
-                    parts.append(f"PAE image: {pae_url}")
-                # coverage
                 uni_start = af.get("uniprotStart", 1)
-                uni_end = af.get("uniprotEnd", length)
-                parts.append(f"Coverage: residues {uni_start}-{uni_end} of {length}")
+                uni_end = af.get("uniprotEnd", total_length)
+                parts.append(f"Model available: yes")
+                parts.append(f"Coverage: residues {uni_start}-{uni_end} of {total_length}")
             else:
                 parts.append("No AlphaFold model available.")
         elif resp.status_code == 404:
@@ -713,8 +548,15 @@ def protein_structure(accession: str) -> str:
         for b in binding_sites[:15]:
             pos = b.get("location", {}).get("start", {}).get("value", "?")
             desc = b.get("description", "")
-            lig = b.get("ligand", {})
-            lig_name = lig.get("name", "") if isinstance(lig, dict) else ""
+            lig_raw = b.get("ligand")
+            lig_name = ""
+            if isinstance(lig_raw, dict):
+                lig_name = lig_raw.get("name", "")
+            elif isinstance(lig_raw, list):
+                for lg in lig_raw:
+                    if isinstance(lg, dict):
+                        lig_name = lg.get("name", "")
+                        break
             parts.append(f"  Residue {pos}: {lig_name} {desc}")
 
     if metal_sites:

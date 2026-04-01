@@ -16,7 +16,7 @@
 │                                                                     │
 │  Responsibilities:                                                  │
 │  · Interpret user intent                                            │
-│  · Sequence tool calls across 4 phases                              │
+│  · Sequence tool calls across 5 phases                              │
 │  · Reason about intermediate results                                │
 │  · Propose and iteratively refine engineering strategies             │
 │  · Synthesize final report                                          │
@@ -52,7 +52,7 @@
 ## 5-Phase Pipeline
 
 ```
-Phase 1             Phase 2            Phase 3           Phase 3.5          Phase 4
+Phase 1             Phase 2            Phase 3           Phase 4            Phase 5
 Pathway Discovery   Host Assessment    Enzyme Sourcing   Protein Analysis   FBA Optimization
 ─────────────────   ───────────────    ───────────────   ────────────────   ────────────────
 
@@ -118,23 +118,23 @@ Phase 2 ────────────────────────
     - Compartment issues
     - Export gaps
 
-Phase 3 ──────────────────────────────────► Phase 3.5
+Phase 3 ──────────────────────────────────► Phase 4
   OUTPUT:                                    INPUT:
   · Enzyme list (UniProt IDs,                · UniProt accessions → annotate
     organism, EC)                            · EC numbers → kinetics
                                              · Gene names → interactions
 
-Phase 2 + 3.5 ───────────────────────────► Phase 4
+Phase 2 + 4 ─────────────────────────────► Phase 5
   Phase 2 OUTPUT:                            INPUT:
   · Competing pathway genes + flux           · KO targets (ranked by flux)
   · Supply bottleneck genes                  · OE targets
   · Cofactor gaps                            · Media hints (aerobic requirement?)
-  Phase 3.5 OUTPUT:                          · Co-expression needs (CPR for CYP450)
+  Phase 4 OUTPUT:                            · Co-expression needs (CPR for CYP450)
   · Protein risk table (TM, Km, kcat,        · Known beneficial mutations
     partner needs, mutations)                · Multi-copy flags (low kcat enzymes)
                                              · Reaction equations in COBRApy format
 
-Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Output
+Phase 1 + 2 + 3 + 4 + 5 ────────────────► Final Output
 ```
 
 ## Phase 2 Detail: Host Assessment
@@ -195,24 +195,24 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
                 │   GAP LIST      │
                 │                 │
                 │ · Missing rxns  │──► Phase 3 (search enzymes)
-                │ · Competing     │──► Phase 4 (KO targets)
-                │ · Degradation   │──► Phase 4 (KO targets)
-                │ · Cofactor gaps │──► Phase 3 + Phase 4
-                │ · Compartment   │──► Phase 3 (transporter) + Phase 4
-                │ · Export gaps   │──► Phase 3 (exporter) + Phase 4
+                │ · Competing     │──► Phase 5 (KO targets)
+                │ · Degradation   │──► Phase 5 (KO targets)
+                │ · Cofactor gaps │──► Phase 3 + Phase 5
+                │ · Compartment   │──► Phase 3 (transporter) + Phase 5
+                │ · Export gaps   │──► Phase 3 (exporter) + Phase 5
                 └─────────────────┘
 ```
 
-## Phase 4 Detail: Iterative FBA Optimization
+## Phase 5 Detail: Iterative FBA Optimization
 
 ```
-          Phase 2 gap list          Phase 3 enzyme list
-          (KO/OE targets)           (reaction equations)
+          Phase 2 gap list          Phase 3+4 enzyme+protein data
+          (KO/OE targets)           (reaction equations, risk table)
                 │                          │
                 └────────────┬─────────────┘
                              ▼
                   ┌─────────────────────┐
-                  │ 4.1 BASELINE        │
+                  │ 5.1 BASELINE        │
                   │                     │
                   │ reset → add_pathway │
                   │ → maximize(0%)      │  Theoretical ceiling
@@ -223,7 +223,7 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
                              │
                              ▼
                   ┌─────────────────────┐
-            ┌────►│ 4.2 PROPOSE         │
+            ┌────►│ 5.2 PROPOSE         │
             │     │                     │
             │     │ LLM selects from    │
             │     │ gap list:           │
@@ -278,7 +278,7 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
                                                  │
                                                  ▼
                                       ┌─────────────────────┐
-                                      │ 4.3 FINAL ENVELOPE  │
+                                      │ 5.3 FINAL ENVELOPE  │
                                       │                     │
                                       │ envelope(steps=10)  │
                                       │ on best strategy    │
@@ -310,13 +310,13 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
 │  │    a) Heterologous genes to express                       │  │
 │  │       Gene | Organism | UniProt | MW | Km | kcat |        │  │
 │  │       TM? | Mutations | Notes                             │  │
-│  │                                      ◄── Phase 3+3.5     │  │
+│  │                                      ◄── Phase 3+4       │  │
 │  │    b) Genes to knock out                                  │  │
 │  │       Gene | Yeast ID | Reaction | WT flux | Rationale    │  │
-│  │                                      ◄── Phase 2+4       │  │
+│  │                                      ◄── Phase 2+5       │  │
 │  │    c) Genes to overexpress                                │  │
 │  │       Gene | Yeast ID | Reaction | Baseline | Forced      │  │
-│  │                                      ◄── Phase 2+4       │  │
+│  │                                      ◄── Phase 2+5       │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
@@ -324,7 +324,7 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
 │  │    Optimization rounds table                              │  │
 │  │    Round | Strategy | Biomass | Product | vs Baseline     │  │
 │  │    + Production envelope                                  │  │
-│  │                                      ◄── Phase 4         │  │
+│  │                                      ◄── Phase 5         │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
@@ -334,13 +334,13 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
 │  │    · Co-expression partners (CPR for CYP450)              │  │
 │  │    · Multi-copy integration flags (low kcat)              │  │
 │  │    · ER expansion / heme supply recommendations           │  │
-│  │                                      ◄── Phase 3.5       │  │
+│  │                                      ◄── Phase 4         │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
 │  │ 4. RECOMMENDED CONDITIONS                                 │  │
 │  │    Carbon source, oxygen, supplements                     │  │
-│  │                                      ◄── Phase 4         │  │
+│  │                                      ◄── Phase 5         │  │
 │  └───────────────────────────────────────────────────────────┘  │
 │                                                                 │
 │  ┌───────────────────────────────────────────────────────────┐  │
@@ -426,8 +426,8 @@ Phase 1 + 2 + 3 + 3.5 + 4 ──────────────► Final Ou
 
 3. **Phase 2 is tool-driven**: `gem(action="reactions")` systematically finds ALL competing/producing reactions via stoichiometry, not LLM keyword guessing.
 
-4. **Phase 4 is LLM-driven**: The LLM proposes strategies based on Phase 2 evidence, tests via FBA, interprets results, and iterates. Stopping criteria are outcome-based with a safety cap.
+4. **Phase 5 is LLM-driven**: The LLM proposes strategies based on Phase 2 evidence, tests via FBA, interprets results, and iterates. Stopping criteria are outcome-based with a safety cap.
 
-5. **Data flows forward**: Phase 1 → reaction chain → Phase 2 → gap list → Phase 3 → enzyme list → Phase 4 → validated strategy → Final Output. Each phase's output is the next phase's input.
+5. **Data flows forward**: Phase 1 → reaction chain → Phase 2 → gap list → Phase 3 → enzyme list → Phase 4 → protein risk table → Phase 5 → validated strategy → Final Output. Each phase's output is the next phase's input.
 
 6. **Final output is user-actionable**: Contains everything a researcher needs to start lab work — specific genes to order, specific genes to knock out, expected yields, and known risks.

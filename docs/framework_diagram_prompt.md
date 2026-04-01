@@ -8,7 +8,7 @@ The diagram should show three layers from top to bottom:
 
 **Top layer: User Input** — a single box labeled "User Input: Product Name + Host Model".
 
-**Middle layer: LLM Orchestrator** — a large central box labeled "LLM Orchestrator (Claude)". This is the brain of the system. It calls tools, reasons about results, and drives a 5-phase sequential pipeline (1 → 2 → 3 → 3.5 → 4). All tool calls originate from this box.
+**Middle layer: LLM Orchestrator** — a large central box labeled "LLM Orchestrator (Claude)". This is the brain of the system. It calls tools, reasons about results, and drives a 5-phase sequential pipeline (1 → 2 → 3 → 4 → 5). All tool calls originate from this box.
 
 **Bottom layer: 7 MCP Tools** — seven tool boxes arranged in a row beneath the LLM. Each tool connects to its external/local data source below it:
 
@@ -24,7 +24,7 @@ The diagram should show three layers from top to bottom:
 
 The fba tool should be visually distinct (highlighted border or different color) because it is **stateful** — modifications persist across calls. All other tools are stateless.
 
-## 4-Phase Pipeline (inside or alongside the LLM box)
+## 5-Phase Pipeline (inside or alongside the LLM box)
 
 Show 5 phases flowing left to right (or top to bottom), connected by arrows carrying their data outputs:
 
@@ -55,7 +55,7 @@ Show 5 phases flowing left to right (or top to bottom), connected by arrows carr
 - Output: **Enzyme List** — recommended enzymes with UniProt ID, organism, kinetics, cofactors
 - Data arrow: "Enzyme List (UniProt accessions)" → Phase 3.5
 
-**Phase 3.5: Protein-Level Analysis**
+**Phase 4: Protein-Level Analysis**
 - Tools used: protein (annotate, kinetics, interactions, structure)
 - Input: Enzyme List from Phase 3 (UniProt accessions, EC numbers)
 - Internal workflow (4 steps):
@@ -64,48 +64,48 @@ Show 5 phases flowing left to right (or top to bottom), connected by arrows carr
   3. Check interactions for enzymes needing partners → CYP450→CPR, complex members, chaperones
   4. (Optional) Query structure for bottleneck enzymes → active site residues, AlphaFold confidence
 - Output: **Protein Risk Table** — updated enzyme table with MW, TM?, Km, kcat, known mutations, expression notes
-- Decision outputs feeding Phase 4:
+- Decision outputs feeding Phase 5:
   - Known beneficial mutations to apply (e.g., ARO4-K229L, ACC1-S659A)
   - Co-expression requirements (CPR for CYP450, chaperones)
   - Multi-copy integration flags (low kcat enzymes)
   - ER membrane expansion / heme supply recommendations (if ≥1 CYP450)
-- Data arrow: "Protein Risk Table + Co-expression Needs + Mutation Recommendations" → Phase 4
+- Data arrow: "Protein Risk Table + Co-expression Needs + Mutation Recommendations" → Phase 5
 
-**Phase 4: FBA Simulation & Iterative Optimization**
+**Phase 5: FBA Simulation & Iterative Optimization**
 - Tools used: fba (stateful)
-- Input: Gap List (KO/OE targets) from Phase 2 + Enzyme List from Phase 3 + Protein Risk Table from Phase 3.5
+- Input: Gap List (KO/OE targets) from Phase 2 + Enzyme List from Phase 3 + Protein Risk Table from Phase 4
 - Internal workflow — show this as an iterative loop:
-  - **4.1 Baseline**: reset → add_pathway → maximize → get theoretical ceiling
-  - **4.2 Iterative loop** (show with a circular arrow):
+  - **5.1 Baseline**: reset → add_pathway → maximize → get theoretical ceiling
+  - **5.2 Iterative loop** (show with a circular arrow):
     - PROPOSE: LLM selects KOs + OEs from gap list
     - TEST: reset → add_pathway → knockout → overexpress → maximize
     - INTERPRET: LLM reads result (infeasible? improved? stagnant?)
     - STOP CHECK: flux ≥ 95% max? improvement < 5%? 3 rounds done?
     - If no: ADJUST strategy → loop back to PROPOSE
     - If yes: exit loop
-  - **4.3 Final Envelope**: envelope on best strategy
+  - **5.3 Final Envelope**: envelope on best strategy
 - Output: **Best Strategy + Scenario Comparison Table + Production Envelope**
 
 ## Final Output (rightmost or bottom box)
 
 A report box with 6 sections:
 1. **Biosynthetic Pathway** — complete reaction chain with enzyme sources (from Phase 1+2+3)
-2. **Host Modifications** — three sub-tables: (a) heterologous genes with protein-level data (MW, Km, kcat, TM?, mutations), (b) genes to knock out, (c) genes to overexpress (from Phase 2+3+3.5+4)
-3. **Quantitative Predictions** — optimization rounds table + production envelope (from Phase 4)
-3a. **Protein Engineering Notes** — signal peptide handling, beneficial mutations, CPR co-expression, multi-copy flags, ER expansion/heme supply recommendations (from Phase 3.5)
-4. **Recommended Conditions** — carbon source, oxygen level (from Phase 4)
+2. **Host Modifications** — three sub-tables: (a) heterologous genes with protein-level data (MW, Km, kcat, TM?, mutations), (b) genes to knock out, (c) genes to overexpress (from Phase 2+3+4+5)
+3. **Quantitative Predictions** — optimization rounds table + production envelope (from Phase 5)
+3a. **Protein Engineering Notes** — signal peptide handling, beneficial mutations, CPR co-expression, multi-copy flags, ER expansion/heme supply recommendations (from Phase 4)
+4. **Recommended Conditions** — carbon source, oxygen level (from Phase 5)
 5. **Known Limitations** — what the system cannot predict
 
 ## Key visual elements to emphasize
 
 1. **Data flow arrows** between phases should be labeled with the data type being passed (Reaction Chain, Gap List, Enzyme List, Best Strategy).
 
-2. **Phase 4 iterative loop** should be visually distinct — use a circular arrow or loop indicator to show the propose→test→interpret→adjust cycle, with stopping criteria noted.
+2. **Phase 5 iterative loop** should be visually distinct — use a circular arrow or loop indicator to show the propose→test→interpret→adjust cycle, with stopping criteria noted.
 
 3. **Phase 2's gem(reactions) tool** is the key innovation — it systematically queries the metabolic model for all consuming/producing reactions of each metabolite (by stoichiometry, not keyword guessing), returning flux values and GPR in one call.
 
 4. **FBA stateful nature** — show that modifications (add_pathway, knockout, overexpress, media) accumulate on a working model, while analysis actions (maximize, envelope) are read-only.
 
-5. **LLM reasoning** happens between tool calls in Phase 4: the LLM interprets FBA results and decides whether to continue iterating or stop. This is not a fixed pipeline — the LLM drives the optimization loop.
+5. **LLM reasoning** happens between tool calls in Phase 5: the LLM interprets FBA results and decides whether to continue iterating or stop. This is not a fixed pipeline — the LLM drives the optimization loop.
 
-6. **Phase 3.5** bridges sequence-level enzyme selection (Phase 3) and flux-level simulation (Phase 4). It adds protein-level intelligence: TM domain handling, kinetic bottleneck flagging, interaction partner identification (CYP450→CPR), and known mutation recommendations. This phase reduces the "Known Limitations" by addressing protein expression risks before FBA simulation.
+6. **Phase 4** bridges sequence-level enzyme selection (Phase 3) and flux-level simulation (Phase 5). It adds protein-level intelligence: TM domain handling, kinetic bottleneck flagging, interaction partner identification (CYP450→CPR), and known mutation recommendations. This phase reduces the "Known Limitations" by addressing protein expression risks before FBA simulation.

@@ -1,10 +1,10 @@
 ---
 name: design
-description: "Design a metabolic engineering strategy for producing a target compound in a microbial host. Executes a 4-phase pipeline: (1) KEGG pathway discovery, (2) host GEM assessment, (3) UniProt enzyme sourcing, (4) FBA simulation & optimization. Invoke with /design <product_name> [host_model]"
+description: "Design a metabolic engineering strategy for producing a target compound in a microbial host. Executes a 5-phase pipeline: (1) KEGG pathway discovery, (2) host GEM assessment, (3) UniProt enzyme sourcing, (4) protein-level analysis, (5) FBA simulation & optimization. Invoke with /design <product_name> [host_model]"
 argument-hint: "<product_name> [host_model: iMM904 | e_coli_core]"
 ---
 
-# Metabolic Engineering Design — 4-Phase Pipeline
+# Metabolic Engineering Design — 5-Phase Pipeline
 
 Design a complete engineering strategy for producing **$ARGUMENTS** in a microbial host.
 
@@ -13,7 +13,7 @@ Parse arguments:
 - Second argument = host GEM model name (optional, default `iMM904` for *S. cerevisiae*)
 - Available models: `iMM904` (yeast), `e_coli_core` (E. coli)
 
-Execute the following phases **sequentially** (1 → 2 → 3 → 3.5 → 4). After each phase, print a summary before moving to the next.
+Execute the following phases **sequentially** (1 → 2 → 3 → 4 → 5). After each phase, print a summary before moving to the next.
 
 ## Available MCP tools (7 total)
 
@@ -125,9 +125,9 @@ For competing pathway reactions identified in Step 2 and cofactor genes from Ste
 
 ---
 
-## Phase 3.5 · Protein-Level Analysis
+## Phase 4 · Protein-Level Analysis
 
-**Goal**: For each heterologous enzyme selected in Phase 3, query protein-level data to identify expression risks, kinetic bottlenecks, known beneficial mutations, and interaction requirements. This data directly informs Phase 4 engineering strategy.
+**Goal**: For each heterologous enzyme selected in Phase 3, query protein-level data to identify expression risks, kinetic bottlenecks, known beneficial mutations, and interaction requirements. This data directly informs Phase 5 engineering strategy.
 
 **Steps**:
 
@@ -166,9 +166,9 @@ For enzymes where Steps 1-3 identified a kinetic or expression bottleneck:
   - **Cofactor binding sites** → assess electron/substrate access geometry
   - **AlphaFold model confidence** → pLDDT > 70 for reliable analysis
 
-**Decision criteria** — use Phase 3.5 data to:
+**Decision criteria** — use Phase 4 data to:
 - Replace wild-type enzymes with known improved variants (e.g. ACC1-S659A/S1157A)
-- Add co-expression requirements to Phase 4 (CPR for CYP450, chaperones for large proteins)
+- Add co-expression requirements to Phase 5 (CPR for CYP450, chaperones for large proteins)
 - Flag enzymes needing multi-copy integration (low kcat)
 - Recommend ER membrane expansion if >2 membrane-bound CYP450 enzymes compete for ER space
 - Recommend VHb / heme supply OE if ≥1 heme-dependent CYP450 is in the pathway
@@ -182,7 +182,7 @@ For enzymes where Steps 1-3 identified a kinetic or expression bottleneck:
 
 ---
 
-## Phase 4 · Simulation & Optimization (FBA)
+## Phase 5 · Simulation & Optimization (FBA)
 
 **Goal**: Validate the pathway in silico, propose a combined engineering strategy, and iteratively optimize it.
 
@@ -190,7 +190,7 @@ The FBA tool is **stateful**: call `reset` to load a fresh model, then apply mod
 
 **Workflow**: `reset → add_pathway → [knockout/overexpress/media] → maximize/envelope`. Call `reset` again to start a new scenario.
 
-### 4.1 Baseline
+### 5.1 Baseline
 
 Establish the theoretical maximum with the heterologous pathway alone (no host modifications):
 
@@ -210,7 +210,7 @@ If the target product already exists but has no exchange reaction, include one i
 
 Record the **baseline theoretical max** — this is the ceiling. All subsequent optimization is measured against it.
 
-### 4.2 Iterative Strategy Optimization
+### 5.2 Iterative Strategy Optimization
 
 This is a **propose → test → interpret → adjust** loop driven by your reasoning.
 
@@ -255,12 +255,12 @@ mcp__synbio__fba(action="maximize", target_reaction="EX_product", min_biomass_fr
 3. Model is infeasible and all reasonable adjustments have been tried → report best feasible result
 4. Completed 3 rounds → safety cap, stop and report best result
 
-### 4.3 Final Envelope
+### 5.3 Final Envelope
 
 Once the best strategy is determined, generate the production envelope:
 
 ```
-← model should still be in the best-strategy state from 4.2 →
+← model should still be in the best-strategy state from 5.2 →
 mcp__synbio__fba(action="envelope", target_reaction="EX_product", steps=10)
 ```
 
@@ -289,27 +289,27 @@ Cofactor demands per product molecule: N NADPH, M ATP, K O2, ...
 ### 2. Host Modifications
 Three sub-tables, each with evidence tracing:
 
-**a) Heterologous genes to express** (from Phase 3 + Phase 3.5):
+**a) Heterologous genes to express** (from Phase 3 + Phase 4):
 
 | Gene | Organism | UniProt | MW | Km | kcat | TM? | Mutations | Notes |
 |------|----------|---------|-----|-----|------|-----|-----------|-------|
 | HpaB | *P. aeruginosa* | Q9HWT7 | 58 kDa | — | — | No | — | PDB: 6QYH |
 | IFS2 | *G. max* | Q9SWR5 | 58 kDa | 8µM | 0.5/s | Yes (ER) | multi-copy +3.2x | Needs CPR; ER expansion recommended |
 
-**b) Genes to knock out** (from Phase 2 competing pathways, validated in Phase 4):
+**b) Genes to knock out** (from Phase 2 competing pathways, validated in Phase 5):
 
 | Gene | Yeast ID | Reaction blocked | Competing flux (WT) | Rationale |
 |------|----------|-----------------|---------------------|-----------|
 | PDC1 | YLR044C | PYRDC (pyr→acald) | 15.95 | Top pyruvate competitor |
 
-**c) Genes to overexpress** (from Phase 2 bottlenecks, validated in Phase 4):
+**c) Genes to overexpress** (from Phase 2 bottlenecks, validated in Phase 5):
 
 | Gene | Yeast ID | Reaction boosted | Baseline flux | Forced to | Rationale |
 |------|----------|-----------------|---------------|-----------|-----------|
 | ZWF1 | YNL241C | G6PDH2r | 0.80 | 2.00 | NADPH supply bottleneck |
 
 ### 3. Quantitative Predictions
-From Phase 4 FBA iterative optimization:
+From Phase 5 FBA iterative optimization:
 
 **Optimization rounds:**
 
@@ -321,7 +321,7 @@ From Phase 4 FBA iterative optimization:
 
 **Production envelope** (growth vs production tradeoff for final strategy).
 
-### 3a. Protein Engineering Notes (from Phase 3.5)
+### 3a. Protein Engineering Notes (from Phase 4)
 - Enzymes requiring signal peptide removal/modification for expression in yeast
 - Known beneficial mutations to apply (feedback-resistant variants, activity-improved variants)
 - Interaction partner co-expression requirements (CPR for CYP450, chaperones)
@@ -335,7 +335,7 @@ From Phase 4 FBA iterative optimization:
 
 ### 5. Known Limitations
 What this analysis cannot predict:
-- Actual protein expression levels and in vivo solubility (Phase 3.5 provides annotations but not quantitative predictions)
+- Actual protein expression levels and in vivo solubility (Phase 4 provides annotations but not quantitative predictions)
 - Product toxicity and feedback inhibition at high titers
 - Adaptive laboratory evolution (ALE) outcomes
 - Actual titers (FBA gives flux, not g/L)
